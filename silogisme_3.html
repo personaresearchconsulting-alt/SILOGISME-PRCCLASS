@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="id" oncontextmenu="return false" onselectstart="return false">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>CAT SILOGISME 3 — 50 SOAL STANDAR SELEKSI POLRI / TNI / KEDINASAN</title>
+    
+    <!-- Fonts & Libraries -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        :root { 
+            --navy: #0b2340; 
+            --gold: #d4a017; 
+            --bg: #f8fafc; 
+            --gray: #f1f5f9; 
+            --danger: #c0392b; 
+            --btn-shadow: #cbd5e1; 
+        }
+        * { 
+            box-sizing: border-box; 
+            -webkit-user-select: none; 
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none; 
+        }
+        body { 
+            font-family: 'Inter', 'Segoe UI', sans-serif; 
+            background: var(--bg); 
+            margin: 0; 
+            padding: 0; 
+            color: #1e293b; 
+        }
+
+        /* HEADER MASTER */
+        header { 
+            background: var(--navy); 
+            color: white; 
+            padding: 15px 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 4px solid var(--gold); 
+        }
+        .header-title h1 { margin: 0; font-size: 18px; color: #fff; }
+        .header-title p { margin: 3px 0 0; font-size: 11px; color: var(--gold); font-weight: bold; }
+        .timer-badge { font-size: 20px; font-weight: bold; color: var(--gold); font-family: monospace; }
+
+        .container { max-width: 950px; margin: 20px auto; padding: 0 15px; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+
+        /* INPUT / LOGIN SECTION */
+        .user-card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; }
+        .user-card input { width: 80%; max-width: 400px; padding: 12px; font-size: 16px; border: 2px solid #cbd5e1; border-radius: 8px; text-align: center; margin-top: 15px; outline: none; display: block; margin-left: auto; margin-right: auto; }
+        
+        /* OPTION CARDS */
+        .opt { padding: 14px; margin: 8px 0; border: 2px solid #e2e8f0; border-radius: 8px; cursor: pointer; transition: 0.2s; background: #fff; text-align: left; line-height: 1.5; font-size: 14px; display: flex; align-items: center; gap: 10px; }
+        .opt:hover { background: #f1f5f9; border-color: var(--navy); }
+        .opt.selected { background: #e0f2fe; border-color: var(--navy); font-weight: bold; }
+
+        /* NAVIGASI SOAL GRID */
+        .nav-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; margin-top: 15px; }
+        .nav-item { height: 35px; display: flex; align-items: center; justify-content: center; border: 1px solid #cbd5e1; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold; }
+        .nav-item.filled { background: var(--navy); color: white; }
+        .nav-item.active { border: 2px solid var(--gold); }
+
+        /* BUTTONS */
+        .btn { background: var(--navy); color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: bold; text-decoration: none; text-align: center; display: inline-block; }
+        .btn-gold { background: var(--gold); color: var(--navy); }
+        .btn-green { background: #27ae60; color: white; }
+        .btn-danger { background: var(--danger); color: white; }
+
+        /* REKAP & RESULT AREA */
+        .final-box { background: var(--navy); color: #fff; padding: 25px; border-radius: 16px; text-align: center; margin-bottom: 25px; }
+        .final-val { font-size: 56px; font-weight: 900; color: var(--gold); margin: 10px 0; }
+
+        /* PEMBAHASAN CONTAINER */
+        .review-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+        .review-item.correct { border-left: 6px solid #27ae60; }
+        .review-item.incorrect { border-left: 6px solid var(--danger); }
+        .pembahasan-box { background: #f1f5f9; padding: 12px; border-radius: 6px; margin-top: 10px; font-size: 13px; border-left: 3px solid var(--gold); line-height: 1.6; }
+
+        /* REKAP TABLE SUBTES */
+        .subtest-table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 25px; font-size: 13px; }
+        .subtest-table th, .subtest-table td { border: 1px solid #cbd5e1; padding: 10px; text-align: left; }
+        .subtest-table th { background: var(--navy); color: white; }
+        .subtest-table tr:nth-child(even) { background: #f8fafc; }
+    </style>
+</head>
+<body>
+
+<div id="captureArea">
+    <!-- MASTER HEADER -->
+    <header id="masterHeader">
+        <div class="header-title">
+            <h1 id="headerMainTitle">CAT SILOGISME 3 & PENALARAN LOGIS</h1>
+            <p id="headerSubTitle">50 SOAL STANDAR SELEKSI POLRI / TNI / KEDINASAN (PEMBAHASAN DETAIL & LANGKAH LOGIS)</p>
+        </div>
+        <div id="timer" class="timer-badge">45:00</div>
+    </header>
+
+    <div class="container">
+        <!-- SECTION 1: START / IDENTITAS -->
+        <div id="sec-start" class="user-card">
+            <h2 style="margin:0; color:var(--navy);">IDENTITAS PESERTA TES SILOGISME 3</h2>
+            <p style="font-size:14px; color:#64748b; margin-top:5px;">Simulasi CAT Logika Penalaran Set 3 — Standard Seleksi POLRI/TNI (Timer 45 Menit)</p>
+            <input type="text" id="inputNama" placeholder="Masukkan Nama Lengkap Peserta..." autocomplete="off">
+            <br>
+            <button class="btn btn-gold" style="font-size: 18px; padding: 15px 40px;" onclick="startFullSimulation()">MULAI TES SILOGISME 3</button>
+        </div>
+
+        <!-- SECTION 2: TES SILOGISME -->
+        <div id="sec-kecerdasan" style="display:none;">
+            <div style="display:flex; gap:20px; flex-wrap:wrap;">
+                <div style="flex:3; min-width:300px;">
+                    <div class="card">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                            <div id="k-q-no" style="font-weight:bold; color:var(--navy);">Soal 1 dari 50</div>
+                            <span id="k-q-cat" style="background:#e0f2fe; color:var(--navy); padding:3px 8px; border-radius:4px; font-size:11px; font-weight:bold;">Kategori</span>
+                        </div>
+                        <div id="k-q-text" style="font-size:15px; line-height:1.6; margin-bottom:20px;"></div>
+                        <div id="k-options"></div>
+                        <div style="margin-top:25px; display:flex; justify-content:space-between; align-items:center;">
+                            <button class="btn" onclick="prevQ_Kecerdasan()" style="background:#64748b">Sebelumnya</button>
+                            <button class="btn btn-danger" onclick="confirmFinishKecerdasan()">Selesai & Kirim</button>
+                            <button class="btn" id="k-btn-next" onclick="nextQ_Kecerdasan()">Selanjutnya</button>
+                        </div>
+                    </div>
+                </div>
+                <div style="flex:1; min-width:250px;">
+                    <div class="card" style="padding:15px;">
+                        <div style="text-align:center; font-size:12px; font-weight:bold; margin-bottom:10px;">NAVIGASI SOAL</div>
+                        <div id="k-navGrid" class="nav-grid"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 5: HASIL / REKAP AKHIR -->
+        <div id="sec-result" style="display:none;">
+            <div class="card">
+                <div style="text-align:center; border-bottom:2px solid #eee; padding-bottom:15px; margin-bottom:20px;">
+                    <h2 style="margin:0; color:var(--navy);">LAPORAN HASIL TES SILOGISME 3</h2>
+                    <p style="margin:5px 0 0; color:var(--gold); font-weight:bold;">CAT SILOGISME 3 — 50 SOAL TERSTRUKTUR</p>
+                </div>
+
+                <div id="resNamaPeserta" style="background:#eef6ff; padding:15px; border-radius:12px; margin-bottom:25px; font-weight:bold; font-size:18px; color:var(--navy); text-align:center;">
+                    NAMA PESERTA: -
+                </div>
+
+                <div class="final-box">
+                    <div>NILAI AKHIR TES SILOGISME 3</div>
+                    <div class="final-val" id="resValKecerdasan">0</div>
+                    <div style="font-size: 14px; opacity: 0.9;" id="resDetailKecerdasan">Jawaban Benar: 0 / 50 Soal</div>
+                </div>
+
+                <h3 style="color:var(--navy); margin-bottom:10px;">Rincian Per-Tingkat Kesulitan</h3>
+                <div id="resSubtestTable"></div>
+
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:20px;">
+                    <button class="btn btn-gold" style="flex:1; padding:15px;" onclick="showReviewSection()">📖 LIHAT PEMBAHASAN DETIL SOAL</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 6: PEMBAHASAN / REVIEW -->
+        <div id="sec-review" style="display:none;">
+            <div class="card">
+                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #eee; padding-bottom:15px; margin-bottom:20px;">
+                    <h2 style="margin:0; color:var(--navy);">PEMBAHASAN SOAL LENGKAP (SILOGISME 3)</h2>
+                    <div>
+                        <button class="btn btn-green" style="margin-right:10px;" onclick="downloadPembahasanPDF()">📥 Download Pembahasan PDF</button>
+                        <button class="btn" onclick="showSection('result')">Kembali ke Hasil</button>
+                    </div>
+                </div>
+                
+                <div id="reviewCaptureArea">
+                    <div style="text-align:center; margin-bottom:20px; border-bottom:2px solid var(--navy); padding-bottom:10px;">
+                        <h3 style="margin:0; color:var(--navy);">DOKUMEN PEMBAHASAN DETIL SILOGISME 3</h3>
+                        <p id="reviewNamaPeserta" style="margin:5px 0 0; color:var(--gold); font-weight:bold;">PESERTA: -</p>
+                    </div>
+
+                    <div id="reviewContainerKecerdasan"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyFxmO0ocvr5HqK2WuGyjt7_JeTOcs4vGDg7QZejeiE2QvCP_qkonJcZc5hz9AFW2Vg/exec";
+
+    let currentSection = "start";
+    let pName = "";
+    let currentSessionId = "";
+    let sessionStartTimeStr = "";
+    let sessionStartTimeMs = 0;
+
+    let timerInterval = null;
+    let timerLeft = 2700; // 45 Menit
+
+    let simulationResult = {
+        kecerdasan: { userAns: {}, benar: 0, skor: 0 }
+    };
+
+    let isResultSubmitted = false;
+
+    function formatTimeObj(dateObj) {
+        let h = String(dateObj.getHours()).padStart(2, '0');
+        let m = String(dateObj.getMinutes()).padStart(2, '0');
+        let s = String(dateObj.getSeconds()).padStart(2, '0');
+        return h + ":" + m + ":" + s;
+    }
+
+    function formatDateObj(dateObj) {
+        let y = dateObj.getFullYear();
+        let m = String(dateObj.getMonth() + 1).padStart(2, '0');
+        let d = String(dateObj.getDate()).padStart(2, '0');
+        return y + "-" + m + "-" + d;
+    }
+
+    function initSessionOnStart(namaPeserta) {
+        pName = namaPeserta;
+        let existingSession = sessionStorage.getItem("prc_session_id_3");
+        let existingStartStr = sessionStorage.getItem("prc_start_time_str_3");
+        let existingStartMs = sessionStorage.getItem("prc_start_time_ms_3");
+
+        if (!existingSession || !existingStartStr) {
+            let counterKey = "prc_counter_silogisme_3";
+            let lastNum = parseInt(localStorage.getItem(counterKey) || "0", 10) + 1;
+            localStorage.setItem(counterKey, lastNum);
+            let formattedNum = String(lastNum).padStart(2, '0');
+            
+            currentSessionId = "SILOG3-" + formattedNum;
+            
+            let startDate = new Date();
+            sessionStartTimeMs = startDate.getTime();
+            sessionStartTimeStr = formatTimeObj(startDate);
+
+            sessionStorage.setItem("prc_session_id_3", currentSessionId);
+            sessionStorage.setItem("prc_start_time_str_3", sessionStartTimeStr);
+            sessionStorage.setItem("prc_start_time_ms_3", sessionStartTimeMs);
+        } else {
+            currentSessionId = existingSession;
+            sessionStartTimeStr = existingStartStr;
+            sessionStartTimeMs = parseInt(existingStartMs, 10);
+        }
+    }
+
+    // BANK 50 SOAL SILOGISME 3 (STANDAR POLRI/TNI/KEDINASAN - 18 MUDAH, 18 SEDANG, 14 SULIT)
+    const rawKecerdasan = [
+        {
+            id: "Q001", cat: "Silogisme Kategoris", diff: "Mudah",
+            q: "Semua personel Satlantas wajib mengenakan rompi reflektif saat tugas malam. Bripka Anton adalah personel Satlantas.<br>Kesimpulan yang sah adalah:",
+            opts: [
+                "Bripka Anton mengenakan rompi reflektif saat tugas malam.",
+                "Bripka Anton tidak pernah bertugas di malam hari.",
+                "Semua orang yang memakai rompi reflektif adalah Bripka Anton.",
+                "Bripka Anton mengenakan pakaian dinas harian tanpa rompi.",
+                "Sebagian personel Satlantas dibebaskan dari aturan rompi."
+            ],
+            ans: 0,
+            exp: "<b>Jawaban Benar: A (Bripka Anton mengenakan rompi reflektif saat tugas malam)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Premis 1: Semua personel Satlantas ➔ Wajib rompi reflektif saat tugas malam.<br>2. Premis 2: Bripka Anton ➔ Personel Satlantas.<br><br><b>Langkah Penalarannya:</b><br>• Aturan universal berlaku mutlak untuk seluruh anggota Satlantas.<br>• Bripka Anton adalah anggota Satlantas, sehingga ia terikat kewajiban mengenakan rompi reflektif saat tugas malam.<br><br><b>Hasil Logis:</b> Bripka Anton mengenakan rompi reflektif saat tugas malam."
+        },
+        {
+            id: "Q002", cat: "Implikasi dan Modus Tollens", diff: "Sedang",
+            q: "Jika tim penjinak bahan peledak (Jihandak) menemukan indikasi ancaman, maka lokasi kejadian steril dari warga. Hari ini lokasi kejadian tidak steril dari warga.<br>Kesimpulan yang paling tepat adalah:",
+            opts: [
+                "Tim Jihandak menemukan indikasi ancaman peledak.",
+                "Lokasi kejadian aman untuk digunakan umum.",
+                "Tim Jihandak tidak menemukan indikasi ancaman.",
+                "Petugas kebersihan sedang membersihkan area.",
+                "Warga diminta menanti instruksi lanjutan."
+            ],
+            ans: 2,
+            exp: "<b>Jawaban Benar: C (Tim Jihandak tidak menemukan indikasi ancaman)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Premis 1: Ada ancaman (P) ➔ Lokasi steril (Q).<br>2. Premis 2: Lokasi TIDAK steril (¬Q).<br><br><b>Langkah Penalarannya:</b><br>• Berdasarkan pola Modus Tollens (Jika P maka Q, dan ¬Q terjadi, maka kesimpulannya ¬P).<br>• Karena akibat (lokasi steril) tidak terjadi, maka sebabnya (adanya ancaman) dipastikan tidak ada.<br><br><b>Hasil Logis:</b> Tim Jihandak tidak menemukan indikasi ancaman."
+        },
+        {
+            id: "Q003", cat: "Silogisme Hipotetis", diff: "Sedang",
+            q: "Jika pos pengamanan perbatasan diperketat, maka pergerakan lintas batas ilegal berkurang. Jika pergerakan lintas batas ilegal berkurang, maka tingkat kejahatan transnasional menurun. Bulan ini pos pengamanan perbatasan diperketat.<br>Kesimpulan yang sah adalah:",
+            opts: [
+                "Tingkat kejahatan transnasional tidak mengalami perubahan.",
+                "Pergerakan lintas batas ilegal mengalami peningkatan pesat.",
+                "Tingkat kejahatan transnasional menurun.",
+                "Pos pengamanan perbatasan dipindahkan ke titik lain.",
+                "Petugas membatalkan patroli harian perbatasan."
+            ],
+            ans: 2,
+            exp: "<b>Jawaban Benar: C (Tingkat kejahatan transnasional menurun)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Pos diperketat ➔ Lintas batas ilegal berkurang.<br>2. Lintas batas ilegal berkurang ➔ Kejahatan transnasional menurun.<br>3. Fakta: Pos pengamanan perbatasan diperketat.<br><br><b>Langkah Penalarannya:</b><br>• Hubungan implikasi berantai ($P \\rightarrow Q \\rightarrow R$).<br>• Karena $P$ terjadi (pos diperketat), maka hasil akhir $R$ (kejahatan transnasional menurun) pasti terwujud.<br><br><b>Hasil Logis:</b> Tingkat kejahatan transnasional menurun."
+        },
+        {
+            id: "Q004", cat: "Negasi atau Ingkaran Kuantor", diff: "Mudah",
+            q: "Ingkaran dari pernyataan 'Semua kendaraan patroli Sabhara dilengkapi dengan perangkat radio trunking' adalah:",
+            opts: [
+                "Tidak ada kendaraan patroli Sabhara yang dilengkapi perangkat radio trunking.",
+                "Semua kendaraan patroli Sabhara tidak dilengkapi perangkat radio trunking.",
+                "Sebagian kendaraan patroli Sabhara dilengkapi perangkat radio trunking.",
+                "Ada kendaraan patroli Sabhara yang tidak dilengkapi dengan perangkat radio trunking.",
+                "Semua kendaraan patroli memakai sirine darurat standar."
+            ],
+            ans: 3,
+            exp: "<b>Jawaban Benar: D (Ada kendaraan patroli Sabhara yang tidak dilengkapi dengan perangkat radio trunking)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>Pernyataan asal: Semua A adalah B ($\forall x P(x)$).<br><br><b>Langkah Penalarannya:</b><br>• Pengingkaran / negasi dari kuantor universal (Semua) adalah kuantor eksistensial (Ada/Sebagian) ditambah pengingkaran sifatnya.<br>• Negasi 'Semua memakai' adalah 'Ada/Sebagian yang tidak memakai'.<br><br><b>Hasil Logis:</b> Ada kendaraan patroli Sabhara yang tidak dilengkapi dengan perangkat radio trunking."
+        },
+        {
+            id: "Q005", cat: "Silogisme Negatif", diff: "Sulit",
+            q: "Tidak ada personel provos yang melanggar kode etik kedinasan. Sebagian peserta rapat pembinaan adalah personel provos.<br>Kesimpulan yang sah adalah:",
+            opts: [
+                "Semua peserta rapat pembinaan tidak melanggar kode etik kedinasan.",
+                "Sebagian peserta rapat pembinaan tidak melanggar kode etik kedinasan.",
+                "Tidak ada peserta rapat pembinaan yang mematuhi kode etik.",
+                "Semua personel provos dilarang mengikuti rapat pembinaan.",
+                "Sebagian peserta rapat pembinaan terbukti melanggar disiplin."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Sebagian peserta rapat pembinaan tidak melanggar kode etik kedinasan)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Provos ➔ TIDAK melanggar kode etik.<br>2. Sebagian peserta rapat ➔ Personel provos.<br><br><b>Langkah Penalarannya:</b><br>• Seluruh personel provos bebas dari pelanggaran kode etik.<br>• Karena sebagian peserta rapat adalah provos, maka peserta rapat yang tergolong provos tersebut dipastikan tidak melanggar kode etik kedinasan.<br><br><b>Hasil Logis:</b> Sebagian peserta rapat pembinaan tidak melanggar kode etik kedinasan."
+        },
+        {
+            id: "Q006", cat: "Kesesatan Logis", diff: "Sulit",
+            q: "Jika tersangka berbohong saat pemeriksaan, maka grafik uji poligraf menunjukkan fluktuasi tajam. Hasil uji poligraf tersangka hari ini menunjukkan fluktuasi tajam.<br>Kesimpulan yang tepat adalah:",
+            opts: [
+                "Tersangka pasti berbohong saat pemeriksaan.",
+                "Tersangka dipastikan berkata jujur.",
+                "Tidak dapat disimpulkan bahwa tersangka pasti berbohong.",
+                "Pemeriksaan harus diulang menggunakan alat tes darah.",
+                "Tersangka mengakui seluruh tuduhan penyidik."
+            ],
+            ans: 2,
+            exp: "<b>Jawaban Benar: C (Tidak dapat disimpulkan bahwa tersangka pasti berbohong)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Berbohong (A) ➔ Poligraf fluktuasi tajam (B).<br>2. Poligraf fluktuasi tajam (B).<br><br><b>Langkah Penalarannya:</b><br>• Ini adalah kekeliruan logika membenarkan akibat (*affirming the consequent*).<br>• Fluktuasi poligraf bisa dipicu rasa cemas, gugup, atau kondisi medis, bukan hanya karena berbohong.<br><br><b>Hasil Logis:</b> Tidak dapat disimpulkan bahwa tersangka pasti berbohong."
+        },
+        {
+            id: "Q007", cat: "Silogisme Disjungtif", diff: "Mudah",
+            q: "Petugas pos siaga akan dikirim ke Sektor Alfa atau Sektor Bravo. Petugas pos siaga tidak dikirim ke Sektor Alfa.<br>Kesimpulan yang sah adalah:",
+            opts: [
+                "Petugas pos siaga dikirim ke Sektor Bravo.",
+                "Petugas pos siaga ditarik kembali ke markas pusat.",
+                "Petugas pos siaga dikirim ke Sektor Charlie.",
+                "Petugas pos siaga berjaga di dua sektor sekaligus.",
+                "Petugas pos siaga menunda keberangkatan tugas."
+            ],
+            ans: 0,
+            exp: "<b>Jawaban Benar: A (Petugas pos siaga dikirim ke Sektor Bravo)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Dikirim ke Sektor Alfa (P) ATAU Sektor Bravo (Q).<br>2. TIDAK dikirim ke Sektor Alfa (¬P).<br><br><b>Langkah Penalarannya:</b><br>• Pada logika disjungtif ($P \\lor Q$), gugurnya satu opsi memutus kepastian pada opsi tersisa.<br><br><b>Hasil Logis:</b> Petugas pos siaga dikirim ke Sektor Bravo."
+        },
+        {
+            id: "Q008", cat: "Penalaran Himpunan", diff: "Sedang",
+            q: "Semua ahli analisis laboratorium forensik memahami kimia organik. Sebagian perwira unit DVI (Disaster Victim Identification) adalah ahli analisis laboratorium forensik.<br>Kesimpulan yang sah adalah:",
+            opts: [
+                "Semua perwira unit DVI memahami kimia organik.",
+                "Sebagian perwira unit DVI memahami kimia organik.",
+                "Tidak ada perwira unit DVI yang memahami kimia organik.",
+                "Semua penguasai kimia organik adalah perwira DVI.",
+                "Sebagian ahli forensik tidak bertugas di laboratorium."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Sebagian perwira unit DVI memahami kimia organik)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Lab Forensik $\\subset$ Paham kimia organik.<br>2. Sebagian Perwira DVI $\\in$ Lab Forensik.<br><br><b>Langkah Penalarannya:</b><br>• Anggota DVI yang berada di dalam himpunan ahli lab forensik otomatis mewarisi sifat memahami kimia organik.<br><br><b>Hasil Logis:</b> Sebagian perwira unit DVI memahami kimia organik."
+        },
+        {
+            id: "Q009", cat: "Kuantor Partikular", diff: "Mudah",
+            q: "Sebagian peserta seleksi Akpol memiliki sertifikat kemampuan bahasa Mandarin. Semua pemilik sertifikat kemampuan bahasa Mandarin mendapat poin tambahan penilaian.<br>Kesimpulan yang sah adalah:",
+            opts: [
+                "Semua peserta seleksi Akpol mendapat poin tambahan penilaian.",
+                "Sebagian peserta seleksi Akpol mendapat poin tambahan penilaian.",
+                "Tidak ada peserta seleksi Akpol yang mendapat poin tambahan.",
+                "Sebagian penerima poin tambahan tidak mendaftar seleksi Akpol.",
+                "Semua peserta tanpa sertifikat diskualifikasi dari ujian."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Sebagian peserta seleksi Akpol mendapat poin tambahan penilaian)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Sebagian peserta Akpol ➔ Punya sertifikat Mandarin.<br>2. Punya sertifikat Mandarin ➔ Poin tambahan.<br><br><b>Langkah Penalarannya:</b><br>• Aturan bonus poin mengikat pemilik sertifikat.<br>• Karena pemilik sertifikat di kelompok Akpol berjumlah sebagian, maka penerima poin tambahan juga sebagian dari peserta Akpol.<br><br><b>Hasil Logis:</b> Sebagian peserta seleksi Akpol mendapat poin tambahan penilaian."
+        },
+        {
+            id: "Q010", cat: "Silogisme Kategoris Kompleks", diff: "Sulit",
+            q: "Semua pengemudi pengawal VIP berpengalaman mengemudi terekstrim. Semua orang yang berpengalaman mengemudi terekstrim memiliki sertifikat mengemudi defensif level 3. Sebagian anggota Detasemen Reserse adalah pengemudi pengawal VIP.<br>Kesimpulan yang tepat adalah:",
+            opts: [
+                "Semua anggota Detasemen Reserse memiliki sertifikat mengemudi defensif level 3.",
+                "Sebagian anggota Detasemen Reserse memiliki sertifikat mengemudi defensif level 3.",
+                "Tidak ada anggota Detasemen Reserse yang memiliki sertifikat mengemudi defensif level 3.",
+                "Semua pemilik sertifikat level 3 bekerja sebagai pengawal VIP.",
+                "Sebagian pengawal VIP tidak berpengalaman dalam pengawalan."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Sebagian anggota Detasemen Reserse memiliki sertifikat mengemudi defensif level 3)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Pengawal VIP ➔ Mengemudi terekstrim.<br>2. Mengemudi terekstrim ➔ Sertifikat level 3.<br>3. Sebagian Detasemen Reserse ➔ Pengawal VIP.<br><br><b>Langkah Penalarannya:</b><br>• Rantai universal: Pengawal VIP $\\rightarrow$ Sertifikat level 3.<br>• Karena sebagian anggota Detasemen Reserse bekerja sebagai pengawal VIP, sebagian anggota tersebut mengantongi sertifikat level 3.<br><br><b>Hasil Logis:</b> Sebagian anggota Detasemen Reserse memiliki sertifikat mengemudi defensif level 3."
+        },
+        {
+            id: "Q011", cat: "Pengujian Validitas Logis", diff: "Sedang",
+            q: "Jika terjadi pelanggaran wilayah udara, maka pesawat pencegat diterbangkan dari pangkalan utama. Hari ini pesawat pencegat tidak diterbangkan dari pangkalan utama.<br>Kesimpulan yang sah adalah:",
+            opts: [
+                "Terjadi pelanggaran wilayah udara di daerah perbatasan.",
+                "Tidak terjadi pelanggaran wilayah udara.",
+                "Pesawat pencegat mengalami gangguan perawatan.",
+                "Pangkalan utama dipindahkan ke lokasi darurat.",
+                "Radar penerbangan tidak berfungsi optimal."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Tidak terjadi pelanggaran wilayah udara)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Pelanggaran udara ➔ Pesawat pencegat diterbangkan.<br>2. Pesawat pencegat TIDAK diterbangkan.<br><br><b>Langkah Penalarannya:</b><br>• Menggunakan Modus Tollens. Kegagalan aksi akibat membuktikan bahwa syarat pemicu (pelanggaran wilayah udara) tidak terjadi.<br><br><b>Hasil Logis:</b> Tidak terjadi pelanggaran wilayah udara."
+        },
+        {
+            id: "Q012", cat: "Silogisme Kategoris", diff: "Mudah",
+            q: "Semua casis Bintara menjalankan pemeriksaan kesehatan tahap 1. Ryan adalah casis Bintara.<br>Kesimpulan:",
+            opts: [
+                "Ryan tidak menjalankan pemeriksaan kesehatan tahap 1.",
+                "Ryan menjalankan pemeriksaan kesehatan tahap 1.",
+                "Ryan dinyatakan gugur pada pemeriksaan tahap 1.",
+                "Hanya Ryan yang lulus pemeriksaan kesehatan tahap 1.",
+                "Semua peserta pemeriksaan kesehatan adalah casis Bintara."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Ryan menjalankan pemeriksaan kesehatan tahap 1)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Casis Bintara ➔ Jalankan rikes tahap 1.<br>2. Ryan ➔ Casis Bintara.<br><br><b>Langkah Penalarannya:</b><br>• Ryan sebagai casis Bintara wajib menjalankan rikes tahap 1.<br><br><b>Hasil Logis:</b> Ryan menjalankan pemeriksaan kesehatan tahap 1."
+        },
+        {
+            id: "Q013", cat: "Premis Spesifik", diff: "Sedang",
+            q: "Tidak ada senjata api dinas yang disimpan di luar gudang logistik berizin. Sebagian anggota tim negosiasi menyukai olahraga menembak sasaran.<br>Kesimpulan yang paling tepat adalah:",
+            opts: [
+                "Semua anggota tim negosiasi menyimpan senjata api di luar gudang.",
+                "Anggota tim negosiasi dilarang menyukai olahraga menembak.",
+                "Informasi tidak cukup untuk menyimpulkan hubungan antara olahraga menembak sasaran dan penyimpan senjata api dinas.",
+                "Sebagian senjata api dinas disimpan di lapangan tembak.",
+                "Semua penembak sasaran memiliki izin gudang logistik."
+            ],
+            ans: 2,
+            exp: "<b>Jawaban Benar: C (Informasi tidak cukup untuk menyimpulkan hubungan antara olahraga menembak sasaran dan penyimpan senjata api dinas)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Premis 1 mengatur lokasi penyimpanan senjata api dinas.<br>2. Premis 2 menceritakan hobi sebagian anggota tim negosiasi.<br><br><b>Langkah Penalarannya:</b><br>• Tidak ada penghubung logis (*middle term*) yang menautkan hobi olahraga menembak dengan aturan penyimpanan senjata dinas.<br><br><b>Hasil Logis:</b> Informasi tidak cukup untuk menyimpulkan hubungan antara olahraga menembak sasaran dan penyimpan senjata api dinas."
+        },
+        {
+            id: "Q014", cat: "Modus Ponens", diff: "Mudah",
+            q: "Jika seorang penyelidik memiliki sertifikat analisis forensik digital, maka ia ditugaskan di unit kejahatan siber. Iptu Ferdi memiliki sertifikat analisis forensik digital.<br>Kesimpulan yang sah:",
+            opts: [
+                "Iptu Ferdi ditugaskan di unit lalu lintas.",
+                "Iptu Ferdi ditugaskan di unit kejahatan siber.",
+                "Iptu Ferdi mengundurkan diri dari kepolisian.",
+                "Iptu Ferdi menjadi kepala divisi humas.",
+                "Semua anggota unit siber adalah Iptu Ferdi."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Iptu Ferdi ditugaskan di unit kejahatan siber)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Sertifikat forensik siber ➔ Unit kejahatan siber.<br>2. Iptu Ferdi punya sertifikat forensik siber.<br><br><b>Langkah Penalarannya:</b><br>• Berdasarkan Modus Ponens ($P \\rightarrow Q$ dan $P$, maka $Q$), penugasan Iptu Ferdi di unit kejahatan siber secara pasti terwujud.<br><br><b>Hasil Logis:</b> Iptu Ferdi ditugaskan di unit kejahatan siber."
+        },
+        {
+            id: "Q015", cat: "Silogisme Gabungan", diff: "Sulit",
+            q: "Semua amunisi kaliber khusus diberi label warna merah pada kemasan. Sebagian amunisi kaliber khusus disimpan di depot amunisi bergerak.<br>Kesimpulan yang sah adalah:",
+            opts: [
+                "Semua amunisi di depot bergerak diberi label warna merah pada kemasan.",
+                "Sebagian amunisi di depot amunisi bergerak diberi label warna merah pada kemasan.",
+                "Tidak ada amunisi kaliber khusus yang diberi label merah.",
+                "Semua amunisi berlabel merah disimpan di depot bergerak.",
+                "Amunisi tanpa label merah disimpan di depot bergerak."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Sebagian amunisi di depot amunisi bergerak diberi label warna merah pada kemasan)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Amunisi kaliber khusus ➔ Label merah.<br>2. Sebagian amunisi kaliber khusus ➔ Di depot bergerak.<br><br><b>Langkah Penalarannya:</b><br>• Sebagian amunisi di depot bergerak tersebut merupakan amunisi kaliber khusus, sehingga barang tersebut dipastikan berlabel merah.<br><br><b>Hasil Logis:</b> Sebagian amunisi di depot amunisi bergerak diberi label warna merah pada kemasan."
+        },
+        {
+            id: "Q016", cat: "Penalaran Bertahap", diff: "Sedang",
+            q: "Jika otentikasi dua faktor valid, maka kunci akses terenkripsi dibuka. Jika kunci akses terenkripsi dibuka, maka berkas penyidikan rahasia dapat diunduh. Otentikasi dua faktor Penyidik BTP valid.<br>Kesimpulan yang tepat adalah:",
+            opts: [
+                "Berkas penyidikan rahasia tidak dapat diunduh.",
+                "Kunci akses terenkripsi terhapus secara otomatis.",
+                "Berkas penyidikan rahasia dapat diunduh.",
+                "Penyidik BTP diblokir dari sistem keamanan.",
+                "Sistem keamanan meminta verifikasi manual tambahan."
+            ],
+            ans: 2,
+            exp: "<b>Jawaban Benar: C (Berkas penyidikan rahasia dapat diunduh)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Otentikasi valid ➔ Kunci dibuka.<br>2. Kunci dibuka ➔ Berkas dapat diunduh.<br>3. Otentikasi valid.<br><br><b>Langkah Penalarannya:</b><br>• Urutan aksi melaju dari tahap 1 hingga tahap 3 secara konsisten.<br><br><b>Hasil Logis:</b> Berkas penyidikan rahasia dapat diunduh."
+        },
+        {
+            id: "Q017", cat: "Silogisme Negatif Kuantor", diff: "Sulit",
+            q: "Semua pengawal tahanan membawa perlengkapan borgol standar. Sebagian pengawal tahanan tidak bertugas di rutan Polda.<br>Kesimpulan yang paling tepat adalah:",
+            opts: [
+                "Semua pembawa borgol standar tidak bertugas di rutan Polda.",
+                "Sebagian pembawa perlengkapan borgol standar tidak bertugas di rutan Polda.",
+                "Tidak ada pengawal tahanan yang membawa borgol standar.",
+                "Semua pengawal di rutan Polda tidak membawa borgol.",
+                "Sebagian pengawal tanpa borgol bertugas di rutan Polda."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Sebagian pembawa perlengkapan borgol standar tidak bertugas di rutan Polda)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Pengawal tahanan ➔ Bawa borgol standar.<br>2. Sebagian pengawal tahanan ➔ Tidak di rutan Polda.<br><br><b>Langkah Penalarannya:</b><br>• Pengawal yang tidak bertugas di rutan Polda tersebut tetap merupakan bagian dari seluruh pengawal tahanan yang membawa borgol standar.<br><br><b>Hasil Logis:</b> Sebagian pembawa perlengkapan borgol standar tidak bertugas di rutan Polda."
+        },
+        {
+            id: "Q018", cat: "Kuantor Eksistensial", diff: "Mudah",
+            q: "Beberapa kapal tunda penyelamat memiliki pompa pemadam air bertekanan tinggi. Semua kapal yang memiliki pompa pemadam air bertekanan tinggi mampu memadamkan kebakaran di kilang minyak lepas pantai.<br>Kesimpulan yang sah:",
+            opts: [
+                "Semua kapal tunda penyelamat mampu memadamkan kebakaran kilang minyak lepas pantai.",
+                "Beberapa kapal tunda penyelamat mampu memadamkan kebakaran di kilang minyak lepas pantai.",
+                "Tidak ada kapal tunda penyelamat yang mampu memadamkan kebakaran.",
+                "Semua kapal pemadam kilang minyak adalah kapal tunda penyelamat.",
+                "Kebakaran kilang minyak tidak dapat dipadamkan kapal tunda."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Beberapa kapal tunda penyelamat mampu memadamkan kebakaran di kilang minyak lepas pantai)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Beberapa kapal tunda ➔ Punya pompa bertekanan tinggi.<br>2. Punya pompa ➔ Mampu padamkan kebakaran kilang lepas pantai.<br><br><b>Langkah Penalarannya:</b><br>• Irisan kuantor eksistensial dan universal menghasilkan kesimpulan partikular.<br><br><b>Hasil Logis:</b> Beberapa kapal tunda penyelamat mampu memadamkan kebakaran di kilang minyak lepas pantai."
+        },
+        {
+            id: "Q019", cat: "Kontradiksi dan Negasi", diff: "Sedang",
+            q: "Jika operasi SAR berhasil, maka semua korban selamat ditemukan dalam waktu 24 jam. Dua korban selamat baru ditemukan pada jam ke-36.<br>Kesimpulan yang tepat adalah:",
+            opts: [
+                "Operasi SAR tetap dikategorikan berhasil sempurna.",
+                "Tim SAR menghentikan pencarian korban lain.",
+                "Operasi SAR tidak memenuhi kriteria berhasil dalam 24 jam.",
+                "Seluruh korban dinyatakan meninggal dunia.",
+                "Waktu pencarian diperpanjang selama 10 hari."
+            ],
+            ans: 2,
+            exp: "<b>Jawaban Benar: C (Operasi SAR tidak memenuhi kriteria berhasil dalam 24 jam)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Operasi berhasil ➔ SEMUA korban ditemukan dalam 24 jam.<br>2. Ada korban ditemukan pada jam ke-36 (membatalkan klaim 'semua korban ditemukan dalam 24 jam').<br><br><b>Langkah Penalarannya:</b><br>• Pelanggaran batas waktu pada penemuan korban secara formal membatalkan prasyarat 'operasi SAR berhasil dalam 24 jam'.<br><br><b>Hasil Logis:</b> Operasi SAR tidak memenuhi kriteria berhasil dalam 24 jam."
+        },
+        {
+            id: "Q020", cat: "Implikasi Ganda", diff: "Sulit",
+            q: "Seseorang dinyatakan lulus tes samapta A jika dan hanya jika mencatatkan waktu lari 12 menit di bawah batas maksimal dan mampu melakukan pull-up minimal 10 kali. Bripda Rio tidak mampu melakukan pull-up minimal 10 kali.<br>Kesimpulan yang sah adalah:",
+            opts: [
+                "Bripda Rio dinyatakan lulus tes samapta A.",
+                "Bripda Rio tidak dinyatakan lulus tes samapta A.",
+                "Bripda Rio hanya mendapat nilai rata-rata.",
+                "Bripda Rio diizinkan mengulang tes lari 12 menit.",
+                "Bripda Rio dibebaskan dari tes samapta B."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Bripda Rio tidak dinyatakan lulus tes samapta A)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Lulus samapta A $\\iff$ (Lari < batas maksimal AND Pull-up $\\ge$ 10).<br>2. Bripda Rio TIDAK pull-up $\\ge$ 10.<br><br><b>Langkah Penalarannya:</b><br>• Hubungan implikasi ganda memengharuskan kedua syarat terpenuhi.<br>• Kegagalan pada syarat pull-up otomatis menggugurkan kelulusan samapta A.<br><br><b>Hasil Logis:</b> Bripda Rio tidak dinyatakan lulus tes samapta A."
+        },
+        {
+            id: "Q021", cat: "Silogisme Kategoris", diff: "Mudah",
+            q: "Semua pengawas kedisiplinan prajurit mengenakan ban lengan kuning. Kapten Agus adalah pengawas kedisiplinan prajurit.<br>Kesimpulan:",
+            opts: [
+                "Kapten Agus tidak mengenakan ban lengan kuning.",
+                "Kapten Agus mengenakan ban lengan merah.",
+                "Kapten Agus mengenakan ban lengan kuning.",
+                "Semua pengguna ban lengan kuning adalah Kapten Agus.",
+                "Kapten Agus dilepas dari tugas pengawasan."
+            ],
+            ans: 2,
+            exp: "<b>Jawaban Benar: C (Kapten Agus mengenakan ban lengan kuning)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Pengawas kedisiplinan ➔ Ban lengan kuning.<br>2. Kapten Agus ➔ Pengawas kedisiplinan.<br><br><b>Langkah Penalarannya:</b><br>• Sifat pemakaian ban lengan kuning berlaku mutlak pada Kapten Agus.<br><br><b>Hasil Logis:</b> Kapten Agus mengenakan ban lengan kuning."
+        },
+        {
+            id: "Q022", cat: "Penalaran Kondisional", diff: "Sedang",
+            q: "Jika surat perintah jalan sah dan kendaraan operasional terdaftar, maka konvoi dikawal unit patwal. Konvoi tidak dikawal unit patwal.<br>Kesimpulan yang sah adalah:",
+            opts: [
+                "Surat perintah jalan pasti tidak sah.",
+                "Kendaraan operasional pasti tidak terdaftar.",
+                "Surat perintah jalan tidak sah atau kendaraan operasional tidak terdaftar.",
+                "Surat perintah jalan tidak sah dan kendaraan operasional tidak terdaftar.",
+                "Konvoi membatalkan jadwal perjalanan."
+            ],
+            ans: 2,
+            exp: "<b>Jawaban Benar: C (Surat perintah jalan tidak sah atau kendaraan operasional tidak terdaftar)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. (Surat sah AND Kendaraan terdaftar) ➔ Dikawal patwal.<br>2. TIDAK dikawal patwal.<br><br><b>Langkah Penalarannya:</b><br>• Pengingkaran hasil ($\neg Q$) berimplikasi pada pengingkaran syarat ($\neg (A \\land B)$).<br>• Berdasarkan Hukum De Morgan, $\neg(A \\land B) \\equiv \\neg A \\lor \\neg B$. Artinya, minimal salah satu syarat tidak terpenuhi.<br><br><b>Hasil Logis:</b> Surat perintah jalan tidak sah atau kendaraan operasional tidak terdaftar."
+        },
+        {
+            id: "Q023", cat: "Silogisme Kategoris", diff: "Mudah",
+            q: "Semua personel Resmob menguasai taktik penyergapan ruangan. Briptu Dian adalah personel Resmob.<br>Kesimpulan:",
+            opts: [
+                "Briptu Dian tidak menguasai taktik penyergapan ruangan.",
+                "Briptu Dian menguasai taktik penyergapan ruangan.",
+                "Briptu Dian bertugas di bidang administrasi kehutanan.",
+                "Hanya Briptu Dian yang menguasai taktik penyergapan.",
+                "Semua ahli penyergapan adalah Briptu Dian."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Briptu Dian menguasai taktik penyergapan ruangan)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Personel Resmob ➔ Kuasai taktik penyergapan.<br>2. Briptu Dian ➔ Personel Resmob.<br><br><b>Langkah Penalarannya:</b><br>• Briptu Dian memiliki kemampuan penyergapan ruangan sebagaimana seluruh anggota Resmob lainnya.<br><br><b>Hasil Logis:</b> Briptu Dian menguasai taktik penyergapan ruangan."
+        },
+        {
+            id: "Q024", cat: "Penalaran Spasial dan Urutan Logis", diff: "Sedang",
+            q: "Pintu Masuk A berada di sebelah timur Pintu Masuk B. Pintu Masuk C berada di sebelah timur Pintu Masuk A.<br>Urutan posisi pintu masuk dari arah barat ke timur adalah:",
+            opts: [
+                "C - A - B",
+                "B - A - C",
+                "A - B - C",
+                "C - B - A",
+                "B - C - A"
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (B - A - C)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. A di timur B ➔ B - A (Barat ke Timur).<br>2. C di timur A ➔ A - C (Barat ke Timur).<br><br><b>Langkah Penalarannya:</b><br>• Merangkai dari titik paling barat: B kemudian A kemudian C.<br><br><b>Hasil Logis:</b> B - A - C."
+        },
+        {
+            id: "Q025", cat: "Silogisme Kategoris Eksklusif", diff: "Sulit",
+            q: "Semua tersangka tindak pidana berat ditahan di sel berpengawasan maksimum. Broto bukan tersangka tindak pidana berat.<br>Kesimpulan yang sah adalah:",
+            opts: [
+                "Broto pasti ditahan di sel berpengawasan maksimum.",
+                "Broto pasti tidak ditahan di sel berpengawasan maksimum.",
+                "Tidak dapat disimpulkan lokasi penahanan Broto dari premis tersebut.",
+                "Semua orang di sel pengawasan maksimum adalah Broto.",
+                "Broto dibebaskan dari segala tuduhan pidana."
+            ],
+            ans: 2,
+            exp: "<b>Jawaban Benar: C (Tidak dapat disimpulkan lokasi penahanan Broto dari premis tersebut)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Tersangka pidana berat (A) ➔ Sel pengawasan maksimum (B).<br>2. Broto bukan tersangka pidana berat (¬A).<br><br><b>Langkah Penalarannya:</b><br>• Menolak pemicu (¬A) tidak otomatis membatalkan akibat (B). Ini adalah bentuk kekeliruan *denying the antecedent*.<br>• Broto mungkin saja ditahan di sel pengawasan maksimum atas alasan penahanan lain yang tidak disebutkan dalam premis.<br><br><b>Hasil Logis:</b> Tidak dapat disimpulkan lokasi penahanan Broto dari premis tersebut."
+        },
+        {
+            id: "Q026", cat: "Kuantor Parsial", diff: "Mudah",
+            q: "Sebagian peserta apel kesiapan mengenakan jaket waterproof. Semua personel yang mengenakan jaket waterproof ditempatkan di garis luar penjagaan.<br>Kesimpulan yang sah:",
+            opts: [
+                "Semua peserta apel ditempatkan di garis luar penjagaan.",
+                "Sebagian peserta apel ditempatkan di garis luar penjagaan.",
+                "Tidak ada peserta apel yang ditempatkan di garis luar penjagaan.",
+                "Semua penjaga garis luar adalah peserta apel.",
+                "Sebagian peserta apel menolak memakai jaket."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Sebagian peserta apel ditempatkan di garis luar penjagaan)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Sebagian peserta apel ➔ Pakai jaket waterproof.<br>2. Pakai jaket waterproof ➔ Garis luar penjagaan.<br><br><b>Langkah Penalarannya:</b><br>• Penempatan di garis luar penjagaan berlaku bagi sebagian peserta apel yang mengenakan jaket waterproof.<br><br><b>Hasil Logis:</b> Sebagian peserta apel ditempatkan di garis luar penjagaan."
+        },
+        {
+            id: "Q027", cat: "Silogisme Hipotetis", diff: "Sedang",
+            q: "Jika patroli helikopter diaktifkan, maka jalur penyelundupan laut terpantau. Jika jalur penyelundupan laut terpantau, maka pergerakan kapal barang ilegal dapat dicegat. Hari ini patroli helikopter diaktifkan.<br>Kesimpulan yang tepat adalah:",
+            opts: [
+                "Pergerakan kapal barang ilegal tidak dapat dicegat.",
+                "Jalur penyelundupan laut mengalami kekosongan.",
+                "Pergerakan kapal barang ilegal dapat dicegat.",
+                "Kapal barang ilegal mengubah rute ke darat.",
+                "Patroli helikopter mengalami kehabisan bahan bakar."
+            ],
+            ans: 2,
+            exp: "<b>Jawaban Benar: C (Pergerakan kapal barang ilegal dapat dicegat)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Patroli diaktifkan ➔ Terpantau.<br>2. Terpantau ➔ Kapal ilegal dicegat.<br>3. Patroli diaktifkan.<br><br><b>Langkah Penalarannya:</b><br>• Urutan implikasi lurus membuktikan bahwa kapal barang ilegal dapat dicegat.<br><br><b>Hasil Logis:</b> Pergerakan kapal barang ilegal dapat dicegat."
+        },
+        {
+            id: "Q028", cat: "Negasi Kuantor Eksistensial", diff: "Sulit",
+            q: "Ingkaran dari pernyataan 'Sebagian anggota regu penjinak bom membawa alat pendeteksi sinyal nirkabel' adalah:",
+            opts: [
+                "Semua anggota regu penjinak bom membawa alat pendeteksi sinyal nirkabel.",
+                "Semua anggota regu penjinak bom tidak membawa alat pendeteksi sinyal nirkabel.",
+                "Sebagian anggota regu penjinak bom tidak membawa alat pendeteksi.",
+                "Ada anggota regu penjinak bom yang memakai alat manual.",
+                "Tidak ada regu penjinak bom yang bertugas."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Semua anggota regu penjinak bom tidak membawa alat pendeteksi sinyal nirkabel)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>Pernyataan asal: $\\exists x P(x)$ (Sebagian anggota membawa).<br><br><b>Langkah Penalarannya:</b><br>• Negasi dari $\\exists x P(x)$ adalah $\\forall x (\\neg P(x))$ (Semua x TIDAK membawa).<br><br><b>Hasil Logis:</b> Semua anggota regu penjinak bom tidak membawa alat pendeteksi sinyal nirkabel."
+        },
+        {
+            id: "Q029", cat: "Silogisme Kategoris Eksklusif", diff: "Mudah",
+            q: "Tidak ada senjata tajam yang diizinkan dibawa ke dalam ruang sidang markas. Tongkat komando kayu bukan senjata tajam.<br>Kesimpulan yang tepat adalah:",
+            opts: [
+                "Tongkat komando kayu diizinkan dibawa ke ruang sidang markas.",
+                "Tongkat komando kayu dilarang dibawa ke ruang sidang markas.",
+                "Tidak dapat disimpulkan izin membawa tongkat komando kayu dari premis tersebut.",
+                "Semua barang yang dilarang adalah senjata tajam.",
+                "Tongkat komando kayu dikategorikan sebagai bahan berbahaya."
+            ],
+            ans: 2,
+            exp: "<b>Jawaban Benar: C (Tidak dapat disimpulkan izin membawa tongkat komando kayu dari premis tersebut)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Senjata tajam ➔ Dilarang.<br>2. Tongkat komando kayu BUKAN senjata tajam.<br><br><b>Langkah Penalarannya:</b><br>• Premis hanya melarang senjata tajam. Izin atau larangan untuk tongkat komando kayu memerlukan premis pendukung tambahan.<br><br><b>Hasil Logis:</b> Tidak dapat disimpulkan izin membawa tongkat komando kayu dari premis tersebut."
+        },
+        {
+            id: "Q030", cat: "Logika Penalaran Pilihan", diff: "Sedang",
+            q: "Jika seorang perwira lulus seleksi Sekolah Staf dan Pimpinan (Sespim), ia akan ditugaskan sebagai Kapolres atau Kabag Operasi. Perwira Eko lulus seleksi Sespim dan tidak ditugaskan sebagai Kapolres.<br>Kesimpulan yang sah:",
+            opts: [
+                "Perwira Eko tidak ditugaskan sebagai Kabag Operasi.",
+                "Perwira Eko ditugaskan sebagai Kabag Operasi.",
+                "Perwira Eko dibatalkan kelulusannya dari Sespim.",
+                "Perwira Eko dipindahkan ke Mabes Mabes Polri.",
+                "Perwira Eko mengajukan pensiun dini."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Perwira Eko ditugaskan sebagai Kabag Operasi)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Lulus Sespim ➔ Kapolres ATAU Kabag Operasi.<br>2. Eko lulus Sespim DAN tidak ditugaskan sebagai Kapolres.<br><br><b>Langkah Penalarannya:</b><br>• Opsi disjungtif tersisa yang wajib dipenuhi adalah posisi Kabag Operasi.<br><br><b>Hasil Logis:</b> Perwira Eko ditugaskan sebagai Kabag Operasi."
+        },
+        {
+            id: "Q031", cat: "Silogisme Komposisi", diff: "Sulit",
+            q: "Semua pengamat lalu lintas udara bersertifikat ICA0. Semua pemegang sertifikat ICAO berhak memandu pendaratan darurat. Sebagian perwira Korps Penerbad adalah pengamat lalu lintas udara bersertifikat.<br>Kesimpulan yang sah adalah:",
+            opts: [
+                "Semua perwira Korps Penerbad berhak memandu pendaratan darurat.",
+                "Sebagian perwira Korps Penerbad berhak memandu pendaratan darurat.",
+                "Tidak ada perwira Korps Penerbad yang berhak memandu pendaratan darurat.",
+                "Semua pemandu pendaratan darurat adalah perwira Korps Penerbad.",
+                "Sebagian pengamat lalu lintas udara tidak bersertifikat."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Sebagian perwira Korps Penerbad berhak memandu pendaratan darurat)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Pengamat ICAO ➔ Hak pandu pendaratan darurat.<br>2. Sebagian Korps Penerbad ➔ Pengamat ICAO.<br><br><b>Langkah Penalarannya:</b><br>• Sebagian perwira Korps Penerbad yang menjadi pengamat bersertifikat ICAO memiliki hak memandu pendaratan darurat.<br><br><b>Hasil Logis:</b> Sebagian perwira Korps Penerbad berhak memandu pendaratan darurat."
+        },
+        {
+            id: "Q032", cat: "Penalaran Kondisional", diff: "Sedang",
+            q: "Jika posko tanggap bencana aktif, maka helikopter logistik diterbangkan atau tim dapur umum dikirim. Helikopter logistik tidak diterbangkan dan tim dapur umum tidak dikirim.<br>Kesimpulan yang sah adalah:",
+            opts: [
+                "Posko tanggap bencana sedang aktif.",
+                "Posko tanggap bencana tidak aktif.",
+                "Bencana alam telah berakhir sepenuhnya.",
+                "Petugas posko dialihkan ke lokasi lain.",
+                "Bantuan dipindahkan menggunakan jalur kereta."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Posko tanggap bencana tidak aktif)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Posko aktif ➔ (Helikopter diterbangkan OR Dapur dikirim).<br>2. Helikopter TIDAK diterbangkan AND Dapur TIDAK dikirim.<br><br><b>Langkah Penalarannya:</b><br>• Pembatalan kedua aksi konsekuensi membuktikan bahwa posko tanggap bencana tidak aktif.<br><br><b>Hasil Logis:</b> Posko tanggap bencana tidak aktif."
+        },
+        {
+            id: "Q033", cat: "Silogisme Kategoris", diff: "Mudah",
+            q: "Semua anggota tim Inafis membawa perlengkapan pengambil sidik jari. Aipda Teguh adalah anggota tim Inafis.<br>Kesimpulan:",
+            opts: [
+                "Aipda Teguh tidak membawa perlengkapan pengambil sidik jari.",
+                "Aipda Teguh membawa perlengkapan pengambil sidik jari.",
+                "Aipda Teguh bertugas memadamkan kebakaran.",
+                "Semua pemilik pengambil sidik jari adalah Aipda Teguh.",
+                "Aipda Teguh mengganti fokus tugas ke patroli maritim."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Aipda Teguh membawa perlengkapan pengambil sidik jari)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Tim Inafis ➔ Bawa perlengkapan sidik jari.<br>2. Aipda Teguh ➔ Anggota tim Inafis.<br><br><b>Langkah Penalarannya:</b><br>• Aipda Teguh sebagai anggota Inafis secara pasti membawa perlengkapan sidik jari.<br><br><b>Hasil Logis:</b> Aipda Teguh membawa perlengkapan pengambil sidik jari."
+        },
+        {
+            id: "Q034", cat: "Silogisme Partikular Negatif", diff: "Sulit",
+            q: "Semua peserta orientasi kedinasan mengenakan kemeja putih lengan panjang. Sebagian peserta orientasi kedinasan tidak membawa papan alas tulis.<br>Kesimpulan yang tepat:",
+            opts: [
+                "Semua pengguna kemeja putih tidak membawa papan alas tulis.",
+                "Sebagian pengguna kemeja putih lengan panjang tidak membawa papan alas tulis.",
+                "Tidak ada peserta orientasi yang mengenakan kemeja putih.",
+                "Semua peserta orientasi membawa papan alas tulis.",
+                "Sebagian pembawa papan alas tidak mengenakan kemeja putih."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Sebagian pengguna kemeja putih lengan panjang tidak membawa papan alas tulis)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Semua peserta orientasi ➔ Pakai kemeja putih.<br>2. Sebagian peserta orientasi ➔ Tidak bawa papan alas.<br><br><b>Langkah Penalarannya:</b><br>• Sebagian peserta yang tidak membawa papan alas tersebut termasuk dalam kelompok pemakai kemeja putih lengan panjang.<br><br><b>Hasil Logis:</b> Sebagian pengguna kemeja putih lengan panjang tidak membawa papan alas tulis."
+        },
+        {
+            id: "Q035", cat: "Penalaran Bertahap", diff: "Sedang",
+            q: "Jika badai tropis menerjang, maka penerbangan pengintaian dibatalkan. Jika penerbangan pengintaian dibatalkan, maka pemantauan perairan menggunakan radar darat. Hari ini pemantauan perairan tidak menggunakan radar darat.<br>Kesimpulan yang sah:",
+            opts: [
+                "Badai tropis sedang menerjang wilayah perairan.",
+                "Badai tropis tidak menerjang.",
+                "Penerbangan pengintaian tetap dibatalkan.",
+                "Radar darat mengalami kerusakan teknis.",
+                "Petugas pengintaian menggunakan satelit cuaca."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Badai tropis tidak menerjang)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Badai tropis ➔ Pengintaian batal ➔ Pemantauan radar darat.<br>2. Pemantauan TIDAK pakai radar darat.<br><br><b>Langkah Penalarannya:</b><br>• Pengingkaran pada syarat akhir merambat mundur membatalkan sebab awal (badai tropis tidak menerjang).<br><br><b>Hasil Logis:</b> Badai tropis tidak menerjang."
+        },
+        {
+            id: "Q036", cat: "Silogisme Kategoris", diff: "Mudah",
+            q: "Semua personel Satuan Satwa (K-9) didampingi anjing pelacak terlatih. Bripka Heri adalah personel Satuan Satwa (K-9).<br>Kesimpulan:",
+            opts: [
+                "Bripka Heri tidak didampingi anjing pelacak terlatih.",
+                "Bripka Heri didampingi anjing pelacak terlatih.",
+                "Bripka Heri bertugas mengemudikan panser.",
+                "Semua anjing pelacak didampingi oleh Bripka Heri.",
+                "Bripka Heri dipindahkan ke unit patroli berkuda."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Bripka Heri didampingi anjing pelacak terlatih)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Personel K-9 ➔ Didampingi anjing pelacak.<br>2. Bripka Heri ➔ Personel K-9.<br><br><b>Langkah Penalarannya:</b><br>• Bripka Heri pasti didampingi anjing pelacak terlatih.<br><br><b>Hasil Logis:</b> Bripka Heri didampingi anjing pelacak terlatih."
+        },
+        {
+            id: "Q037", cat: "Kuantor dan Irisan", diff: "Sedang",
+            q: "Semua penyelam Brimob menguasai teknik navigasi bawah air. Sebagian penyelam Brimob memiliki kualifikasi pengelasan dalam air.<br>Kesimpulan yang pasti benar:",
+            opts: [
+                "Semua pemilik kualifikasi pengelasan menguasai navigasi bawah air.",
+                "Sebagian penyelam Brimob menguasai teknik navigasi bawah air dan memiliki kualifikasi pengelasan dalam air.",
+                "Tidak ada penyelam Brimob yang memiliki kedua kualifikasi.",
+                "Semua penguasa navigasi bawah air adalah penyelam Brimob.",
+                "Sebagian penyelam Brimob tidak menguasai navigasi bawah air."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Sebagian penyelam Brimob menguasai teknik navigasi bawah air dan memiliki kualifikasi pengelasan dalam air)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Semua penyelam Brimob ➔ Kuasai navigasi bawah air.<br>2. Sebagian penyelam Brimob ➔ Punya kualifikasi pengelasan.<br><br><b>Langkah Penalarannya:</b><br>• Kelompok penyelam Brimob yang mempunyai kualifikasi pengelasan tersebut secara otomatis juga menguasai navigasi bawah air.<br><br><b>Hasil Logis:</b> Sebagian penyelam Brimob menguasai teknik navigasi bawah air dan memiliki kualifikasi pengelasan dalam air."
+        },
+        {
+            id: "Q038", cat: "Silogisme Hipotetis", diff: "Sulit",
+            q: "Jika patroli perbatasan udara diperketat, maka pergerakan drone asing terdeteksi. Jika pergerakan drone asing terdeteksi, maka pangkalan siaga satu. Hari ini pangkalan tidak siaga satu.<br>Kesimpulan yang tepat adalah:",
+            opts: [
+                "Patroli perbatasan udara diperketat.",
+                "Patroli perbatasan udara tidak diperketat.",
+                "Drone asing berhasil mendarat di pangkalan.",
+                "Pangkalan siaga dua.",
+                "Radar darat mematikan pemindai otomatis."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Patroli perbatasan udara tidak diperketat)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Patroli diperketat ➔ Drone terdeteksi ➔ Siaga satu.<br>2. Pangkalan TIDAK siaga satu.<br><br><b>Langkah Penalarannya:</b><br>• Penolakan kondisi akhir membuktikan bahwa patroli perbatasan udara tidak diperketat.<br><br><b>Hasil Logis:</b> Patroli perbatasan udara tidak diperketat."
+        },
+        {
+            id: "Q039", cat: "Silogisme Kategoris Eksklusif", diff: "Mudah",
+            q: "Tidak ada helikopter penyelamat laut yang tidak memiliki perlengkapan pelampung darurat. Helikopter SAR 02 adalah helikopter penyelamat laut.<br>Kesimpulan:",
+            opts: [
+                "Helikopter SAR 02 tidak memiliki pelampung darurat.",
+                "Helikopter SAR 02 memiliki pelampung darurat.",
+                "Helikopter SAR 02 dilarang terbang di atas perairan.",
+                "Semua pelampung darurat dipasang di Helikopter SAR 02.",
+                "Helikopter SAR 02 beroperasi di wilayah pegunungan."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Helikopter SAR 02 memiliki pelampung darurat)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Helikopter penyelamat laut ➔ WAJIB punya pelampung darurat (double negative = positif).<br>2. Helikopter SAR 02 ➔ Helikopter penyelamat laut.<br><br><b>Langkah Penalarannya:</b><br>• Helikopter SAR 02 secara mutlak memuat pelampung darurat.<br><br><b>Hasil Logis:</b> Helikopter SAR 02 memiliki pelampung darurat."
+        },
+        {
+            id: "Q040", cat: "Penalaran Hubungan Tiga Pernyataan", diff: "Sedang",
+            q: "Jika X terjadi maka Y terjadi. Jika Y terjadi maka Z tidak terjadi. Hari ini Z terjadi.<br>Kesimpulan:",
+            opts: [
+                "X terjadi.",
+                "X tidak terjadi.",
+                "Y terjadi.",
+                "X dan Y terjadi bersamaan.",
+                "Hubungan X, Y, dan Z tidak dapat ditentukan."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (X tidak terjadi)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. X ➔ Y.<br>2. Y ➔ ¬Z.<br>3. Z terjadi.<br><br><b>Langkah Penalarannya:</b><br>• Terjadinya Z membatalkan Y (Y tidak terjadi).<br>• Karena Y tidak terjadi, X yang mensyaratkan Y dipastikan tidak terjadi.<br><br><b>Hasil Logis:</b> X tidak terjadi."
+        },
+        {
+            id: "Q041", cat: "Penalaran Posisi Saling Terkait", diff: "Sulit",
+            q: "Di lapangan tembak: Barisan 1 ditempati Regu A di sebelah kiri Regu B. Regu C di sebelah kanan Regu B. Regu D di sebelah kiri Regu A.<br>Urutan regu dari posisi paling kiri ke kanan adalah:",
+            opts: [
+                "D - A - B - C",
+                "A - B - C - D",
+                "C - B - A - D",
+                "D - B - A - C",
+                "B - A - D - C"
+            ],
+            ans: 0,
+            exp: "<b>Jawaban Benar: A (D - A - B - C)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. A di kiri B ➔ A - B.<br>2. C di kanan B ➔ B - C.<br>3. D di kiri A ➔ D - A.<br><br><b>Langkah Penalarannya:</b><br>• Merangkai urutan dari kiri ke kanan: D $\\rightarrow$ A $\\rightarrow$ B $\\rightarrow$ C.<br><br><b>Hasil Logis:</b> D - A - B - C."
+        },
+        {
+            id: "Q042", cat: "Silogisme Kategoris", diff: "Mudah",
+            q: "Semua lulusan Akademi Kepolisian menyandang pangkat Inspektur Polisi Dua (Ipda). Bagas adalah lulusan Akademi Kepolisian.<br>Kesimpulan:",
+            opts: [
+                "Bagas tidak menyandang pangkat Ipda.",
+                "Bagas menyandang pangkat Ipda.",
+                "Bagas langsung naik pangkat menjadi AKP.",
+                "Semua pemilik pangkat Ipda adalah Bagas.",
+                "Bagas ditugaskan di kementerian luar negeri."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Bagas menyandang pangkat Ipda)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Lulusan Akpol ➔ Pangkat Ipda.<br>2. Bagas ➔ Lulusan Akpol.<br><br><b>Langkah Penalarannya:</b><br>• Bagas menyandang pangkat Inspektur Polisi Dua (Ipda).<br><br><b>Hasil Logis:</b> Bagas menyandang pangkat Ipda."
+        },
+        {
+            id: "Q043", cat: "Modus Tollens Kompleks", diff: "Sedang",
+            q: "Jika pengajuan izin keramaian disetujui, maka surat rekomendasi diterbitkan dan rencana pengamanan disahkan. Rencana pengamanan tidak disahkan.<br>Kesimpulan yang sah:",
+            opts: [
+                "Pengajuan izin keramaian disetujui.",
+                "Pengajuan izin keramaian tidak disetujui.",
+                "Surat rekomendasi tetap diterbitkan.",
+                "Panitia menggelar acara tanpa izin.",
+                "Petugas pengamanan melakukan penertiban."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Pengajuan izin keramaian tidak disetujui)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Izin disetujui ➔ (Rekomendasi diterbitkan AND Rencana pengamanan disahkan).<br>2. Rencana pengamanan TIDAK disahkan.<br><br><b>Langkah Penalarannya:</b><br>• Kegagalan pada salah satu syarat konsekuensi membatalkan persetujuan pengajuan izin keramaian.<br><br><b>Hasil Logis:</b> Pengajuan izin keramaian tidak disetujui."
+        },
+        {
+            id: "Q044", cat: "Silogisme Kategoris", diff: "Mudah",
+            q: "Semua penguji kesamaptaan membawa stopwatch digital standar. Bripka Yudi adalah penguji kesamaptaan.<br>Kesimpulan:",
+            opts: [
+                "Bripka Yudi tidak membawa stopwatch digital standar.",
+                "Bripka Yudi membawa stopwatch digital standar.",
+                "Bripka Yudi membawa meteran manual.",
+                "Semua pemilik stopwatch adalah Bripka Yudi.",
+                "Bripka Yudi bertugas mencetak daftar hadir."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Bripka Yudi membawa stopwatch digital standar)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Penguji kesamaptaan ➔ Bawa stopwatch digital.<br>2. Bripka Yudi ➔ Penguji kesamaptaan.<br><br><b>Langkah Penalarannya:</b><br>• Bripka Yudi membawa stopwatch digital standar.<br><br><b>Hasil Logis:</b> Bripka Yudi membawa stopwatch digital standar."
+        },
+        {
+            id: "Q045", cat: "Penalaran Partikular dan Negatif", diff: "Sulit",
+            q: "Semua perwira jaga Mabes mengenakan kemeja PDH bertanda khusus. Sebagian perwira jaga Mabes tidak membawa radio genggam.<br>Kesimpulan yang sah:",
+            opts: [
+                "Semua pemakai kemeja PDH bertanda khusus tidak membawa radio genggam.",
+                "Sebagian pemakai kemeja PDH bertanda khusus tidak membawa radio genggam.",
+                "Tidak ada perwira jaga yang mengenakan kemeja PDH.",
+                "Semua perwira jaga membawa radio genggam.",
+                "Sebagian pembawa radio genggam tidak berkemeja PDH."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Sebagian pemakai kemeja PDH bertanda khusus tidak membawa radio genggam)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Semua perwira jaga ➔ Pakai kemeja PDH khusus.<br>2. Sebagian perwira jaga ➔ Tidak bawa radio genggam.<br><br><b>Langkah Penalarannya:</b><br>• Sebagian perwira yang tidak membawa radio genggam tersebut tetap mengenakan kemeja PDH bertanda khusus.<br><br><b>Hasil Logis:</b> Sebagian pemakai kemeja PDH bertanda khusus tidak membawa radio genggam."
+        },
+        {
+            id: "Q046", cat: "Pengujian Penyebab dan Akibat", diff: "Sedang",
+            q: "Jika sirine bahaya gedung menyala, maka terjadi gangguan keamanan atau kebakaran. Sirine bahaya gedung tidak menyala.<br>Kesimpulan:",
+            opts: [
+                "Pasti tidak terjadi gangguan keamanan.",
+                "Tidak dapat disimpulkan bahwa gangguan keamanan pasti tidak terjadi.",
+                "Pasti terjadi kebakaran.",
+                "Gedung dalam keadaan kosong.",
+                "Sistem sirine sengaja dimatikan total."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Tidak dapat disimpulkan bahwa gangguan keamanan pasti tidak terjadi)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Sirine menyala (A) ➔ Gangguan/Kebakaran (B).<br>2. Sirine tidak menyala (¬A).<br><br><b>Langkah Penalarannya:</b><br>• Menolak pemicu (¬A) tidak membuktikan akibat (B) pasti nihil, karena gangguan keamanan mungkin terjadi secara senyap tanpa memicu sirine.<br><br><b>Hasil Logis:</b> Tidak dapat disimpulkan bahwa gangguan keamanan pasti tidak terjadi."
+        },
+        {
+            id: "Q047", cat: "Silogisme Kategoris", diff: "Mudah",
+            q: "Semua personel Reskrim yang menangani kasus korupsi terlatih melakukan audit investigator. AKP Doni adalah personel Reskrim yang menangani kasus korupsi.<br>Kesimpulan:",
+            opts: [
+                "AKP Doni tidak terlatih melakukan audit investigator.",
+                "AKP Doni terlatih melakukan audit investigator.",
+                "AKP Doni bertugas di bagian operasional lantas.",
+                "Semua auditor investigator adalah AKP Doni.",
+                "AKP Doni membatalkan penyidikan kasus."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (AKP Doni terlatih melakukan audit investigator)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Penyidik korupsi ➔ Terlatih audit investigator.<br>2. AKP Doni ➔ Penyidik korupsi.<br><br><b>Langkah Penalarannya:</b><br>• AKP Doni dipastikan memiliki pelatihan audit investigator.<br><br><b>Hasil Logis:</b> AKP Doni terlatih melakukan audit investigator."
+        },
+        {
+            id: "Q048", cat: "Kuantor Kombinasi", diff: "Sedang",
+            q: "Sebagian penembak jitu Brimob berpengalaman dalam misi pegunungan. Semua ahli yang berpengalaman dalam misi pegunungan menguasai teknik penyamaran gillie suit.<br>Kesimpulan yang sah:",
+            opts: [
+                "Semua penembak jitu Brimob menguasai teknik penyamaran gillie suit.",
+                "Sebagian penembak jitu Brimob menguasai teknik penyamaran gillie suit.",
+                "Tidak ada penembak jitu Brimob yang menguasai teknik gillie suit.",
+                "Semua penguasa gillie suit adalah penembak jitu Brimob.",
+                "Sebagian ahli pegunungan tidak bertugas di Brimob."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Sebagian penembak jitu Brimob menguasai teknik penyamaran gillie suit)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Sebagian penembak jitu Brimob ➔ Pengalaman misi pegunungan.<br>2. Pengalaman misi pegunungan ➔ Kuasai gillie suit.<br><br><b>Langkah Penalarannya:</b><br>• Irisan kuantor parsial dan universal membuktikan sebagian penembak jitu Brimob menguasai teknik penyamaran gillie suit.<br><br><b>Hasil Logis:</b> Sebagian penembak jitu Brimob menguasai teknik penyamaran gillie suit."
+        },
+        {
+            id: "Q049", cat: "Silogisme Berantai Penuh", diff: "Sulit",
+            q: "Jika cuaca buruk mengganggu sinyal radar, maka pemantauan kapal laut dialihkan ke pos pengamat. Jika pemantauan dialihkan ke pos pengamat, maka frekuensi patroli ditambah. Jika frekuensi patroli ditambah, maka kebutuhan BBM operasional naik. Hari ini cuaca buruk mengganggu sinyal radar.<br>Kesimpulan yang sah adalah:",
+            opts: [
+                "Kebutuhan BBM operasional tidak mengalami kenaikan.",
+                "Pemantauan kapal laut tetap menggunakan radar.",
+                "Kebutuhan BBM operasional naik.",
+                "Frekuensi patroli dikurangi.",
+                "Kapal patroli berlabuh di pelabuhan utama."
+            ],
+            ans: 2,
+            exp: "<b>Jawaban Benar: C (Kebutuhan BBM operasional naik)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Radar terganggu ➔ Pos pengamat.<br>2. Pos pengamat ➔ Patroli ditambah.<br>3. Patroli ditambah ➔ Kebutuhan BBM naik.<br>4. Cuaca buruk mengganggu radar.<br><br><b>Langkah Penalarannya:</b><br>• Rantai implikasi logis berjalan penuh dari awal sampai akhir.<br><br><b>Hasil Logis:</b> Kebutuhan BBM operasional naik."
+        },
+        {
+            id: "Q050", cat: "Silogisme Kategoris", diff: "Mudah",
+            q: "Semua pengawal tahanan wajib memeriksa kelengkapan kunci borgol sebelum bertugas. Bripda Fajar adalah pengawal tahanan.<br>Kesimpulan:",
+            opts: [
+                "Bripda Fajar tidak perlu memeriksa kelengkapan kunci borgol.",
+                "Bripda Fajar wajib memeriksa kelengkapan kunci borgol sebelum bertugas.",
+                "Bripda Fajar menyerahkan kunci borgol ke tahanan.",
+                "Semua pemeriksa kunci borgol adalah Bripda Fajar.",
+                "Bripda Fajar dibebaskan dari tugas pengawalan."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B (Bripda Fajar wajib memeriksa kelengkapan kunci borgol sebelum bertugas)</b><br><br><b>Pernyataan / Premis Ujian:</b><br>1. Pengawal tahanan ➔ Wajib periksa kunci borgol.<br>2. Bripda Fajar ➔ Pengawal tahanan.<br><br><b>Langkah Penalarannya:</b><br>• Bripda Fajar terikat oleh kewajiban memeriksa kelengkapan kunci borgol sebelum bertugas.<br><br><b>Hasil Logis:</b> Bripda Fajar wajib memeriksa kelengkapan kunci borgol sebelum bertugas."
+        }
+    ];
+
+    let currentKIndex = 0;
+    let userAnswers = {};
+
+    function showSection(secId) {
+        document.getElementById("sec-start").style.display = "none";
+        document.getElementById("sec-kecerdasan").style.display = "none";
+        document.getElementById("sec-result").style.display = "none";
+        document.getElementById("sec-review").style.display = "none";
+
+        if (secId === "start") document.getElementById("sec-start").style.display = "block";
+        if (secId === "kecerdasan") document.getElementById("sec-kecerdasan").style.display = "block";
+        if (secId === "result") document.getElementById("sec-result").style.display = "block";
+        if (secId === "review") document.getElementById("sec-review").style.display = "block";
+
+        currentSection = secId;
+    }
+
+    function startFullSimulation() {
+        let nameInput = document.getElementById("inputNama").value.trim();
+        if (!nameInput) {
+            alert("Harap masukkan nama lengkap peserta terlebih dahulu!");
+            return;
+        }
+
+        initSessionOnStart(nameInput);
+        userAnswers = {};
+        currentKIndex = 0;
+
+        showSection("kecerdasan");
+        renderKecerdasanQuestion();
+        renderKecerdasanNav();
+        startTimer();
+    }
+
+    function startTimer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            timerLeft--;
+            let m = Math.floor(timerLeft / 60);
+            let s = timerLeft % 60;
+            document.getElementById("timer").innerText = 
+                String(m).padStart(2, '0') + ":" + String(s).padStart(2, '0');
+
+            if (timerLeft <= 0) {
+                clearInterval(timerInterval);
+                alert("Waktu ujian telah habis!");
+                finishSimulation();
+            }
+        }, 1000);
+    }
+
+    function renderKecerdasanQuestion() {
+        let qData = rawKecerdasan[currentKIndex];
+        document.getElementById("k-q-no").innerText = "Soal " + (currentKIndex + 1) + " dari " + rawKecerdasan.length;
+        document.getElementById("k-q-cat").innerText = qData.cat + " (" + qData.diff + ")";
+        document.getElementById("k-q-text").innerHTML = qData.q;
+
+        let optContainer = document.getElementById("k-options");
+        optContainer.innerHTML = "";
+
+        qData.opts.forEach((optText, idx) => {
+            let optDiv = document.createElement("div");
+            optDiv.className = "opt";
+            if (userAnswers[currentKIndex] === idx) optDiv.classList.add("selected");
+
+            optDiv.innerHTML = "<strong style='min-width:20px;'>" + String.fromCharCode(65 + idx) + ".</strong> <span>" + optText + "</span>";
+            optDiv.onclick = () => selectKecerdasanAnswer(idx);
+            optContainer.appendChild(optDiv);
+        });
+
+        renderKecerdasanNav();
+    }
+
+    function renderKecerdasanNav() {
+        let navContainer = document.getElementById("k-navGrid");
+        navContainer.innerHTML = "";
+
+        rawKecerdasan.forEach((item, idx) => {
+            let navBtn = document.createElement("div");
+            navBtn.className = "nav-item";
+            if (userAnswers[idx] !== undefined) navBtn.classList.add("filled");
+            if (idx === currentKIndex) navBtn.classList.add("active");
+
+            navBtn.innerText = idx + 1;
+            navBtn.onclick = () => {
+                currentKIndex = idx;
+                renderKecerdasanQuestion();
+            };
+            navContainer.appendChild(navBtn);
+        });
+    }
+
+    function selectKecerdasanAnswer(ansIdx) {
+        userAnswers[currentKIndex] = ansIdx;
+        renderKecerdasanQuestion();
+
+        // AutoNext Logic (Tetap Nyala)
+        setTimeout(() => {
+            if (currentKIndex < rawKecerdasan.length - 1) {
+                currentKIndex++;
+                renderKecerdasanQuestion();
+            }
+        }, 300);
+    }
+
+    function prevQ_Kecerdasan() {
+        if (currentKIndex > 0) {
+            currentKIndex--;
+            renderKecerdasanQuestion();
+        }
+    }
+
+    function nextQ_Kecerdasan() {
+        if (currentKIndex < rawKecerdasan.length - 1) {
+            currentKIndex++;
+            renderKecerdasanQuestion();
+        }
+    }
+
+    function confirmFinishKecerdasan() {
+        let answeredCount = Object.keys(userAnswers).length;
+        if (confirm("Anda telah menjawab " + answeredCount + " dari 50 soal. Yakin ingin mengakhiri tes sekarang?")) {
+            finishSimulation();
+        }
+    }
+
+    function finishSimulation() {
+        clearInterval(timerInterval);
+
+        let totalSoal = rawKecerdasan.length;
+        let correctCount = 0;
+        let wrongCount = 0;
+        let unansweredCount = 0;
+
+        let diffStats = {
+            "Mudah": { total: 0, benar: 0 },
+            "Sedang": { total: 0, benar: 0 },
+            "Sulit": { total: 0, benar: 0 }
+        };
+
+        rawKecerdasan.forEach((q, idx) => {
+            let diffKey = q.diff || "Sedang";
+            if (!diffStats[diffKey]) {
+                diffStats[diffKey] = { total: 0, benar: 0 };
+            }
+            diffStats[diffKey].total++;
+
+            let uAns = userAnswers[idx];
+            if (uAns === undefined) {
+                unansweredCount++;
+            } else if (uAns === q.ans) {
+                correctCount++;
+                diffStats[diffKey].benar++;
+            } else {
+                wrongCount++;
+            }
+        });
+
+        // Rumus Nilai Akhir Skala 0-100 Presisi
+        let finalScore = Math.round((correctCount / totalSoal) * 100);
+
+        simulationResult.kecerdasan.userAns = userAnswers;
+        simulationResult.kecerdasan.benar = correctCount;
+        simulationResult.kecerdasan.skor = finalScore;
+
+        document.getElementById("resNamaPeserta").innerText = "NAMA PESERTA: " + pName.toUpperCase();
+        document.getElementById("resValKecerdasan").innerText = finalScore;
+        document.getElementById("resDetailKecerdasan").innerText = "Jawaban Benar: " + correctCount + " / " + totalSoal + " Soal";
+
+        // Tabel Subtes / Tingkat Kesulitan
+        let subTableHtml = "<table class='subtest-table'><thead><tr><th>No</th><th>Tingkat Kesulitan</th><th>Jumlah Soal</th><th>Benar</th><th>Nilai Kategori</th></tr></thead><tbody>";
+        let subIdx = 1;
+        let rincianArr = [];
+
+        for (let cat in diffStats) {
+            let catTotal = diffStats[cat].total;
+            let catBenar = diffStats[cat].benar;
+            let catScore = catTotal > 0 ? Math.round((catBenar / catTotal) * 100) : 0;
+            
+            rincianArr.push(cat + ": " + catBenar + "/" + catTotal + " (" + catScore + "%)");
+
+            subTableHtml += `<tr>
+                <td>${subIdx++}</td>
+                <td>Tingkat ${cat}</td>
+                <td>${catTotal}</td>
+                <td><strong style="color:#27ae60;">${catBenar}</strong></td>
+                <td><strong>${catScore}</strong></td>
+            </tr>`;
+        }
+        subTableHtml += "</tbody></table>";
+        document.getElementById("resSubtestTable").innerHTML = subTableHtml;
+
+        showSection("result");
+
+        // Kirim Rekap Data Lengkap ke Google Apps Script
+        sendToGoogleAppsScript(finalScore, correctCount, wrongCount, unansweredCount, rincianArr.join(" | "));
+    }
+
+    function sendToGoogleAppsScript(score, totalCorrect, totalWrong, unAns, rincianKesulitanStr) {
+        if (isResultSubmitted) return;
+
+        if (!APP_SCRIPT_URL || !pName || !currentSessionId) {
+            console.error("Pengiriman hasil dibatalkan: URL Apps Script, nama peserta, atau SessionID kosong.");
+            return;
+        }
+
+        isResultSubmitted = true;
+
+        const now = new Date();
+        const timestampStr = formatDateObj(now) + " " + formatTimeObj(now);
+        const tanggalStr = formatDateObj(now);
+        const waktuSelesaiStr = formatTimeObj(now);
+
+        const durationSeconds = Math.max(0, 2700 - timerLeft);
+        const durationMin = Math.floor(durationSeconds / 60);
+        const durationSec = durationSeconds % 60;
+        const durasiFormatted = durationMin + " menit " + durationSec + " detik";
+
+        const payload = {
+            Timestamp: timestampStr,
+            SessionID: currentSessionId,
+            NamaSiswa: pName,
+            Program: "TES SILOGISME & PENALARAN LOGIS 3",
+            NamaTryout: "CAT SILOGISME 3 (50 SOAL TERSTRUKTUR)",
+            Tanggal: tanggalStr,
+            WaktuMulai: sessionStartTimeStr,
+            WaktuSelesai: waktuSelesaiStr,
+            Durasi: durasiFormatted,
+            Kecerdasan: Number(score),
+            Kepribadian: "",
+            Kecermatan: "",
+            TIU: "",
+            TWK: "",
+            TKP: "",
+            PengetahuanUmum: "",
+            NilaiAkhir: Number(score),
+            JumlahBenar: Number(totalCorrect),
+            JumlahSalah: Number(totalWrong),
+            TidakDijawab: Number(unAns),
+            RincianKesulitan: rincianKesulitanStr || ""
+        };
+
+        const compatibilityPayload = Object.assign({}, payload, {
+            sessionId: currentSessionId,
+            namaSiswa: pName,
+            program: payload.Program,
+            namaTryout: payload.NamaTryout,
+            skorAkhir: Number(score),
+            totalBenar: Number(totalCorrect),
+            totalSalah: Number(totalWrong),
+            tidakDijawab: Number(unAns),
+            rincianKesulitan: rincianKesulitanStr || ""
+        });
+
+        const queryParams = new URLSearchParams();
+        Object.keys(compatibilityPayload).forEach(function(key) {
+            const value = compatibilityPayload[key];
+            queryParams.append(key, value === null || value === undefined ? "" : String(value));
+        });
+
+        const separator = APP_SCRIPT_URL.includes("?") ? "&" : "?";
+        const requestUrl = APP_SCRIPT_URL + separator + queryParams.toString();
+
+        fetch(requestUrl, {
+            method: "POST",
+            mode: "no-cors",
+            cache: "no-store",
+            headers: {
+                "Content-Type": "text/plain;charset=utf-8"
+            },
+            body: JSON.stringify(compatibilityPayload)
+        })
+        .then(function() {
+            console.info("Permintaan pengiriman hasil CAT Silogisme 3 telah dikirim ke Apps Script.", {
+                SessionID: currentSessionId,
+                NamaSiswa: pName,
+                Kecerdasan: Number(score),
+                NilaiAkhir: Number(score)
+            });
+        })
+        .catch(function(error) {
+            console.error("Pengiriman hasil CAT Silogisme 3 mengalami kegagalan jaringan:", error);
+        });
+    }
+
+    function showReviewSection() {
+        document.getElementById("reviewNamaPeserta").innerText = "PESERTA: " + pName.toUpperCase();
+        let container = document.getElementById("reviewContainerKecerdasan");
+        container.innerHTML = "";
+
+        rawKecerdasan.forEach((q, idx) => {
+            let uAns = userAnswers[idx];
+            let isCorrect = uAns === q.ans;
+
+            let itemDiv = document.createElement("div");
+            itemDiv.className = "review-item " + (isCorrect ? "correct" : "incorrect");
+
+            let uAnsText = uAns !== undefined ? String.fromCharCode(65 + uAns) : "Tidak Dijawab";
+            let cAnsText = String.fromCharCode(65 + q.ans);
+
+            itemDiv.innerHTML = `
+                <div style="font-weight:bold; color:var(--navy); margin-bottom:5px;">Soal ${idx + 1} — ${q.cat} (${q.diff})</div>
+                <div style="font-size:14px; margin-bottom:10px;">${q.q}</div>
+                <div style="font-size:13px; margin-bottom:5px;">Jawaban Anda: <strong style="color:${isCorrect ? '#27ae60' : '#c0392b'}">${uAnsText}</strong> | Kunci: <strong>${cAnsText}</strong></div>
+                <div class="pembahasan-box">${q.exp}</div>
+            `;
+            container.appendChild(itemDiv);
+        });
+
+        showSection("review");
+    }
+
+    function downloadPembahasanPDF() {
+        const element = document.getElementById("reviewCaptureArea");
+
+        html2canvas(element, { scale: 2 }).then(canvas => {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const imgData = canvas.toDataURL('image/png');
+            const imgWidth = 210 - 20;
+            const pageHeight = 295;
+            const imgHeight = canvas.height * imgWidth / canvas.width;
+            let heightLeft = imgHeight;
+            let position = 10;
+
+            pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight + 10;
+                pdf.addPage();
+                pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+            pdf.save(`Pembahasan_CAT_Silogisme_3_${pName.replace(/\s+/g, '_')}.pdf`);
+        });
+    }
+</script>
+</body>
+</html>

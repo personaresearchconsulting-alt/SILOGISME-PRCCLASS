@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PERSONA RESEARCH & CONSULTING — PORTAL SILOGISME & LOGIKA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #FAF9F6;
+            --navy-navy: #0B2340;
+            --midnight-purple: #1E1B4B;
+            --obsidian: #0F172A;
+            --slate-gray: #64748B;
+            --light-border: #E2E8F0;
+            --gold-accent: #D4A017;
+            --card-bg: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--obsidian);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        /* HEADER SECTION */
+        header {
+            background: linear-gradient(135deg, var(--navy-navy) 0%, var(--midnight-purple) 100%);
+            color: #FFFFFF;
+            padding: 40px 8% 35px 8%;
+            border-bottom: 4px solid var(--gold-accent);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .brand-title {
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold-accent);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .main-heading {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #FFFFFF;
+        }
+
+        .sub-heading {
+            font-size: 14px;
+            color: #94A3B8;
+            margin-top: 4px;
+        }
+
+        .header-badge {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 12px 20px;
+            border-radius: 10px;
+            text-align: right;
+        }
+
+        .header-badge .badge-label {
+            font-size: 11px;
+            color: var(--gold-accent);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .header-badge .badge-val {
+            font-size: 15px;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            max-width: 1100px;
+            margin: 40px auto 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-intro {
+            margin-bottom: 25px;
+        }
+
+        .section-intro h2 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--navy-navy);
+            margin-bottom: 6px;
+        }
+
+        .section-intro p {
+            font-size: 14px;
+            color: var(--slate-gray);
+        }
+
+        /* BANNER DOWNLOAD PDF - UTAMA (ATAS) */
+        .pdf-banner {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+            border: 1px solid var(--light-border);
+            border-left: 6px solid var(--gold-accent);
+            border-radius: 14px;
+            padding: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            box-shadow: 0 4px 15px rgba(11, 35, 64, 0.05);
+            margin-bottom: 45px;
+        }
+
+        .pdf-info h3 {
+            font-size: 19px;
+            font-weight: 800;
+            color: var(--navy-navy);
+            margin-bottom: 6px;
+        }
+
+        .pdf-info p {
+            font-size: 13.5px;
+            color: var(--slate-gray);
+            max-width: 680px;
+            line-height: 1.6;
+        }
+
+        .btn-pdf {
+            background: var(--navy-navy);
+            color: #FFFFFF;
+            padding: 14px 28px;
+            font-weight: 800;
+            font-size: 13px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(11, 35, 64, 0.15);
+        }
+
+        .btn-pdf:hover {
+            background: var(--midnight-purple);
+            transform: translateY(-2px);
+        }
+
+        /* GRID SIMULASI CAT */
+        .grid-modules {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 45px;
+        }
+
+        .card-module {
+            background: var(--card-bg);
+            border: 1px solid var(--light-border);
+            border-radius: 14px;
+            padding: 28px;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-module::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--navy-navy);
+            transition: background 0.25s ease;
+        }
+
+        .card-module:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(11, 35, 64, 0.08);
+            border-color: #CBD5E1;
+        }
+
+        .card-module:hover::before {
+            background: var(--gold-accent);
+        }
+
+        .tag-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: #F1F5F9;
+            color: var(--navy-navy);
+            margin-bottom: 14px;
+            width: fit-content;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--navy-navy);
+            margin-bottom: 10px;
+        }
+
+        .card-desc {
+            font-size: 13px;
+            color: var(--slate-gray);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .card-meta {
+            font-size: 12px;
+            color: #94A3B8;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            border-top: 1px solid #F1F5F9;
+            padding-top: 12px;
+        }
+
+        .card-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-action {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            text-align: center;
+            background: var(--navy-navy);
+            color: #FFFFFF;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 13px;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+        }
+
+        .btn-action:hover {
+            background: var(--midnight-purple);
+        }
+
+        /* FOOTER */
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 12px;
+            color: #94A3B8;
+            border-top: 1px solid var(--light-border);
+            padding-top: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div>
+                <div class="brand-title">Persona Research & Consulting</div>
+                <h1 class="main-heading">Portal Modul & Simulasi Silogisme</h1>
+                <div class="sub-heading">Platform Computer Assisted Test (CAT) & Materi Logika Penalaran</div>
+            </div>
+            <div class="header-badge">
+                <div class="badge-label">Standar Seleksi</div>
+                <div class="badge-val">POLRI / TNI / CPNS / Kedinasan</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- MATERI MODUL PDF (DI BAGIAN ATAS UTAMA) -->
+        <div class="section-intro">
+            <h2>Materi & Panduan Belajar Utama</h2>
+            <p>Pelajari konsep dasar, aturan pencoretan term tengah, negasi kuantor, dan pembahasan 50 soal sebelum mencoba simulasi CAT.</p>
+        </div>
+
+        <div class="pdf-banner">
+            <div class="pdf-info">
+                <h3>📖 Modul Praktis Silogisme & Penalaran Logis (PDF)</h3>
+                <p>Unduh modul cetak resmi berisi 5 Aturan Emas Silogisme, Trik Coret Opsi, Negasi Kuantor, 5 Kesalahan Fatal, serta 50 Latihan & Pembahasan Visual dari Persona Research & Consulting.</p>
+            </div>
+            <a href="MODUL_PRAKTIS_SILOGISME_PERSONA_RESEARCH.pdf" class="btn-pdf" target="_blank">📥 Download Modul PDF</a>
+        </div>
+
+        <hr style="border: none; border-top: 1px dashed var(--light-border); margin-bottom: 35px;">
+
+        <!-- SIMULASI CAT GRID (DI BAGIAN BAWAH) -->
+        <div class="section-intro">
+            <h2>Simulasi Computer Assisted Test (CAT)</h2>
+            <p>Uji pemahaman Anda melalui modul latihan interaktif silogisme di bawah ini. Setiap modul dilengkapi timer 45 menit dan rekapitulasi nilai akhir presisi.</p>
+        </div>
+
+        <div class="grid-modules">
+            
+            <!-- MODULE 1 -->
+            <div class="card-module">
+                <div>
+                    <span class="tag-badge">SET 1 — DASAR & INTEGRASI</span>
+                    <div class="card-title">CAT Silogisme 1</div>
+                    <div class="card-desc">Latihan dasar logika silogisme kategoris, hipotesis, dan modus ponens. Cocok untuk pemantapan awal konsep pencoretan term tengah.</div>
+                </div>
+                <div>
+                    <div class="card-meta">
+                        <span>📝 50 Soal</span>
+                        <span>⏱️ 45 Menit</span>
+                        <span>🎯 Sistem CAT</span>
+                    </div>
+                    <a href="silogisme_1.html" class="btn-action">Buka CAT Silogisme 1 &rarr;</a>
+                </div>
+            </div>
+
+            <!-- MODULE 2 -->
+            <div class="card-module">
+                <div>
+                    <span class="tag-badge">SET 2 — PENGEMBANGAN VARIATIF</span>
+                    <div class="card-title">CAT Silogisme 2</div>
+                    <div class="card-desc">Variasi soal tingkat menengah hingga sulit mencakup kuantor partikular, negasi De Morgan, dan silogisme disjungtif pilihan.</div>
+                </div>
+                <div>
+                    <div class="card-meta">
+                        <span>📝 50 Soal</span>
+                        <span>⏱️ 45 Menit</span>
+                        <span>🎯 Sistem CAT</span>
+                    </div>
+                    <a href="silogisme_2.html" class="btn-action">Buka CAT Silogisme 2 &rarr;</a>
+                </div>
+            </div>
+
+            <!-- MODULE 3 -->
+            <div class="card-module">
+                <div>
+                    <span class="tag-badge">SET 3 — ADVANCED / TINGKAT TINGGI</span>
+                    <div class="card-title">CAT Silogisme 3</div>
+                    <div class="card-desc">Soal tingkat tinggi standar seleksi Akpol, Kedinasan & CPNS. Berisi penalaran posisi spasial, rantai implikasi kompleks, dan analisis kesesatan logis.</div>
+                </div>
+                <div>
+                    <div class="card-meta">
+                        <span>📝 50 Soal</span>
+                        <span>⏱️ 45 Menit</span>
+                        <span>🎯 Sistem CAT</span>
+                    </div>
+                    <a href="silogisme_3.html" class="btn-action">Buka CAT Silogisme 3 &rarr;</a>
+                </div>
+            </div>
+
+        </div>
+
+        <footer>
+            &copy; 2026 Persona Research & Consulting — Hak Cipta Dilindungi Undang-Undang.
+        </footer>
+
+    </div>
+
+</body>
+</html>
