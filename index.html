@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PERSONA RESEARCH & CONSULTING — PORTAL SILOGISME & LOGIKA</title>
+    <title>PERSONA RESEARCH & CONSULTING — PORTAL SILOGISME & PENALARAN</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -117,7 +117,7 @@
             color: var(--slate-gray);
         }
 
-        /* BANNER BACA MODUL PDF (ONLINE VIEWER) */
+        /* BANNER DOWNLOAD PDF - UTAMA (ATAS) */
         .pdf-banner {
             background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
             border: 1px solid var(--light-border);
@@ -163,46 +163,6 @@
         .btn-pdf:hover {
             background: var(--midnight-purple);
             transform: translateY(-2px);
-        }
-
-        /* EMBEDDED PDF VIEWER CONTAINER */
-        .pdf-viewer-container {
-            background: #FFFFFF;
-            border: 1px solid var(--light-border);
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(11, 35, 64, 0.05);
-            margin-bottom: 45px;
-        }
-
-        .pdf-viewer-header {
-            background: var(--navy-navy);
-            color: #FFFFFF;
-            padding: 15px 25px;
-            font-size: 15px;
-            font-weight: 700;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .pdf-viewer-header span {
-            font-size: 12px;
-            color: var(--gold-accent);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .pdf-iframe-wrap {
-            width: 100%;
-            height: 650px;
-            background: #E2E8F0;
-        }
-
-        .pdf-iframe-wrap iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
         }
 
         /* GRID SIMULASI CAT */
@@ -325,8 +285,8 @@
         <div class="header-container">
             <div>
                 <div class="brand-title">Persona Research & Consulting</div>
-                <h1 class="main-heading">Portal Modul & Simulasi Silogisme</h1>
-                <div class="sub-heading">Platform Computer Assisted Test (CAT) & Materi Logika Penalaran</div>
+                <h1 class="main-heading">Portal Modul & Simulasi Silogisme & Penalaran</h1>
+                <div class="sub-heading">Platform Computer Assisted Test (CAT) & Materi Logika Penalaran Kausalitas</div>
             </div>
             <div class="header-badge">
                 <div class="badge-label">Standar Seleksi</div>
@@ -337,37 +297,30 @@
 
     <div class="container">
         
-        <!-- MATERI MODUL PDF (BACA LANGSUNG ONLINE) -->
+        <!-- MATERI MODUL PDF (DI BAGIAN ATAS UTAMA) -->
         <div class="section-intro">
             <h2>Materi & Panduan Belajar Utama</h2>
-            <p>Pelajari konsep dasar, aturan pencoretan term tengah, negasi kuantor, dan pembahasan soal langsung di bawah ini tanpa perlu mendownload file.</p>
+            <p>Pelajari konsep dasar silogisme, aturan pencoretan term tengah, negasi kuantor, serta 5 bentuk hubungan sebab-akibat (kausalitas)[cite: 2].</p>
         </div>
 
-        <div class="pdf-viewer-container">
-            <div class="pdf-viewer-header">
-                📖 Modul Praktis Silogisme & Penalaran Logis (Baca Online)
-                <span>Persona Research & Consulting</span>
+        <div class="pdf-banner">
+            <div class="pdf-info">
+                <h3>📖 Modul Praktis Penalaran Logis & Sebab-Akibat (PDF)[cite: 2]</h3>
+                <p>Unduh modul resmi berisi panduan lengkap Silogisme, Trik Coret Cepat, Negasi Pernyataan, serta 5 Bentuk Hubungan Kausalitas (Sebab-Akibat) lengkap dengan pembahasan latihan mandiri dari Persona Research & Consulting[cite: 2].</p>
             </div>
-            <div class="pdf-iframe-wrap">
-                <iframe src="MODUL_PRAKTIS_SILOGISME_PERSONA_RESEARCH.pdf" title="Modul Praktis Silogisme PDF"></iframe>
-            </div>
-        </div>
-
-        <div style="text-align: right; margin-top: -30px; margin-bottom: 45px;">
-            <a href="MODUL_PRAKTIS_SILOGISME_PERSONA_RESEARCH.pdf" class="btn-pdf" target="_blank">📥 Unduh Modul PDF (Opsional)</a>
+            <a href="MODUL_PRAKTIS_SILOGISME_DAN_SEBAB_AKIBAT_PRC.pdf" class="btn-pdf" target="_blank">📥 Download Modul PDF Lengkap</a>
         </div>
 
         <hr style="border: none; border-top: 1px dashed var(--light-border); margin-bottom: 35px;">
 
-        <!-- SIMULASI CAT GRID (DI BAGIAN BAWAH) -->
+        <!-- SIMULASI CAT SILOGISME -->
         <div class="section-intro">
-            <h2>Simulasi Computer Assisted Test (CAT)</h2>
-            <p>Uji pemahaman Anda melalui modul latihan interaktif silogisme di bawah ini. Setiap modul dilengkapi timer 45 menit dan rekapitulasi nilai akhir presisi.</p>
+            <h2>Simulasi Computer Assisted Test (CAT) — Silogisme</h2>
+            <p>Uji pemahaman logika silogisme kategoris, hipotesis, dan disjungtif melalui modul latihan interaktif berikut.</p>
         </div>
 
         <div class="grid-modules">
-            
-            <!-- MODULE 1 -->
+            <!-- MODULE SILOGISME 1 -->
             <div class="card-module">
                 <div>
                     <span class="tag-badge">SET 1 — DASAR & INTEGRASI</span>
@@ -384,7 +337,7 @@
                 </div>
             </div>
 
-            <!-- MODULE 2 -->
+            <!-- MODULE SILOGISME 2 -->
             <div class="card-module">
                 <div>
                     <span class="tag-badge">SET 2 — PENGEMBANGAN VARIATIF</span>
@@ -401,7 +354,7 @@
                 </div>
             </div>
 
-            <!-- MODULE 3 -->
+            <!-- MODULE SILOGISME 3 -->
             <div class="card-module">
                 <div>
                     <span class="tag-badge">SET 3 — ADVANCED / TINGKAT TINGGI</span>
@@ -417,7 +370,67 @@
                     <a href="silogisme_3.html" class="btn-action">Buka CAT Silogisme 3 &rarr;</a>
                 </div>
             </div>
+        </div>
 
+        <hr style="border: none; border-top: 1px dashed var(--light-border); margin: 35px 0;">
+
+        <!-- SIMULASI CAT PENALARAN SEBAB-AKIBAT (MENU BARU) -->
+        <div class="section-intro">
+            <h2>Simulasi Computer Assisted Test (CAT) — Penalaran Sebab-Akibat</h2>
+            <p>Uji kemampuan analisis hubungan kausalitas (sebab-akibat langsung, akibat-sebab, penyebab bersama, dan peristiwa independen)[cite: 5].</p>
+        </div>
+
+        <div class="grid-modules">
+            <!-- MODULE SEBAB AKIBAT 1 -->
+            <div class="card-module">
+                <div>
+                    <span class="tag-badge">SERI 1 — TINGKAT DASAR</span>
+                    <div class="card-title">CAT Sebab-Akibat 1</div>
+                    <div class="card-desc">Latihan dasar analisis hubungan sebab-akibat langsung, identifikasi pemicu, dan dampak logis sederhana dalam kehidupan sehari-hari.</div>
+                </div>
+                <div>
+                    <div class="card-meta">
+                        <span>📝 30 Soal</span>
+                        <span>⏱️ 30 Menit</span>
+                        <span>🎯 Sistem CAT</span>
+                    </div>
+                    <a href="penalaran_sebab_akibat_1.html" class="btn-action">Buka CAT Sebab-Akibat 1 &rarr;</a>
+                </div>
+            </div>
+
+            <!-- MODULE SEBAB AKIBAT 2 -->
+            <div class="card-module">
+                <div>
+                    <span class="tag-badge">SERI 2 — TINGKAT MENENGAH</span>
+                    <div class="card-title">CAT Sebab-Akibat 2</div>
+                    <div class="card-desc">Variasi soal tingkat sedang mencakup analisis kausalitas kebijakan ekonomi, lingkungan, sosiologis, dan studi kasus ilustrasi terstruktur.</div>
+                </div>
+                <div>
+                    <div class="card-meta">
+                        <span>📝 30 Soal</span>
+                        <span>⏱️ 30 Menit</span>
+                        <span>🎯 Sistem CAT</span>
+                    </div>
+                    <a href="penalaran_sebab_akibat_2.html" class="btn-action">Buka CAT Sebab-Akibat 2 &rarr;</a>
+                </div>
+            </div>
+
+            <!-- MODULE SEBAB AKIBAT 3 -->
+            <div class="card-module">
+                <div>
+                    <span class="tag-badge">SERI 3 — TINGKAT LANJUT</span>
+                    <div class="card-title">CAT Sebab-Akibat 3</div>
+                    <div class="card-desc">Simulasi lanjutan penalaran kausalitas kompleks standar seleksi kedinasan dan instansi pemerintah dengan analisis mendalam.</div>
+                </div>
+                <div>
+                    <div class="card-meta">
+                        <span>📝 30 Soal</span>
+                        <span>⏱️ 30 Menit</span>
+                        <span>🎯 Sistem CAT</span>
+                    </div>
+                    <a href="penalaran_sebab_akibat_3.html" class="btn-action">Buka CAT Sebab-Akibat 3 &rarr;</a>
+                </div>
+            </div>
         </div>
 
         <footer>
