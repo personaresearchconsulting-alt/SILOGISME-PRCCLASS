@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="id" oncontextmenu="return false" onselectstart="return false">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>CAT PENALARAN SEBAB-AKIBAT 1 — 30 SOAL TINGKAT MUDAH (PRC CLASS)</title>
+    
+    <!-- Fonts & Libraries -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        :root { 
+            --navy: #0b2340; 
+            --gold: #d4a017; 
+            --bg: #f8fafc; 
+            --gray: #f1f5f9; 
+            --danger: #c0392b; 
+            --btn-shadow: #cbd5e1; 
+        }
+        * { 
+            box-sizing: border-box; 
+            -webkit-user-select: none; 
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none; 
+        }
+        body { 
+            font-family: 'Inter', 'Segoe UI', sans-serif; 
+            background: var(--bg); 
+            margin: 0; 
+            padding: 0; 
+            color: #1e293b; 
+        }
+
+        /* HEADER MASTER */
+        header { 
+            background: var(--navy); 
+            color: white; 
+            padding: 15px 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 4px solid var(--gold); 
+        }
+        .header-title h1 { margin: 0; font-size: 18px; color: #fff; }
+        .header-title p { margin: 3px 0 0; font-size: 11px; color: var(--gold); font-weight: bold; }
+        .timer-badge { font-size: 20px; font-weight: bold; color: var(--gold); font-family: monospace; }
+
+        .container { max-width: 950px; margin: 20px auto; padding: 0 15px; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+
+        /* INPUT / LOGIN SECTION */
+        .user-card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; }
+        .user-card input { width: 80%; max-width: 400px; padding: 12px; font-size: 16px; border: 2px solid #cbd5e1; border-radius: 8px; text-align: center; margin-top: 15px; outline: none; display: block; margin-left: auto; margin-right: auto; }
+        
+        /* OPTION CARDS */
+        .opt { padding: 14px; margin: 8px 0; border: 2px solid #e2e8f0; border-radius: 8px; cursor: pointer; transition: 0.2s; background: #fff; text-align: left; line-height: 1.5; font-size: 14px; display: flex; align-items: center; gap: 10px; }
+        .opt:hover { background: #f1f5f9; border-color: var(--navy); }
+        .opt.selected { background: #e0f2fe; border-color: var(--navy); font-weight: bold; }
+
+        /* NAVIGASI SOAL GRID */
+        .nav-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; margin-top: 15px; }
+        .nav-item { height: 35px; display: flex; align-items: center; justify-content: center; border: 1px solid #cbd5e1; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold; }
+        .nav-item.filled { background: var(--navy); color: white; }
+        .nav-item.active { border: 2px solid var(--gold); }
+
+        /* BUTTONS */
+        .btn { background: var(--navy); color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: bold; text-decoration: none; text-align: center; display: inline-block; }
+        .btn-gold { background: var(--gold); color: var(--navy); }
+        .btn-green { background: #27ae60; color: white; }
+        .btn-danger { background: var(--danger); color: white; }
+
+        /* REKAP & RESULT AREA */
+        .final-box { background: var(--navy); color: #fff; padding: 25px; border-radius: 16px; text-align: center; margin-bottom: 25px; }
+        .final-val { font-size: 56px; font-weight: 900; color: var(--gold); margin: 10px 0; }
+
+        /* PEMBAHASAN CONTAINER */
+        .review-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+        .review-item.correct { border-left: 6px solid #27ae60; }
+        .review-item.incorrect { border-left: 6px solid var(--danger); }
+        .pembahasan-box { background: #f1f5f9; padding: 12px; border-radius: 6px; margin-top: 10px; font-size: 13px; border-left: 3px solid var(--gold); line-height: 1.6; }
+
+        /* REKAP TABLE SUBTES */
+        .subtest-table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 25px; font-size: 13px; }
+        .subtest-table th, .subtest-table td { border: 1px solid #cbd5e1; padding: 10px; text-align: left; }
+        .subtest-table th { background: var(--navy); color: white; }
+        .subtest-table tr:nth-child(even) { background: #f8fafc; }
+    </style>
+</head>
+<body>
+
+<div id="captureArea">
+    <!-- MASTER HEADER -->
+    <header id="masterHeader">
+        <div class="header-title">
+            <h1 id="headerMainTitle">CAT PENALARAN SEBAB-AKIBAT 1</h1>
+            <p id="headerSubTitle">SERI 1 (TINGKAT MUDAH) — PENALARAN LOGIS HUBUNGAN SEBAB DAN AKIBAT</p>
+        </div>
+        <div id="timer" class="timer-badge">30:00</div>
+    </header>
+
+    <div class="container">
+        <!-- SECTION 1: START / IDENTITAS -->
+        <div id="sec-start" class="user-card">
+            <h2 style="margin:0; color:var(--navy);">IDENTITAS PESERTA TES PENALARAN SEBAB-AKIBAT 1</h2>
+            <p style="font-size:14px; color:#64748b; margin-top:5px;">Simulasi CAT Logika Penalaran Sebab-Akibat Seri 1 — Tingkat Mudah (Timer 30 Menit)</p>
+            <input type="text" id="inputNama" placeholder="Masukkan Nama Lengkap Peserta..." autocomplete="off">
+            <br>
+            <button class="btn btn-gold" style="font-size: 18px; padding: 15px 40px;" onclick="startFullSimulation()">MULAI TES SEBAB-AKIBAT 1</button>
+        </div>
+
+        <!-- SECTION 2: TES SEBAB AKIBAT -->
+        <div id="sec-kecerdasan" style="display:none;">
+            <div style="display:flex; gap:20px; flex-wrap:wrap;">
+                <div style="flex:3; min-width:300px;">
+                    <div class="card">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                            <div id="k-q-no" style="font-weight:bold; color:var(--navy);">Soal 1 dari 30</div>
+                            <span id="k-q-cat" style="background:#e0f2fe; color:var(--navy); padding:3px 8px; border-radius:4px; font-size:11px; font-weight:bold;">Kategori</span>
+                        </div>
+                        <div id="k-q-text" style="font-size:15px; line-height:1.6; margin-bottom:20px;"></div>
+                        <div id="k-options"></div>
+                        <div style="margin-top:25px; display:flex; justify-content:space-between; align-items:center;">
+                            <button class="btn" onclick="prevQ_Kecerdasan()" style="background:#64748b">Sebelumnya</button>
+                            <button class="btn btn-danger" onclick="confirmFinishKecerdasan()">Selesai & Kirim</button>
+                            <button class="btn" id="k-btn-next" onclick="nextQ_Kecerdasan()">Selanjutnya</button>
+                        </div>
+                    </div>
+                </div>
+                <div style="flex:1; min-width:250px;">
+                    <div class="card" style="padding:15px;">
+                        <div style="text-align:center; font-size:12px; font-weight:bold; margin-bottom:10px;">NAVIGASI SOAL</div>
+                        <div id="k-navGrid" class="nav-grid"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 5: HASIL / REKAP AKHIR -->
+        <div id="sec-result" style="display:none;">
+            <div class="card">
+                <div style="text-align:center; border-bottom:2px solid #eee; padding-bottom:15px; margin-bottom:20px;">
+                    <h2 style="margin:0; color:var(--navy);">LAPORAN HASIL TES PENALARAN SEBAB-AKIBAT 1</h2>
+                    <p style="margin:5px 0 0; color:var(--gold); font-weight:bold;">CAT PENALARAN SEBAB-AKIBAT — SERI 1 (TINGKAT MUDAH)</p>
+                </div>
+
+                <div id="resNamaPeserta" style="background:#eef6ff; padding:15px; border-radius:12px; margin-bottom:25px; font-weight:bold; font-size:18px; color:var(--navy); text-align:center;">
+                    NAMA PESERTA: -
+                </div>
+
+                <div class="final-box">
+                    <div>NILAI AKHIR TES PENALARAN SEBAB-AKIBAT 1</div>
+                    <div class="final-val" id="resValKecerdasan">0</div>
+                    <div style="font-size: 14px; opacity: 0.9;" id="resDetailKecerdasan">Jawaban Benar: 0 / 30 Soal</div>
+                </div>
+
+                <h3 style="color:var(--navy); margin-bottom:10px;">Rincian Per-Bentuk Variasi Soal</h3>
+                <div id="resSubtestTable"></div>
+
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:20px;">
+                    <button class="btn btn-gold" style="flex:1; padding:15px;" onclick="showReviewSection()">📖 LIHAT PEMBAHASAN DETIL SOAL</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 6: PEMBAHASAN / REVIEW -->
+        <div id="sec-review" style="display:none;">
+            <div class="card">
+                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #eee; padding-bottom:15px; margin-bottom:20px;">
+                    <h2 style="margin:0; color:var(--navy);">PEMBAHASAN SOAL LENGKAP (PENALARAN SEBAB-AKIBAT 1)</h2>
+                    <div>
+                        <button class="btn btn-green" style="margin-right:10px;" onclick="downloadPembahasanPDF()">📥 Download Pembahasan PDF</button>
+                        <button class="btn" onclick="showSection('result')">Kembali ke Hasil</button>
+                    </div>
+                </div>
+                
+                <div id="reviewCaptureArea">
+                    <div style="text-align:center; margin-bottom:20px; border-bottom:2px solid var(--navy); padding-bottom:10px;">
+                        <h3 style="margin:0; color:var(--navy);">DOKUMEN PEMBAHASAN DETIL PENALARAN SEBAB-AKIBAT 1</h3>
+                        <p id="reviewNamaPeserta" style="margin:5px 0 0; color:var(--gold); font-weight:bold;">PESERTA: -</p>
+                    </div>
+
+                    <div id="reviewContainerKecerdasan"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyFxmO0ocvr5HqK2WuGyjt7_JeTOcs4vGDg7QZejeiE2QvCP_qkonJcZc5hz9AFW2Vg/exec";
+
+    let currentSection = "start";
+    let pName = "";
+    let currentSessionId = "";
+    let sessionStartTimeStr = "";
+    let sessionStartTimeMs = 0;
+
+    let timerInterval = null;
+    let timerLeft = 1800; // 30 Menit
+
+    let simulationResult = {
+        kecerdasan: { userAns: {}, benar: 0, skor: 0 }
+    };
+
+    let isResultSubmitted = false;
+
+    function formatTimeObj(dateObj) {
+        let h = String(dateObj.getHours()).padStart(2, '0');
+        let m = String(dateObj.getMinutes()).padStart(2, '0');
+        let s = String(dateObj.getSeconds()).padStart(2, '0');
+        return h + ":" + m + ":" + s;
+    }
+
+    function formatDateObj(dateObj) {
+        let y = dateObj.getFullYear();
+        let m = String(dateObj.getMonth() + 1).padStart(2, '0');
+        let d = String(dateObj.getDate()).padStart(2, '0');
+        return y + "-" + m + "-" + d;
+    }
+
+    function initSessionOnStart(namaPeserta) {
+        pName = namaPeserta;
+        let existingSession = sessionStorage.getItem("prc_session_id_sebabakibat_1");
+        let existingStartStr = sessionStorage.getItem("prc_start_time_str_sebabakibat_1");
+        let existingStartMs = sessionStorage.getItem("prc_start_time_ms_sebabakibat_1");
+
+        if (!existingSession || !existingStartStr) {
+            let counterKey = "prc_counter_sebabakibat_1";
+            let lastNum = parseInt(localStorage.getItem(counterKey) || "0", 10) + 1;
+            localStorage.setItem(counterKey, lastNum);
+            let formattedNum = String(lastNum).padStart(2, '0');
+            
+            currentSessionId = "PSA1-" + formattedNum;
+            
+            let startDate = new Date();
+            sessionStartTimeMs = startDate.getTime();
+            sessionStartTimeStr = formatTimeObj(startDate);
+
+            sessionStorage.setItem("prc_session_id_sebabakibat_1", currentSessionId);
+            sessionStorage.setItem("prc_start_time_str_sebabakibat_1", sessionStartTimeStr);
+            sessionStorage.setItem("prc_start_time_ms_sebabakibat_1", sessionStartTimeMs);
+        } else {
+            currentSessionId = existingSession;
+            sessionStartTimeStr = existingStartStr;
+            sessionStartTimeMs = parseInt(existingStartMs, 10);
+        }
+    }
+
+    // BANK 30 SOAL PENALARAN SEBAB-AKIBAT SERI 1 (MUDAH)
+    const rawKecerdasan = [
+        {
+            id: "Q001", cat: "Sebab-Akibat Langsung", diff: "Mudah",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Hujan deras disertai angin kencang mengguyur kota sepanjang malam.<br>(2) Beberapa pohon besar di sepanjang jalan utama tumbang dan menutup arus lalu lintas.<br>Bagaimanakah hubungan penalaran antara kedua pernyataan tersebut?",
+            opts: [
+                "Pernyataan (1) adalah penyebab dan pernyataan (2) adalah akibat.",
+                "Pernyataan (2) adalah penyebab dan pernyataan (1) adalah akibat.",
+                "Pernyataan (1) dan (2) adalah akibat dari dua penyebab yang independen.",
+                "Pernyataan (1) dan (2) adalah penyebab dari suatu akibat yang sama.",
+                "Pernyataan (1) dan (2) tidak memiliki hubungan sebab-akibat sama sekali."
+            ],
+            ans: 0,
+            exp: "<b>Jawaban Benar: A</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• Pernyataan (1) mencatat fenomena cuaca ekstrem (hujan deras dan angin kencang).<br>• Pernyataan (2) mencatat kejadian fisik di jalan raya (pohon tumbang menutup jalan).<br><br><b>2. Analisis Hubungan:</b> Hubungan Sebab-Akibat Langsung.<br><br><b>3. Alur Penalaran:</b> Hujan kencang dan angin ekstrem memicu tekanan fisik pada batang/akar pohon sehingga tumbang.<br><br><b>4. Alasan Jawaban Benar:</b> Fenomena (1) bertindak sebagai pemicu (penyebab) langsung yang membuahkan hasil/kejadian (2) sebagai akibat.<br><br><b>5. Analisis Pilihan Lain:</b> B terbalik; C, D, dan E tidak sesuai karena hubungan kausalitasnya sangat jelas dan langsung.<br><br><b>6. Tips Mengerjakan:</b> Tanyakan 'Apakah kejadian 1 yang membuat kejadian 2 terjadi?' Jika ya, maka (1) adalah sebab dan (2) adalah akibat."
+        },
+        {
+            id: "Q002", cat: "Akibat-Sebab", diff: "Mudah",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Tagihan listrik rumah Pak Anton meningkat dua kali lipat dibanding bulan lalu.<br>(2) Pak Anton lupa mematikan pendingin ruangan (AC) setiap kali keluar rumah selama sebulan terakhir.<br>Bagaimanakah hubungan penalaran antara kedua pernyataan tersebut?",
+            opts: [
+                "Pernyataan (1) adalah penyebab dan pernyataan (2) adalah akibat.",
+                "Pernyataan (1) adalah akibat dan pernyataan (2) adalah penyebab.",
+                "Pernyataan (1) dan (2) adalah akibat dari satu penyebab yang sama.",
+                "Pernyataan (1) dan (2) adalah dua penyebab yang berdiri sendiri.",
+                "Pernyataan (1) dan (2) tidak berhubungan secara logis."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• Pernyataan (1) menunjukkan dampak finansial (tagihan listrik melonjak).<br>• Pernyataan (2) menunjukkan pemborosan energi (AC menyala terus tanpa penghuni).<br><br><b>2. Analisis Hubungan:</b> Hubungan Akibat-Sebab (Pernyataan 1 sebagai akibat, Pernyataan 2 sebagai sebab).<br><br><b>3. Alur Penalaran:</b> Penggunaan AC terus-menerus meningkatkan konsumsi kWh daya listrik, yang pada akhirnya mendatangkan tagihan tinggi.<br><br><b>4. Alasan Jawaban Benar:</b> Kebiasaan membiarkan AC menyala (Pernyataan 2) merupakan penyebab yang memicu kenaikan tagihan (Pernyataan 1).<br><br><b>5. Analisis Pilihan Lain:</b> A terbalik susunannya; C, D, dan E mengabaikan hubungan kausalitas yang nyata.<br><br><b>6. Tips Mengerjakan:</b> Perhatikan urutan waktu dan hukum logisnya; penyebab (pemakaian AC) terjadi terlebih dahulu sebelum akibat (tagihan) keluar."
+        },
+        {
+            id: "Q003", cat: "Penyebab Bersama", diff: "Mudah",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Penjualan es krim di warung Pak Budi meningkat drastis minggu ini.<br>(2) Jumlah pengunjung di pantai wisata lokal mengalami lonjakan tinggi minggu ini.<br>Manakah analisis hubungan logis yang paling tepat?",
+            opts: [
+                "Pernyataan (1) menyebabkan terjadinya pernyataan (2).",
+                "Pernyataan (2) menyebabkan terjadinya pernyataan (1).",
+                "Pernyataan (1) dan (2) tidak saling berhubungan.",
+                "Pernyataan (1) dan (2) merupakan akibat dari penyebab bersama, yaitu cuaca panas terik di musim kemarau.",
+                "Pernyataan (1) dan (2) adalah dua penyebab yang memicu penurunan wisatawan."
+            ],
+            ans: 3,
+            exp: "<b>Jawaban Benar: D</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• Pernyataan (1) meningkatnya penjualan es krim.<br>• Pernyataan (2) meningkatnya pengunjung pantai.<br><br><b>2. Analisis Hubungan:</b> Dua Peristiwa dengan Penyebab Bersama (*Common Cause*).<br><br><b>3. Alur Penalaran:</b> Cuaca terik/panas menyengat mendorong orang untuk berwisata ke pantai sekaligus mengonsumsi es krim segar.<br><br><b>4. Alasan Jawaban Benar:</b> Kedua kejadian terjadi serentak bukan karena saling mempengaruhi langsung, melainkan akibat dari satu pemicu utama yang sama yaitu cuaca panas terik.<br><br><b>5. Analisis Pilihan Lain:</b> A dan B salah karena es krim tidak menyebabkan orang ke pantai (atau sebaliknya); C salah karena ada faktor cuaca yang menghubungkan; E kontradiktif.<br><br><b>6. Tips Mengerjakan:</b> Jika dua fenomena meningkat bersamaan di tempat berbeda, carilah faktor ketiga (seperti cuaca/musim) yang melatarbelakanginya."
+        },
+        {
+            id: "Q004", cat: "Tidak Ada Hubungan", diff: "Mudah",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Harga BBM non-subsidi mengalami penurunan minggu ini.<br>(2) Siswa kelas XII SMA 1 sedang mengikuti ujian tengah semester.<br>Bagaimanakah hubungan penalaran antara kedua pernyataan tersebut?",
+            opts: [
+                "Pernyataan (1) adalah sebab dan pernyataan (2) adalah akibat.",
+                "Pernyataan (2) adalah sebab dan pernyataan (1) adalah akibat.",
+                "Pernyataan (1) dan (2) merupakan akibat dari penyebab yang sama.",
+                "Pernyataan (1) dan (2) adalah penyebab dari fenomena lalu lintas.",
+                "Pernyataan (1) dan (2) adalah dua peristiwa yang tidak memiliki hubungan sebab-akibat."
+            ],
+            ans: 4,
+            exp: "<b>Jawaban Benar: E</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• Pernyataan (1) kebijakan harga minyak/ekonomi makro.<br>• Pernyataan (2) agenda akademik sekolah menengah.<br><br><b>2. Analisis Hubungan:</b> Tidak Memiliki Hubungan Sebab-Akibat (*Independent Events*).<br><br><b>3. Alur Penalaran:</b> Penurunan harga BBM ditentukan oleh harga minyak dunia/kebijakan pemerintah, sedangkan jadwal UTS ditentukan oleh kalender pendidikan dinas.<br><br><b>4. Alasan Jawaban Benar:</b> Tidak ada korelasi maupun keterkaitan kausal antara ekonomi BBM dan jadwal ujian sekolah.<br><br><b>5. Analisis Pilihan Lain:</b> A, B, C, dan D memaksakan hubungan logis pada dua hal yang berjarak konteks.<br><br><b>6. Tips Mengerjakan:</b> Jangan memaksakan hubungan jika topik kedua kalimat berasal dari ranah yang tidak berkaitan (ekonomi vs kalender pendidikan)."
+        },
+        {
+            id: "Q005", cat: "Analisis Ilustrasi Kejadian", diff: "Mudah",
+            q: "Ilustrasi: Pemerintah kota menambah jumlah armada bus relawan dan melebarkan trotoar di sepanjang pusat kota. Setelah kebijakan tersebut berjalan, tingkat kemacetan kendaraan pribadi di pusat kota berkurang secara signifikan.<br>Manakah kesimpulan hubungan kausal yang paling tepat?",
+            opts: [
+                "Pengurangan armada bus merupakan akibat dari kemacetan pusat kota.",
+                "Penambahan bus dan pelebaran trotoar menjadi penyebab berkurangnya kemacetan kendaraan pribadi.",
+                "Pelebaran trotoar dan kemacetan tidak ada hubungannya dengan armada bus.",
+                "Kemacetan pusat kota memicu bertambahnya penggunaan jalan tol.",
+                "Masyarakat berhenti beraktivitas di pusat kota karena adanya bus baru."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• Kebijakan: Penambahan armada bus & pelebaran trotoar.<br>• Hasil: Kemacetan kendaraan pribadi berkurang.<br><br><b>2. Analisis Hubungan:</b> Analisis Kausal Berdasarkan Ilustrasi.<br><br><b>3. Alur Penalaran:</b> Fasilitas umum yang memadai dan nyaman memicu masyarakat berpindah dari kendaraan pribadi ke transportasi umum/jalan kaki.<br><br><b>4. Alasan Jawaban Benar:</b> Perbaikan fasilitas transportasi umum dan pejalan kaki secara langsung menyebabkan penurunan volume kendaraan pribadi.<br><br><b>5. Analisis Pilihan Lain:</b> A terbalik; C mengabaikan teks; D dan E tidak didukung oleh teks ilustrasi.<br><br><b>6. Tips Mengerjakan:</b> Fokus pada tindakan awal (kebijakan) dan hasil akhir (dampak) yang dipaparkan dalam paragraf singkat."
+        },
+        {
+            id: "Q006", cat: "Menentukan Akibat Logis", diff: "Mudah",
+            q: "Peristiwa: Musim kemarau yang berkepanjangan menyebabkan debit air di bendungan penyedia air bersih menurun drastis hingga batas kritis.<br>Manakah akibat yang paling logis dari peristiwa di atas?",
+            opts: [
+                "Pemerintah mengimbau warga untuk menghemat penggunaan air bersih.",
+                "Petani memanen padi lebih cepat dari jadwal biasanya.",
+                "Jumlah penjualan jas hujan di pasaran meningkat pesat.",
+                "Tarif angkutan umum turun secara signifikan.",
+                "Harga beras impor turun drastis di supermarket."
+            ],
+            ans: 0,
+            exp: "<b>Jawaban Benar: A</b><br><br><b>1. Identifikasi Peristiwa:</b> Pasokan air bersih di bendungan menurun drastis.<br><br><b>2. Analisis Hubungan:</b> Menentukan Akibat Logis dari Pemicu Utama.<br><br><b>3. Alur Penalaran:</b> Ketersediaan air bersih yang terbatas menuntut pengelolaan konsumsi agar pasokan tidak cepat habis.<br><br><b>4. Alasan Jawaban Benar:</b> Imbauan hemat air merupakan tindakan pencegahan dan konsekuensi logis paling langsung dari berkurangnya pasokan air bersih.<br><br><b>5. Analisis Pilihan Lain:</b> B, C, D, dan E irrelevant dengan krisis ketersediaan air bersih minum/domestik.<br><br><b>6. Tips Mengerjakan:</b> Carilah respon atau dampak yang berhubungan langsung secara rasional dengan masalah inti (kekurangan air bersih)."
+        },
+        {
+            id: "Q007", cat: "Menentukan Penyebab Logis", diff: "Mudah",
+            q: "Akibat: Angka kejadian penyakit demam berdarah (DBD) di permukiman Warga RW 05 meningkat tajam dalam dua minggu terakhir.<br>Manakah penyebab yang paling logis dari akibat tersebut?",
+            opts: [
+                "Banyak warga yang mengonsumsi makanan kurang matang.",
+                "Genangan air bersih di wadah-wadah terbuka tidak dibersihkan setelah hujan turun.",
+                "Warga jarang berolahraga di pagi hari.",
+                "Penggunaan kipas angin yang berlebihan pada malam hari.",
+                "Kurangnya pencahayaan lampu di sepanjang jalan desa."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b> Lonjakan kasus penyakit Demam Berdarah (DBD).<br><br><b>2. Analisis Hubungan:</b> Menentukan Penyebab yang Paling Logis.<br><br><b>3. Alur Penalaran:</b> Vektor penyakit DBD adalah nyamuk *Aedes aegypti* yang berkembang biak di genangan air bersih yang dibiarkan terbuka.<br><br><b>4. Alasan Jawaban Benar:</b> Genangan air tak terurus adalah media berkembang biak utama nyamuk penyebar DBD.<br><br><b>5. Analisis Pilihan Lain:</b> A berhubungan dengan pencernaan; C, D, E tidak ada kaitan dengan biokausalitas DBD.<br><br><b>6. Tips Mengerjakan:</b> Hubungkan gejala/akibat kesehatan dengan faktor biologis atau lingkungan spesifik penyabab penyakit tersebut."
+        },
+        {
+            id: "Q008", cat: "Sebab-Akibat Sederhana", diff: "Mudah",
+            q: "Perhatikan informasi berikut:<br>Rina selalu menyisihkan sebagian uang sakunya untuk ditabung di bank setiap minggu. Setelah satu tahun, Rina memiliki dana yang cukup untuk membeli laptop belajar tanpa membebani orang tuanya.<br>Pernyataan manakah yang menggambarkan hubungan sebab-akibat dengan benar?",
+            opts: [
+                "Rina membeli laptop karena harga laptop sedang diskon besar-besaran.",
+                "Kebiasaan menabung Rina secara konsisten menyebabkan ia memiliki dana cukup untuk membeli laptop.",
+                "Orang tua Rina memaksa Rina menabung agar bisa membeli laptop sendiri.",
+                "Laptop belajar Rina rusak sehingga ia harus menabung di bank.",
+                "Pihak bank memberikan laptop gratis kepada Rina sebagai nasabah setia."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• Tindakan: Menabung uang saku rutin.<br>• Hasil: Memiliki tabungan cukup untuk beli laptop.<br><br><b>2. Analisis Hubungan:</b> Analisis Kausal Sederhana berdasarkan Teks.<br><br><b>3. Alur Penalaran:</b> Akumulasi uang tabungan secara bertahap selama setahun menghasilkan saldo yang mencukupi untuk harga sebuah laptop.<br><br><b>4. Alasan Jawaban Benar:</b> Tindakan menabung yang dilakukan secara teratur (sebab) menghasilkan akumulasi dana yang cukup (akibat).<br><br><b>5. Analisis Pilihan Lain:</b> A, C, D, dan E tidak sesuai dengan kronologi dan fakta yang disampaikan pada teks bacaan.<br><br><b>6. Tips Mengerjakan:</b> Pilih jawaban yang secara eksplisit merangkum kalimat pertama (tindakan) dan kalimat kedua (hasil)."
+        },
+        {
+            id: "Q009", cat: "Sebab-Akibat Langsung", diff: "Mudah",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Para petani di Desa Sukamaju memupuk tanaman padi mereka secara teratur dan membasmi hama tepat waktu.<br>(2) Hasil panen padi di Desa Sukamaju mengalami peningkatan melimpah dibanding tahun sebelumnya.<br>Hubungan yang tepat antara kedua pernyataan adalah:",
+            opts: [
+                "Pernyataan (1) adalah penyebab dan pernyataan (2) adalah akibat.",
+                "Pernyataan (2) adalah penyebab dan pernyataan (1) adalah akibat.",
+                "Pernyataan (1) dan (2) adalah akibat dari cuaca buruk.",
+                "Pernyataan (1) dan (2) adalah penyebab dari tingginya harga pupuk.",
+                "Pernyataan (1) dan (2) tidak berhubungan."
+            ],
+            ans: 0,
+            exp: "<b>Jawaban Benar: A</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Perawatan pertanian intensif (pupuk & pembasmian hama).<br>• (2) Hasil panen padi melimpah.<br><br><b>2. Analisis Hubungan:</b> Hubungan Sebab-Akibat Langsung.<br><br><b>3. Alur Penalaran:</b> Perawatan tanaman yang optimal membuat pertumbuhan padi maksimal dan terhindar dari kerusakan hama, menghasilkan panen besar.<br><br><b>4. Alasan Jawaban Benar:</b> Perawatan memadai (1) secara langsung memicu hasil produksi pertanian yang tinggi (2).<br><br><b>5. Analisis Pilihan Lain:</b> B susunan terbalik; C, D, E bertentangan dengan fakta teks.<br><br><b>6. Tips Mengerjakan:</b> Usaha/tindakan baik biasanya menjadi 'sebab', sedangkan capaian/hasil menjadi 'akibat'."
+        },
+        {
+            id: "Q010", cat: "Akibat-Sebab", diff: "Mudah",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Banyak siswa sekolah dasar mengalami sakit perut saat jam pelajaran berlangsung.<br>(2) Jajanan di luar gerbang sekolah terbukti tercemar bakteri karena tidak tertutup rapat.<br>Manakah analisis hubungan kausalitas yang benar?",
+            opts: [
+                "Pernyataan (1) adalah sebab dan pernyataan (2) adalah akibat.",
+                "Pernyataan (1) adalah akibat dan pernyataan (2) adalah sebab.",
+                "Pernyataan (1) dan (2) merupakan akibat dari kurangnya olahraga.",
+                "Pernyataan (1) dan (2) adalah dua peristiwa yang berdiri sendiri.",
+                "Pernyataan (2) merupakan akibat dari sakit perut yang dialami siswa."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Gangguan kesehatan siswa (sakit perut).<br>• (2) Jajanan tercemar bakteri.<br><br><b>2. Analisis Hubungan:</b> Hubungan Akibat-Sebab.<br><br><b>3. Alur Penalaran:</b> Mengonsumsi makanan yang terkontaminasi bakteri mengganggu saluran pencernaan dan menyebabkan rasa sakit perut.<br><br><b>4. Alasan Jawaban Benar:</b> Jajanan tercemar (Pernyataan 2) adalah pemicu/sebab, sedangkan sakit perut (Pernyataan 1) adalah dampak/akibatnya.<br><br><b>5. Analisis Pilihan Lain:</b> A dan E terbalik; C dan D keliru secara medis dan logika.<br><br><b>6. Tips Mengerjakan:</b> Jika posisi kalimat akibat diletakkan di nomor (1), maka jawabannya adalah 'Pernyataan (1) adalah akibat dan (2) adalah sebab'."
+        },
+        {
+            id: "Q011", cat: "Penyebab Bersama", diff: "Mudah",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Tingkat penjualan mantel tebal dan sweater meningkat di toko pakaian.<br>(2) Konsumsi minuman hangat seperti teh dan kopi meningkat pesat di kafe-kafe kota.<br>Manakah analisis hubungan logis yang paling tepat?",
+            opts: [
+                "Pernyataan (1) menyebabkan terjadinya pernyataan (2).",
+                "Pernyataan (2) menyebabkan terjadinya pernyataan (1).",
+                "Pernyataan (1) dan (2) tidak berhubungan.",
+                "Pernyataan (1) dan (2) adalah akibat dari satu penyebab yang sama, yaitu penurunan suhu udara akibat musim dingin.",
+                "Pernyataan (1) dan (2) adalah dua sebab dari naiknya harga pakaian."
+            ],
+            ans: 3,
+            exp: "<b>Jawaban Benar: D</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Peningkatan pembelian baju hangat.<br>• (2) Peningkatan konsumsi minuman hangat.<br><br><b>2. Analisis Hubungan:</b> Dua Akibat dari Penyebab Bersama (*Common Cause*).<br><br><b>3. Alur Penalaran:</b> Suhu udara dingin membuat tubuh membutuhkan penghangat dari luar (pakaian tebal) dan dari dalam (minuman hangat).<br><br><b>4. Alasan Jawaban Benar:</b> Kedua tindakan tersebut terdorong oleh pemicu tunggal yang sama yaitu perubahan cuaca/suhu menjadi dingin.<br><br><b>5. Analisis Pilihan Lain:</b> A dan B tidak berhubungan langsung; C mengabaikan kesamaan pola; E keliru.<br><br><b>6. Tips Mengerjakan:</b> Cari kesamaan fungsi dari dua aksi pada soal. Memakai sweater dan minum teh hangat sama-sama bertujuan menghangatkan tubuh."
+        },
+        {
+            id: "Q012", cat: "Tidak Ada Hubungan", diff: "Mudah",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Pemerintah meresmikan jembatan baru yang menghubungkan dua pulau.<br>(2) Harga buah mangga di pasar tradisional mengalami penurunan minggu ini.<br>Manakah hubungan penalaran yang paling tepat?",
+            opts: [
+                "Pernyataan (1) adalah sebab dan pernyataan (2) adalah akibat.",
+                "Pernyataan (2) adalah sebab dan pernyataan (1) adalah akibat.",
+                "Pernyataan (1) dan (2) adalah akibat dari fenomena cuaca.",
+                "Pernyataan (1) dan (2) merupakan dua peristiwa yang tidak memiliki hubungan sebab-akibat.",
+                "Pernyataan (1) dan (2) adalah dua penyebab jatuhnya harga tanah."
+            ],
+            ans: 3,
+            exp: "<b>Jawaban Benar: D</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Pembangunan infrastruktur penyeberangan.<br>• (2) Harga komoditas buah di pasar.<br><br><b>2. Analisis Hubungan:</b> Dua Peristiwa Independen (Tanpa Hubungan Kausal).<br><br><b>3. Alur Penalaran:</b> Pembangunan jembatan berhubungan dengan perhubungan, sedangkan harga mangga bergantung pada musim panen mangga.<br><br><b>4. Alasan Jawaban Benar:</b> Kedua kejadian bergerak pada ranah yang berbeda dan tidak saling mempengaruhi secara langsung maupun tak langsung.<br><br><b>5. Analisis Pilihan Lain:</b> A, B, C, E memuat korelasi palsu (*spurious correlation*).<br><br><b>6. Tips Mengerjakan:</b> Jika dua pernyataan tidak memiliki kaitan logis, pilihlah opsi yang menyatakan kedua peristiwa tidak berhubungan."
+        },
+        {
+            id: "Q013", cat: "Analisis Ilustrasi Kejadian", diff: "Mudah",
+            q: "Ilustrasi: Sebuah perusahaan menerapkan sistem kerja fleksibel (*work from home*) dua hari dalam seminggu bagi karyawannya. Hasil evaluasi tiga bulan kemudian menunjukkan tingkat stres karyawan menurun dan tingkat kepuasan kerja meningkat drastis.<br>Kesimpulan yang logis adalah:",
+            opts: [
+                "Tingkat stres karyawan memicu perusahaan menutup kantor pusat.",
+                "Kebijakan sistem kerja fleksibel menjadi penyebab meningkatnya kepuasan kerja dan menurunnya stres karyawan.",
+                "Kepuasan kerja karyawan menyebabkan jam kerja bertambah menjadi 24 jam.",
+                "Karyawan tidak lagi membutuhkan gaji bulanan setelah bekerja dari rumah.",
+                "Sistem kerja fleksibel membuat perusahaan kehilangan seluruh produknya."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b> Kebijakan WFH 2 hari/minggu membuahkan penurunan stres dan peningkatan kepuasan kerja.<br><br><b>2. Analisis Hubungan:</b> Kausalitas berdasarkan Ilustrasi.<br><br><b>3. Alur Penalaran:</b> Keseimbangan waktu kerja dan pribadi yang membaik akibat kerja fleksibel menurunkan tingkat tekanan mental karyawan.<br><br><b>4. Alasan Jawaban Benar:</b> Penerapan sistem kerja fleksibel (sebab) menghasilkan dampak positif pada mental dan kepuasan karyawan (akibat).<br><br><b>5. Analisis Pilihan Lain:</b> A, C, D, E adalah asumsi ekstrem yang tidak logis dan tidak ada di ilustrasi.<br><br><b>6. Tips Mengerjakan:</b> Selalu gunakan informasi dalam ilustrasi sebagai dasar utama pengambilan kesimpulan."
+        },
+        {
+            id: "Q014", cat: "Menentukan Akibat Logis", diff: "Mudah",
+            q: "Peristiwa: Jembatan penyeberangan utama di Desa Selaras terputus akibat diterjang arus sungai yang meluap.<br>Manakah akibat yang paling logis dari peristiwa tersebut?",
+            opts: [
+                "Aktivitas transportasi darat antardesa menjadi terganggu dan warga harus mengoperasikan perahu darurat.",
+                "Jumlah penjualan sepeda motor di desa meningkat drastis.",
+                "Harga tiket pesawat terbang antarkota menjadi lebih murah.",
+                "Warga desa memindahkan rumah mereka ke tepi pantai.",
+                "Sungai di desa tersebut langsung mengering secara mendadak."
+            ],
+            ans: 0,
+            exp: "<b>Jawaban Benar: A</b><br><br><b>1. Identifikasi Peristiwa:</b> Jembatan utama terputus karena luapan arus sungai.<br><br><b>2. Analisis Hubungan:</b> Menentukan Akibat Logis.<br><br><b>3. Alur Penalaran:</b> Terputusnya jembatan menghilangkan akses penyeberangan utama, sehingga mobilitas terhambat dan memerlukan cara alternatif (perahu).<br><br><b>4. Alasan Jawaban Benar:</b> Terganggunya transportasi darat serta perlunya perahu darurat adalah konsekuensi langsung dari putusnya akses jembatan.<br><br><b>5. Analisis Pilihan Lain:</b> B, C, D, E tidak realistis dan tidak menjawab masalah terputusnya akses jalan.<br><br><b>6. Tips Mengerjakan:</b> Fokus pada akibat langsung yang dirasakan oleh pihak yang terdampak oleh peristiwa."
+        },
+        {
+            id: "Q015", cat: "Menentukan Penyebab Logis", diff: "Mudah",
+            q: "Akibat: Kebakaran hebat menghanguskan sebuah bangunan toko di kompleks pertokoan pada malam hari.<br>Manakah penyebab yang paling logis dari akibat di atas?",
+            opts: [
+                "Toko tersebut menjual barang-barang impor berkategori mahal.",
+                "Terjadi korsleting listrik pada kabel utama toko yang sudah tua dan tidak terawat.",
+                "Pemilik toko lupa menutup jendela bagian belakang toko.",
+                "Jumlah pembeli di toko tersebut mengalami penurunan selama seminggu.",
+                "Warna cat dinding toko sudah pudar dan mengelupas."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b> Kebakaran hebat pada bangunan toko.<br><br><b>2. Analisis Hubungan:</b> Menentukan Penyebab Logis.<br><br><b>3. Alur Penalaran:</b> Kabel tua yang mengalami hubungan pendek (korsleting) menimbulkan percikan api yang menyambar bahan mudah terbakar.<br><br><b>4. Alasan Jawaban Benar:</b> Korsleting listrik adalah salah satu penyebab fisik paling umum dan logis terjadinya kebakaran bangunan.<br><br><b>5. Analisis Pilihan Lain:</b> A, C, D, E tidak memiliki daya picu timbulnya api kebakaran.<br><br><b>6. Tips Mengerjakan:</b> Pilihlah pemicu fisik/mekanis yang secara ilmiah dan ilmiah mampu menghasilkan percikan api atau panas tinggi."
+        },
+        {
+            id: "Q016", cat: "Sebab-Akibat Sederhana", diff: "Mudah",
+            q: "Perhatikan informasi berikut:<br>Pemerintah daerah giat membangun taman-taman kota dan menanam ribuan pohon di area ruang terbuka hijau. Dampaknya, kualitas udara di kota tersebut membaik dan indeks kebahagiaan warga meningkat.<br>Manakah pernyataan yang mengekspresikan hubungan sebab-akibat dengan tepat?",
+            opts: [
+                "Kualitas udara membaik memicu pohon-pohon mati secara mendadak.",
+                "Pembangunan taman dan penanaman pohon menjadi penyebab membaiknya kualitas udara dan kebahagiaan warga.",
+                "Warga kota menuntut taman diganti menjadi kawasan pabrik industri.",
+                "Indeks kebahagiaan warga menyebabkan pohon tumbuh tanpa air.",
+                "Pemerintah kota menghentikan seluruh program penghijauan."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b> Penanaman pohon & penambahan taman kota memicu udara bersih & warga bahagia.<br><br><b>2. Analisis Hubungan:</b> Hubungan Kausal Sederhana.<br><br><b>3. Alur Penalaran:</b> Pohon menyerap polusi dan menghasilkan oksigen, sementara taman menyediakan sarana rekreasi yang menenangkan pikiran warga.<br><br><b>4. Alasan Jawaban Benar:</b> Penghijauan (sebab) berdampak langsung pada kebersihan udara dan kesejahteraan warga (akibat).<br><br><b>5. Analisis Pilihan Lain:</b> A, C, D, dan E bertentangan dengan informasi resmi pada narasi.<br><br><b>6. Tips Mengerjakan:</b> Hubungkan aksi lingkungan yang positif dengan manfaat kesehatan/sosial yang mengikutinya."
+        },
+        {
+            id: "Q017", cat: "Sebab-Akibat Langsung", diff: "Mudah",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Ani belajar dengan tekun dan mengulang latihan soal setiap hari sebelum ujian akhir.<br>(2) Ani berhasil mendapatkan nilai tertinggi di kelasnya saat pengumuman ujian akhir.<br>Bagaimanakah hubungan penalaran kedua pernyataan?",
+            opts: [
+                "Pernyataan (1) adalah penyebab dan pernyataan (2) adalah akibat.",
+                "Pernyataan (2) adalah penyebab dan pernyataan (1) adalah akibat.",
+                "Pernyataan (1) dan (2) adalah akibat dari rasa malas.",
+                "Pernyataan (1) dan (2) merupakan dua sebab yang bertentangan.",
+                "Pernyataan (1) dan (2) tidak memiliki hubungan kausal."
+            ],
+            ans: 0,
+            exp: "<b>Jawaban Benar: A</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Usaha belajar tekun dan rutin.<br>• (2) Meraih nilai tertinggi di kelas.<br><br><b>2. Analisis Hubungan:</b> Sebab-Akibat Langsung.<br><br><b>3. Alur Penalaran:</b> Kedalaman pemahaman materi hasil belajar giat memungkinkan seseorang menjawab soal ujian dengan benar sehingga mendapat nilai sempurna.<br><br><b>4. Alasan Jawaban Benar:</b> Ketekunan belajar (1) adalah pemicu/sebab utama dari perolehan nilai tinggi (2).<br><br><b>5. Analisis Pilihan Lain:</b> B susunan terbalik; C, D, E absurd.<br><br><b>6. Tips Mengerjakan:</b> Proses persiapan adalah sebab, sedangkan pencapaian/prestasi adalah akibat."
+        },
+        {
+            id: "Q018", cat: "Akibat-Sebab", diff: "Mudah",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Banyak kendaraan jalanan mengalami bocor ban saat melintasi Jalan Mawar.<br>(2) Sebuah truk pengangkut paku bangunan tumpah di sepanjang Jalan Mawar beberapa jam sebelumnya.<br>Hubungan penalaran yang paling tepat adalah:",
+            opts: [
+                "Pernyataan (1) adalah penyebab dan pernyataan (2) adalah akibat.",
+                "Pernyataan (1) adalah akibat dan pernyataan (2) adalah penyebab.",
+                "Pernyataan (1) dan (2) adalah akibat dari jalanan licin.",
+                "Pernyataan (1) dan (2) adalah dua penyebab kecelakaan udara.",
+                "Pernyataan (1) dan (2) tidak berhubungan secara logis."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Ban kendaraan bocor massal.<br>• (2) Paku tumpah di jalan raya.<br><br><b>2. Analisis Hubungan:</b> Akibat-Sebab.<br><br><b>3. Alur Penalaran:</b> Tumpahan paku tajam di permukaan jalan menusuk karet ban kendaraan yang melintas hingga bocor.<br><br><b>4. Alasan Jawaban Benar:</b> Tumpahan paku (Pernyataan 2) menjadi pemicu/sebab dari fenomena ban bocor (Pernyataan 1).<br><br><b>5. Analisis Pilihan Lain:</b> A terbalik; C, D, E tidak mengindahkan kaitan paku dan ban bocor.<br><br><b>6. Tips Mengerjakan:</b> Perhatikan pemicu fisik (paku) sebagai sebab dan dampak kerusakan (ban bocor) sebagai akibat."
+        },
+        {
+            id: "Q019", cat: "Penyebab Bersama", diff: "Mudah",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Stok sayur-sayuran segar di pasar induk berkurang signifikan minggu ini.<br>(2) Harga jual buah-buahan lokal mengalami kenaikan drastis minggu ini.<br>Manakah analisis hubungan kausalitas yang paling tepat?",
+            opts: [
+                "Pernyataan (1) merupakan penyebab dari pernyataan (2).",
+                "Pernyataan (2) merupakan penyebab dari pernyataan (1).",
+                "Pernyataan (1) dan (2) tidak saling berhubungan.",
+                "Pernyataan (1) dan (2) merupakan akibat dari penyebab bersama, yaitu terjadinya banjir besar yang merendam wilayah perkebunan.",
+                "Pernyataan (1) dan (2) adalah dua sebab turunnya tingkat inflasi."
+            ],
+            ans: 3,
+            exp: "<b>Jawaban Benar: D</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Kelangkaan stok sayuran.<br>• (2) Kenaikan harga buah-buahan.<br><br><b>2. Analisis Hubungan:</b> Dua Akibat dari Penyebab Bersama (*Common Cause*).<br><br><b>3. Alur Penalaran:</b> Banjir merusak lahan pertanian dan perkebunan, menggagalkan panen sayur (stok berkurang) dan panen buah (harga naik karena langka).<br><br><b>4. Alasan Jawaban Benar:</b> Kerusakan sektor pertanian akibat banjir menjadi satu pemicu utama bagi fenomena kelangkaan stok dan kenaikan harga komoditas.<br><br><b>5. Analisis Pilihan Lain:</b> A dan B salah karena sayur tidak mempengaruhi harga buah secara langsung; C salah karena ada faktor bencana alam yang sama; E salah.<br><br><b>6. Tips Mengerjakan:</b> Jika terjadi krisis di dua sektor komoditas sejenis (sayur dan buah), cari peristiwa alam/ekonomi yang menimpa kedua sektor tersebut."
+        },
+        {
+            id: "Q020", cat: "Tidak Ada Hubungan", diff: "Mudah",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Pertunjukan konser musik pop berlangsung meriah di stadion utama.<br>(2) Jadwal pemadaman listrik berkala dilakukan di area perumahan timur.<br>Manakah hubungan penalaran yang benar?",
+            opts: [
+                "Pernyataan (1) adalah penyebab dari pernyataan (2).",
+                "Pernyataan (2) adalah penyebab dari pernyataan (1).",
+                "Pernyataan (1) dan (2) adalah dua akibat dari pemadaman arus.",
+                "Pernyataan (1) dan (2) tidak memiliki hubungan sebab-akibat.",
+                "Pernyataan (1) dan (2) adalah dua penyebab peningkatan harga tiket."
+            ],
+            ans: 3,
+            exp: "<b>Jawaban Benar: D</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Gelaran hiburan konser musik.<br>• (2) Pemadaman listrik bergilir perumahan.<br><br><b>2. Analisis Hubungan:</b> Dua Peristiwa Independen.<br><br><b>3. Alur Penalaran:</b> Konser menggunakan pasokan listrik/generator khusus tempat acara, sementara pemadaman perumahan adalah perawatan jaringan PLN lokal.<br><br><b>4. Alasan Jawaban Benar:</b> Tidak ada korelasi logis maupun sebab-akibat antara kemeriahan konser dan pemadaman listrik di perumahan lain.<br><br><b>5. Analisis Pilihan Lain:</b> A, B, C, E memuat kesimpulan spekulatif tanpa dasar informasi.<br><br><b>6. Tips Mengerjakan:</b> Dua kejadian pada lokasi dan ranah kepentingan berbeda umumnya merupakan kejadian yang berdiri sendiri."
+        },
+        {
+            id: "Q021", cat: "Analisis Ilustrasi Kejadian", diff: "Mudah",
+            q: "Ilustrasi: Sebuah puskesmas membuka layanan pendaftaran *online* dan menambah jumlah dokter piket. Efeknya, antrean pasien di ruang tunggu berkurang dan waktu pelayanan menjadi jauh lebih cepat.<br>Manakah analisis kausal yang benar?",
+            opts: [
+                "Berkurangnya antrean pasien menyebabkan puskesmas ditutup.",
+                "Inovasi pendaftaran online dan penambahan dokter menjadi penyebab efisiensi waktu pelayanan puskesmas.",
+                "Waktu pelayanan yang cepat memaksa dokter untuk mengundurkan diri.",
+                "Jumlah pasien meningkat karena dokter tidak hadir.",
+                "Layanan online membuat pasien tidak perlu berobat lagi."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b> Pendaftaran online & penambahan dokter berdampak pada pelayanan lebih cepat & antrean berkurang.<br><br><b>2. Analisis Hubungan:</b> Analisis Kausalitas Ilustrasi.<br><br><b>3. Alur Penalaran:</b> Pendaftaran digital mengurai penumpukan loket, dan dokter yang cukup mempercepat proses pemeriksaan.<br><br><b>4. Alasan Jawaban Benar:</b> Pembaharuan sistem dan SDM (sebab) menghasilkan efisiensi pelayanan kesehatan (akibat).<br><br><b>5. Analisis Pilihan Lain:</b> A, C, D, E menyimpulkan hal bertolak belakang dengan isi cerita.<br><br><b>6. Tips Mengerjakan:</b> Tindakan perbaikan sistem berbanding lurus dengan peningkatan kualitas hasil pelayanan."
+        },
+        {
+            id: "Q022", cat: "Menentukan Akibat Logis", diff: "Mudah",
+            q: "Peristiwa: Kebiasaan membuang sampah rumah tangga ke aliran sungai masih terus dilakukan oleh sebagian warga desa.<br>Manakah akibat yang paling logis dari peristiwa tersebut?",
+            opts: [
+                "Aliran sungai menjadi tersumbat dan berpotensi menimbulkan banjir saat hujan deras.",
+                "Air sungai menjadi sangat jernih dan dapat langsung diminum.",
+                "Populasi ikan di sungai meningkat dua kali lipat.",
+                "Harga tanah di sekitar sungai melambung tinggi.",
+                "Pemerintah membangun pusat perbelanjaan di atas sungai."
+            ],
+            ans: 0,
+            exp: "<b>Jawaban Benar: A</b><br><br><b>1. Identifikasi Peristiwa:</b> Membuang sampah ke aliran sungai.<br><br><b>2. Analisis Hubungan:</b> Menentukan Akibat Logis.<br><br><b>3. Alur Penalaran:</b> Penumpukan sampah menghambat laju air, menyebabkan pendangkalan dan pendumpatan yang memicu luapan air (banjir) saat volume air meningkat.<br><br><b>4. Alasan Jawaban Benar:</b> Penyumbatan sungai dan ancaman banjir adalah akibat lingkungan paling rasional dari kebiasaan membuang sampah di sungai.<br><br><b>5. Analisis Pilihan Lain:</b> B dan C bertentangan secara ekologis; D dan E tidak relevan.<br><br><b>6. Tips Mengerjakan:</b> Hubungkan pencemaran lingkungan dengan dampak buruknya terhadap ekosistem setempat."
+        },
+        {
+            id: "Q023", cat: "Menentukan Penyebab Logis", diff: "Mudah",
+            q: "Akibat: Budi mengalami dehidrasi dan lemas saat mengikuti kegiatan penjelajahan alam di siang hari.<br>Manakah penyebab yang paling logis dari akibat di atas?",
+            opts: [
+                "Budi membawa kompas dan peta penjelajahan yang lengkap.",
+                "Budi lupa membawa bekal air minum dan tidak mengonsumsi cairan selama berjalan di bawah terik matahari.",
+                "Budi memakai sepatu olahraga yang baru dibelinya.",
+                "Budi berjalan di barisan paling depan bersama pemandu.",
+                "Budi mendengarkan musik menggunakan earphone sepanjang jalan."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b> Dehidrasi dan lemas di bawah terik matahari.<br><br><b>2. Analisis Hubungan:</b> Menentukan Penyebab Logis.<br><br><b>3. Alur Penalaran:</b> Aktivitas fisik panas memicu pengeluaran keringat tinggi; tanpa asupan cairan pengganti, tubuh akan kekurangan cairan (dehidrasi).<br><br><b>4. Alasan Jawaban Benar:</b> Tidak minum air saat beraktivitas di bawah panas terik (sebab) secara fisiologis memicu dehidrasi (akibat).<br><br><b>5. Analisis Pilihan Lain:</b> A, C, D, E tidak berpengaruh pada tingkat cairan dalam tubuh.<br><br><b>6. Tips Mengerjakan:</b> Carilah jawaban yang memaparkan ketiadaan pemicu utama pembentuk kondisi fisiologis (air minum vs dehidrasi)."
+        },
+        {
+            id: "Q024", cat: "Sebab-Akibat Sederhana", diff: "Mudah",
+            q: "Perhatikan informasi berikut:<br>Para pengrajin kayu mengadopsi mesin pemotong digital modern dalam proses produksi mebel. Akibatnya, waktu pembuatan satu unit lemari berkurang dari tiga hari menjadi hanya lima jam.<br>Pernyataan manakah yang menggambarkan hubungan sebab-akibat dengan tepat?",
+            opts: [
+                "Penggunaan mesin pemotong modern menjadi penyebab efisiensi waktu pembuatan mebel.",
+                "Waktu pembuatan mebel yang cepat menyebabkan mesin pemotong digital rusak.",
+                "Pengrajin kayu kembali menggunakan alat manual agar hemat listrik.",
+                "Harga lemari menjadi mahal karena mesin pemotong tidak berfungsi.",
+                "Mesin pemotong digital membuat pengrajin berhenti membuat lemari."
+            ],
+            ans: 0,
+            exp: "<b>Jawaban Benar: A</b><br><br><b>1. Identifikasi Peristiwa:</b> Penggunaan mesin digital memotong waktu produksi mebel secara drastis.<br><br><b>2. Analisis Hubungan:</b> Kausalitas Sederhana.<br><br><b>3. Alur Penalaran:</b> Teknologi pemotong otomatis bekerja jauh lebih presisi dan cepat dibandingkan pengerjaan tangan manusia.<br><br><b>4. Alasan Jawaban Benar:</b> Modernisasi peralatan (sebab) mempercepat proses durasi pengerjaan (akibat).<br><br><b>5. Analisis Pilihan Lain:</b> B terbalik; C, D, E bertentangan dengan paparan teks.<br><br><b>6. Tips Mengerjakan:</b> Penggunaan teknologi modern pada umumnya berakibat pada efisiensi waktu atau peningkatan hasil."
+        },
+        {
+            id: "Q025", cat: "Sebab-Akibat Langsung", diff: "Mudah",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Pengendara sepeda motor melanggar lampu merah dan memacu kendaraan dengan kecepatan tinggi.<br>(2) Sepeda motor tersebut bertabrakan dengan mobil yang datang dari arah persimpangan.<br>Bagaimanakah hubungan penalaran kedua pernyataan?",
+            opts: [
+                "Pernyataan (1) adalah penyebab dan pernyataan (2) adalah akibat.",
+                "Pernyataan (2) adalah penyebab dan pernyataan (1) adalah akibat.",
+                "Pernyataan (1) dan (2) adalah dua akibat dari jalanan macet.",
+                "Pernyataan (1) dan (2) tidak berhubungan sama sekali.",
+                "Pernyataan (2) menyebabkan pengendara mematuhi aturan lalu lintas."
+            ],
+            ans: 0,
+            exp: "<b>Jawaban Benar: A</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Kecerobohan berkendara (menerobos lampu merah).<br>• (2) Tabrakan di persimpangan jalan.<br><br><b>2. Analisis Hubungan:</b> Sebab-Akibat Langsung.<br><br><b>3. Alur Penalaran:</b> Menerobos rambu lalu lintas memotong lintasan kendaraan lain yang sedang memiliki hak jalan, sehingga memicu benturan fisik (tabrakan).<br><br><b>4. Alasan Jawaban Benar:</b> Pelanggaran lalu lintas (1) menjadi pemicu/sebab langsung dari kecelakaan (2).<br><br><b>5. Analisis Pilihan Lain:</b> B terbalik; C, D, E memutarbalikkan logika lalu lintas.<br><br><b>6. Tips Mengerjakan:</b> Pelanggaran aturan berisiko tinggi memicu kecelakaan sebagai akibat langsungnya."
+        },
+        {
+            id: "Q026", cat: "Akibat-Sebab", diff: "Mudah",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Tanaman hias di pekarangan rumah Bu Siska layu dan kering.<br>(2) Bu Siska tidak menyiram tanaman tersebut selama dua minggu saat bepergian luar kota.<br>Hubungan penalaran yang paling tepat adalah:",
+            opts: [
+                "Pernyataan (1) adalah sebab dan pernyataan (2) adalah akibat.",
+                "Pernyataan (1) adalah akibat dan pernyataan (2) adalah sebab.",
+                "Pernyataan (1) dan (2) adalah akibat dari tanah yang terlalu basah.",
+                "Pernyataan (1) dan (2) adalah dua sebab dari hujan deras.",
+                "Pernyataan (1) dan (2) tidak memiliki kaitan logis."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Tanaman hias layu dan kering.<br>• (2) Tidak disiram air selama dua minggu.<br><br><b>2. Analisis Hubungan:</b> Akibat-Sebab.<br><br><b>3. Alur Penalaran:</b> Tanaman membutuhkan pasokan air untuk fotosintesis dan kelembapan sel; tanpa air, jaringan tanaman mengering dan layu.<br><br><b>4. Alasan Jawaban Benar:</b> Ketiadaan penyiraman air (Pernyataan 2) menjadi pemicu/sebab tanaman layu (Pernyataan 1).<br><br><b>5. Analisis Pilihan Lain:</b> A terbalik; C, D, E bertolak belakang dengan biologi tanaman.<br><br><b>6. Tips Mengerjakan:</b> Ketiadaan perawatan (sebab) mengakibatkan kerusakan pada objek yang dirawat (akibat)."
+        },
+        {
+            id: "Q027", cat: "Penyebab Bersama", diff: "Mudah",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Jumlah kunjungan pasien ke klinik gigi mengalami kenaikan pesat minggu ini.<br>(2) Penjualan obat pereda nyeri sakit gigi di apotik kota meningkat signifikan.<br>Manakah analisis hubungan kausal yang paling tepat?",
+            opts: [
+                "Pernyataan (1) merupakan penyebab dari pernyataan (2).",
+                "Pernyataan (2) merupakan penyebab dari pernyataan (1).",
+                "Pernyataan (1) dan (2) tidak berhubungan.",
+                "Pernyataan (1) dan (2) merupakan akibat dari penyebab bersama, yaitu maraknya konsumsi makanan manis pada festival kuliner minggu lalu.",
+                "Pernyataan (1) dan (2) adalah sebab dari turunnya harga sikat gigi."
+            ],
+            ans: 3,
+            exp: "<b>Jawaban Benar: D</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Pasien klinik gigi naik.<br>• (2) Penjualan obat sakit gigi naik.<br><br><b>2. Analisis Hubungan:</b> Dua Akibat dari Penyebab Bersama (*Common Cause*).<br><br><b>3. Alur Penalaran:</b> Konsumsi gula/makanan manis berlebih memicu gangguan pada gigi (karies/sakit gigi) pada banyak orang serentak, yang berujung pada berobat ke klinik dan membeli obat.<br><br><b>4. Alasan Jawaban Benar:</b> Maraknya konsumsi makanan manis (sebab utama) memicu timbulnya masalah kesehatan gigi massal (dua akibat paralel).<br><br><b>5. Analisis Pilihan Lain:</b> A dan B keliru karena periksa gigi tidak menyebabkan beli obat (atau sebaliknya); C dan E salah.<br><br><b>6. Tips Mengerjakan:</b> Carilah akar masalah kesehatan yang sama jika ada dua tindakan medis yang melonjak bersamaan."
+        },
+        {
+            id: "Q028", cat: "Tidak Ada Hubungan", diff: "Mudah",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Perlombaan lari maraton antarklub digelar di pusat kota pagi ini.<br>(2) Perpustakaan daerah menambah koleksi buku sejarah terbaru.<br>Manakah hubungan penalaran yang tepat?",
+            opts: [
+                "Pernyataan (1) adalah sebab dan pernyataan (2) adalah akibat.",
+                "Pernyataan (2) adalah sebab dan pernyataan (1) adalah akibat.",
+                "Pernyataan (1) dan (2) adalah akibat dari cuaca buruk.",
+                "Pernyataan (1) dan (2) merupakan dua peristiwa yang tidak memiliki hubungan sebab-akibat.",
+                "Pernyataan (1) dan (2) adalah dua sebab dari macetnya lalu lintas."
+            ],
+            ans: 3,
+            exp: "<b>Jawaban Benar: D</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Event olahraga maraton.<br>• (2) Pengadaan koleksi buku perpustakaan.<br><br><b>2. Analisis Hubungan:</b> Dua Peristiwa Tanpa Hubungan Kausal (*Independent Events*).<br><br><b>3. Alur Penalaran:</b> Maraton dikelola organisasi olahraga, sedangkan pengadaan buku dikelola oleh dinas perpustakaan.<br><br><b>4. Alasan Jawaban Benar:</b> Kedua kegiatan berjalan di ranahnya masing-masing tanpa ada keterkaitan sebab maupun akibat.<br><br><b>5. Analisis Pilihan Lain:</b> A, B, C, E memaksakan kaitan yang tidak ada.<br><br><b>6. Tips Mengerjakan:</b> Olahraga outdoor dan pengadaan fasilitas literasi indoor adalah dua konteks independen."
+        },
+        {
+            id: "Q029", cat: "Analisis Ilustrasi Kejadian", diff: "Mudah",
+            q: "Ilustrasi: Sebuah minimarket memasang kamera CCTV tambahan dan menempatkan petugas keamanan di pintu masuk. Hasilnya, angka pencurian barang di minimarket tersebut berkurang hingga nol dalam dua bulan terakhir.<br>Kesimpulan kausal yang tepat adalah:",
+            opts: [
+                "Angka pencurian yang nol menyebabkan minimarket gulung tikar.",
+                "Pemasangan CCTV dan penempatan petugas keamanan menjadi penyebab terhentinya aksi pencurian di minimarket.",
+                "Petugas keamanan menjadi pemicu meningkatnya aksi pencurian.",
+                "Pembeli takut datang karena ada kamera CCTV.",
+                "Minimarket mengganti seluruh barang dagangan menjadi barang bekas."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b> Pemasangan CCTV & petugas keamanan berakibat pada angka pencurian turun jadi nol.<br><br><b>2. Analisis Hubungan:</b> Analisis Kausalitas Ilustrasi.<br><br><b>3. Alur Penalaran:</b> Pengawasan ketat (kamera & pengaman fisik) mengurungkan niat pelaku kejahatan untuk melakukan pencurian.<br><br><b>4. Alasan Jawaban Benar:</b> Peningkatan sistem pengamanan (sebab) berhasil mencegah kejahatan pencurian (akibat).<br><br><b>5. Analisis Pilihan Lain:</b> A, C, D, E tidak realistis dan tidak ada dalam bacaan.<br><br><b>6. Tips Mengerjakan:</b> Peningkatan pengawasan menjadi faktor pencegah utama bagi tindakan kriminal."
+        },
+        {
+            id: "Q030", cat: "Menentukan Akibat Logis", diff: "Mudah",
+            q: "Peristiwa: Para pekerja pabrik mengikuti pelatihan keselamatan kerja (K3) dan wajib menggunakan alat pelindung diri (APD) secara disiplin.<br>Manakah akibat yang paling logis dari peristiwa di atas?",
+            opts: [
+                "Tingkat kecelakaan kerja di lingkungan pabrik menurun drastis.",
+                "Jumlah produksi pabrik langsung terhenti total.",
+                "Para pekerja menuntut penurunan gaji bulanan.",
+                "Pabrik tersebut dipindahkan ke negara lain.",
+                "Mesin-mesin pabrik mengalami kerusakan permanen."
+            ],
+            ans: 0,
+            exp: "<b>Jawaban Benar: A</b><br><br><b>1. Identifikasi Peristiwa:</b> Pelatihan K3 & kewajiban penggunaan APD bagi pekerja pabrik.<br><br><b>2. Analisis Hubungan:</b> Menentukan Akibat Logis.<br><br><b>3. Alur Penalaran:</b> APD melindungi tubuh dari risiko fisik mesin/bahan berbahaya, dan pelatihan K3 memberikan pemahaman pencegahan bahaya.<br><br><b>4. Alasan Jawaban Benar:</b> Penerapan K3 dan APD (sebab) secara ilmiah menekan terjadinya bahaya dan kecelakaan kerja (akibat).<br><br><b>5. Analisis Pilihan Lain:</b> B, C, D, E tidak relevan dengan tujuan penerapan keselamatan kerja.<br><br><b>6. Tips Mengerjakan:</b> Kedisiplinan pada aturan K3 selalu berujung pada penurunan resiko kecelakaan kerja."
+        }
+    ];
+
+    let currentKIndex = 0;
+    let userAnswers = {};
+
+    function showSection(secId) {
+        document.getElementById("sec-start").style.display = "none";
+        document.getElementById("sec-kecerdasan").style.display = "none";
+        document.getElementById("sec-result").style.display = "none";
+        document.getElementById("sec-review").style.display = "none";
+
+        if (secId === "start") document.getElementById("sec-start").style.display = "block";
+        if (secId === "kecerdasan") document.getElementById("sec-kecerdasan").style.display = "block";
+        if (secId === "result") document.getElementById("sec-result").style.display = "block";
+        if (secId === "review") document.getElementById("sec-review").style.display = "block";
+
+        currentSection = secId;
+    }
+
+    function startFullSimulation() {
+        let nameInput = document.getElementById("inputNama").value.trim();
+        if (!nameInput) {
+            alert("Harap masukkan nama lengkap peserta terlebih dahulu!");
+            return;
+        }
+
+        initSessionOnStart(nameInput);
+        userAnswers = {};
+        currentKIndex = 0;
+
+        showSection("kecerdasan");
+        renderKecerdasanQuestion();
+        renderKecerdasanNav();
+        startTimer();
+    }
+
+    function startTimer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            timerLeft--;
+            let m = Math.floor(timerLeft / 60);
+            let s = timerLeft % 60;
+            document.getElementById("timer").innerText = 
+                String(m).padStart(2, '0') + ":" + String(s).padStart(2, '0');
+
+            if (timerLeft <= 0) {
+                clearInterval(timerInterval);
+                alert("Waktu ujian telah habis!");
+                finishSimulation();
+            }
+        }, 1000);
+    }
+
+    function renderKecerdasanQuestion() {
+        let qData = rawKecerdasan[currentKIndex];
+        document.getElementById("k-q-no").innerText = "Soal " + (currentKIndex + 1) + " dari " + rawKecerdasan.length;
+        document.getElementById("k-q-cat").innerText = qData.cat + " (" + qData.diff + ")";
+        document.getElementById("k-q-text").innerHTML = qData.q;
+
+        let optContainer = document.getElementById("k-options");
+        optContainer.innerHTML = "";
+
+        qData.opts.forEach((optText, idx) => {
+            let optDiv = document.createElement("div");
+            optDiv.className = "opt";
+            if (userAnswers[currentKIndex] === idx) optDiv.classList.add("selected");
+
+            optDiv.innerHTML = "<strong style='min-width:20px;'>" + String.fromCharCode(65 + idx) + ".</strong> <span>" + optText + "</span>";
+            optDiv.onclick = () => selectKecerdasanAnswer(idx);
+            optContainer.appendChild(optDiv);
+        });
+
+        renderKecerdasanNav();
+    }
+
+    function renderKecerdasanNav() {
+        let navContainer = document.getElementById("k-navGrid");
+        navContainer.innerHTML = "";
+
+        rawKecerdasan.forEach((item, idx) => {
+            let navBtn = document.createElement("div");
+            navBtn.className = "nav-item";
+            if (userAnswers[idx] !== undefined) navBtn.classList.add("filled");
+            if (idx === currentKIndex) navBtn.classList.add("active");
+
+            navBtn.innerText = idx + 1;
+            navBtn.onclick = () => {
+                currentKIndex = idx;
+                renderKecerdasanQuestion();
+            };
+            navContainer.appendChild(navBtn);
+        });
+    }
+
+    function selectKecerdasanAnswer(ansIdx) {
+        userAnswers[currentKIndex] = ansIdx;
+        renderKecerdasanQuestion();
+
+        // AutoNext Logic (Tetap Nyala)
+        setTimeout(() => {
+            if (currentKIndex < rawKecerdasan.length - 1) {
+                currentKIndex++;
+                renderKecerdasanQuestion();
+            }
+        }, 300);
+    }
+
+    function prevQ_Kecerdasan() {
+        if (currentKIndex > 0) {
+            currentKIndex--;
+            renderKecerdasanQuestion();
+        }
+    }
+
+    function nextQ_Kecerdasan() {
+        if (currentKIndex < rawKecerdasan.length - 1) {
+            currentKIndex++;
+            renderKecerdasanQuestion();
+        }
+    }
+
+    function confirmFinishKecerdasan() {
+        let answeredCount = Object.keys(userAnswers).length;
+        if (confirm("Anda telah menjawab " + answeredCount + " dari 30 soal. Yakin ingin mengakhiri tes sekarang?")) {
+            finishSimulation();
+        }
+    }
+
+    function finishSimulation() {
+        clearInterval(timerInterval);
+
+        let totalSoal = rawKecerdasan.length;
+        let correctCount = 0;
+        let wrongCount = 0;
+        let unansweredCount = 0;
+
+        let categoryStats = {};
+
+        rawKecerdasan.forEach((q, idx) => {
+            let catKey = q.cat;
+            if (!categoryStats[catKey]) {
+                categoryStats[catKey] = { total: 0, benar: 0 };
+            }
+            categoryStats[catKey].total++;
+
+            let uAns = userAnswers[idx];
+            if (uAns === undefined) {
+                unansweredCount++;
+            } else if (uAns === q.ans) {
+                correctCount++;
+                categoryStats[catKey].benar++;
+            } else {
+                wrongCount++;
+            }
+        });
+
+        // Rumus Nilai Akhir Skala 0-100 Presisi
+        let finalScore = Math.round((correctCount / totalSoal) * 100);
+
+        simulationResult.kecerdasan.userAns = userAnswers;
+        simulationResult.kecerdasan.benar = correctCount;
+        simulationResult.kecerdasan.skor = finalScore;
+
+        document.getElementById("resNamaPeserta").innerText = "NAMA PESERTA: " + pName.toUpperCase();
+        document.getElementById("resValKecerdasan").innerText = finalScore;
+        document.getElementById("resDetailKecerdasan").innerText = "Jawaban Benar: " + correctCount + " / " + totalSoal + " Soal";
+
+        // Tabel Subtes / Variasi Form Soal
+        let subTableHtml = "<table class='subtest-table'><thead><tr><th>No</th><th>Bentuk Variasi Soal</th><th>Jumlah Soal</th><th>Benar</th><th>Nilai Kategori</th></tr></thead><tbody>";
+        let subIdx = 1;
+        let rincianArr = [];
+
+        for (let cat in categoryStats) {
+            let catTotal = categoryStats[cat].total;
+            let catBenar = categoryStats[cat].benar;
+            let catScore = catTotal > 0 ? Math.round((catBenar / catTotal) * 100) : 0;
+            
+            rincianArr.push(cat + ": " + catBenar + "/" + catTotal + " (" + catScore + "%)");
+
+            subTableHtml += `<tr>
+                <td>${subIdx++}</td>
+                <td>${cat}</td>
+                <td>${catTotal}</td>
+                <td><strong style="color:#27ae60;">${catBenar}</strong></td>
+                <td><strong>${catScore}</strong></td>
+            </tr>`;
+        }
+        subTableHtml += "</tbody></table>";
+        document.getElementById("resSubtestTable").innerHTML = subTableHtml;
+
+        showSection("result");
+
+        // Kirim Rekap Data Lengkap ke Google Apps Script
+        sendToGoogleAppsScript(finalScore, correctCount, wrongCount, unansweredCount, rincianArr.join(" | "));
+    }
+
+    function sendToGoogleAppsScript(score, totalCorrect, totalWrong, unAns, rincianKesulitanStr) {
+        if (isResultSubmitted) return;
+
+        if (!APP_SCRIPT_URL || !pName || !currentSessionId) {
+            console.error("Pengiriman hasil dibatalkan: URL Apps Script, nama peserta, atau SessionID kosong.");
+            return;
+        }
+
+        isResultSubmitted = true;
+
+        const now = new Date();
+        const timestampStr = formatDateObj(now) + " " + formatTimeObj(now);
+        const tanggalStr = formatDateObj(now);
+        const waktuSelesaiStr = formatTimeObj(now);
+
+        const durationSeconds = Math.max(0, 1800 - timerLeft);
+        const durationMin = Math.floor(durationSeconds / 60);
+        const durationSec = durationSeconds % 60;
+        const durasiFormatted = durationMin + " menit " + durationSec + " detik";
+
+        const payload = {
+            Timestamp: timestampStr,
+            SessionID: currentSessionId,
+            NamaSiswa: pName,
+            Program: "PENALARAN SEBAB-AKIBAT",
+            NamaTryout: "PENALARAN SEBAB-AKIBAT — SERI 1 (MUDAH)",
+            Tanggal: tanggalStr,
+            WaktuMulai: sessionStartTimeStr,
+            WaktuSelesai: waktuSelesaiStr,
+            Durasi: durasiFormatted,
+            Kecerdasan: Number(score),
+            Kepribadian: "",
+            Kecermatan: "",
+            TIU: "",
+            TWK: "",
+            TKP: "",
+            PengetahuanUmum: "",
+            NilaiAkhir: Number(score),
+            JumlahBenar: Number(totalCorrect),
+            JumlahSalah: Number(totalWrong),
+            TidakDijawab: Number(unAns),
+            RincianKesulitan: rincianKesulitanStr || ""
+        };
+
+        const compatibilityPayload = Object.assign({}, payload, {
+            sessionId: currentSessionId,
+            namaSiswa: pName,
+            program: payload.Program,
+            namaTryout: payload.NamaTryout,
+            skorAkhir: Number(score),
+            totalBenar: Number(totalCorrect),
+            totalSalah: Number(totalWrong),
+            tidakDijawab: Number(unAns),
+            rincianKesulitan: rincianKesulitanStr || ""
+        });
+
+        const queryParams = new URLSearchParams();
+        Object.keys(compatibilityPayload).forEach(function(key) {
+            const value = compatibilityPayload[key];
+            queryParams.append(key, value === null || value === undefined ? "" : String(value));
+        });
+
+        const separator = APP_SCRIPT_URL.includes("?") ? "&" : "?";
+        const requestUrl = APP_SCRIPT_URL + separator + queryParams.toString();
+
+        fetch(requestUrl, {
+            method: "POST",
+            mode: "no-cors",
+            cache: "no-store",
+            headers: {
+                "Content-Type": "text/plain;charset=utf-8"
+            },
+            body: JSON.stringify(compatibilityPayload)
+        })
+        .then(function() {
+            console.info("Permintaan pengiriman hasil CAT Penalaran Sebab-Akibat 1 telah dikirim ke Apps Script.", {
+                SessionID: currentSessionId,
+                NamaSiswa: pName,
+                Kecerdasan: Number(score),
+                NilaiAkhir: Number(score)
+            });
+        })
+        .catch(function(error) {
+            console.error("Pengiriman hasil CAT Penalaran Sebab-Akibat 1 mengalami kegagalan jaringan:", error);
+        });
+    }
+
+    function showReviewSection() {
+        document.getElementById("reviewNamaPeserta").innerText = "PESERTA: " + pName.toUpperCase();
+        let container = document.getElementById("reviewContainerKecerdasan");
+        container.innerHTML = "";
+
+        rawKecerdasan.forEach((q, idx) => {
+            let uAns = userAnswers[idx];
+            let isCorrect = uAns === q.ans;
+
+            let itemDiv = document.createElement("div");
+            itemDiv.className = "review-item " + (isCorrect ? "correct" : "incorrect");
+
+            let uAnsText = uAns !== undefined ? String.fromCharCode(65 + uAns) : "Tidak Dijawab";
+            let cAnsText = String.fromCharCode(65 + q.ans);
+
+            itemDiv.innerHTML = `
+                <div style="font-weight:bold; color:var(--navy); margin-bottom:5px;">Soal ${idx + 1} — ${q.cat} (${q.diff})</div>
+                <div style="font-size:14px; margin-bottom:10px;">${q.q}</div>
+                <div style="font-size:13px; margin-bottom:5px;">Jawaban Anda: <strong style="color:${isCorrect ? '#27ae60' : '#c0392b'}">${uAnsText}</strong> | Kunci: <strong>${cAnsText}</strong></div>
+                <div class="pembahasan-box">${q.exp}</div>
+            `;
+            container.appendChild(itemDiv);
+        });
+
+        showSection("review");
+    }
+
+    function downloadPembahasanPDF() {
+        const element = document.getElementById("reviewCaptureArea");
+
+        html2canvas(element, { scale: 2 }).then(canvas => {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const imgData = canvas.toDataURL('image/png');
+            const imgWidth = 210 - 20;
+            const pageHeight = 295;
+            const imgHeight = canvas.height * imgWidth / canvas.width;
+            let heightLeft = imgHeight;
+            let position = 10;
+
+            pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight + 10;
+                pdf.addPage();
+                pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+            pdf.save(`Pembahasan_CAT_Penalaran_Sebab_Akibat_1_${pName.replace(/\s+/g, '_')}.pdf`);
+        });
+    }
+</script>
+</body>
+</html>

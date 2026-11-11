@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="id" oncontextmenu="return false" onselectstart="return false">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>CAT PENALARAN SEBAB-AKIBAT 2 — 30 SOAL TINGKAT SEDANG (PRC CLASS)</title>
+    
+    <!-- Fonts & Libraries -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        :root { 
+            --navy: #0b2340; 
+            --gold: #d4a017; 
+            --bg: #f8fafc; 
+            --gray: #f1f5f9; 
+            --danger: #c0392b; 
+            --btn-shadow: #cbd5e1; 
+        }
+        * { 
+            box-sizing: border-box; 
+            -webkit-user-select: none; 
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none; 
+        }
+        body { 
+            font-family: 'Inter', 'Segoe UI', sans-serif; 
+            background: var(--bg); 
+            margin: 0; 
+            padding: 0; 
+            color: #1e293b; 
+        }
+
+        /* HEADER MASTER */
+        header { 
+            background: var(--navy); 
+            color: white; 
+            padding: 15px 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 4px solid var(--gold); 
+        }
+        .header-title h1 { margin: 0; font-size: 18px; color: #fff; }
+        .header-title p { margin: 3px 0 0; font-size: 11px; color: var(--gold); font-weight: bold; }
+        .timer-badge { font-size: 20px; font-weight: bold; color: var(--gold); font-family: monospace; }
+
+        .container { max-width: 950px; margin: 20px auto; padding: 0 15px; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+
+        /* INPUT / LOGIN SECTION */
+        .user-card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; }
+        .user-card input { width: 80%; max-width: 400px; padding: 12px; font-size: 16px; border: 2px solid #cbd5e1; border-radius: 8px; text-align: center; margin-top: 15px; outline: none; display: block; margin-left: auto; margin-right: auto; }
+        
+        /* OPTION CARDS */
+        .opt { padding: 14px; margin: 8px 0; border: 2px solid #e2e8f0; border-radius: 8px; cursor: pointer; transition: 0.2s; background: #fff; text-align: left; line-height: 1.5; font-size: 14px; display: flex; align-items: center; gap: 10px; }
+        .opt:hover { background: #f1f5f9; border-color: var(--navy); }
+        .opt.selected { background: #e0f2fe; border-color: var(--navy); font-weight: bold; }
+
+        /* NAVIGASI SOAL GRID */
+        .nav-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; margin-top: 15px; }
+        .nav-item { height: 35px; display: flex; align-items: center; justify-content: center; border: 1px solid #cbd5e1; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold; }
+        .nav-item.filled { background: var(--navy); color: white; }
+        .nav-item.active { border: 2px solid var(--gold); }
+
+        /* BUTTONS */
+        .btn { background: var(--navy); color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: bold; text-decoration: none; text-align: center; display: inline-block; }
+        .btn-gold { background: var(--gold); color: var(--navy); }
+        .btn-green { background: #27ae60; color: white; }
+        .btn-danger { background: var(--danger); color: white; }
+
+        /* REKAP & RESULT AREA */
+        .final-box { background: var(--navy); color: #fff; padding: 25px; border-radius: 16px; text-align: center; margin-bottom: 25px; }
+        .final-val { font-size: 56px; font-weight: 900; color: var(--gold); margin: 10px 0; }
+
+        /* PEMBAHASAN CONTAINER */
+        .review-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+        .review-item.correct { border-left: 6px solid #27ae60; }
+        .review-item.incorrect { border-left: 6px solid var(--danger); }
+        .pembahasan-box { background: #f1f5f9; padding: 12px; border-radius: 6px; margin-top: 10px; font-size: 13px; border-left: 3px solid var(--gold); line-height: 1.6; }
+
+        /* REKAP TABLE SUBTES */
+        .subtest-table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 25px; font-size: 13px; }
+        .subtest-table th, .subtest-table td { border: 1px solid #cbd5e1; padding: 10px; text-align: left; }
+        .subtest-table th { background: var(--navy); color: white; }
+        .subtest-table tr:nth-child(even) { background: #f8fafc; }
+    </style>
+</head>
+<body>
+
+<div id="captureArea">
+    <!-- MASTER HEADER -->
+    <header id="masterHeader">
+        <div class="header-title">
+            <h1 id="headerMainTitle">CAT PENALARAN SEBAB-AKIBAT 2</h1>
+            <p id="headerSubTitle">SERI 2 (TINGKAT SEDANG) — PENALARAN LOGIS HUBUNGAN SEBAB DAN AKIBAT</p>
+        </div>
+        <div id="timer" class="timer-badge">30:00</div>
+    </header>
+
+    <div class="container">
+        <!-- SECTION 1: START / IDENTITAS -->
+        <div id="sec-start" class="user-card">
+            <h2 style="margin:0; color:var(--navy);">IDENTITAS PESERTA TES PENALARAN SEBAB-AKIBAT 2</h2>
+            <p style="font-size:14px; color:#64748b; margin-top:5px;">Simulasi CAT Logika Penalaran Sebab-Akibat Seri 2 — Tingkat Sedang (Timer 30 Menit)</p>
+            <input type="text" id="inputNama" placeholder="Masukkan Nama Lengkap Peserta..." autocomplete="off">
+            <br>
+            <button class="btn btn-gold" style="font-size: 18px; padding: 15px 40px;" onclick="startFullSimulation()">MULAI TES SEBAB-AKIBAT 2</button>
+        </div>
+
+        <!-- SECTION 2: TES SEBAB AKIBAT -->
+        <div id="sec-kecerdasan" style="display:none;">
+            <div style="display:flex; gap:20px; flex-wrap:wrap;">
+                <div style="flex:3; min-width:300px;">
+                    <div class="card">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                            <div id="k-q-no" style="font-weight:bold; color:var(--navy);">Soal 1 dari 30</div>
+                            <span id="k-q-cat" style="background:#e0f2fe; color:var(--navy); padding:3px 8px; border-radius:4px; font-size:11px; font-weight:bold;">Kategori</span>
+                        </div>
+                        <div id="k-q-text" style="font-size:15px; line-height:1.6; margin-bottom:20px;"></div>
+                        <div id="k-options"></div>
+                        <div style="margin-top:25px; display:flex; justify-content:space-between; align-items:center;">
+                            <button class="btn" onclick="prevQ_Kecerdasan()" style="background:#64748b">Sebelumnya</button>
+                            <button class="btn btn-danger" onclick="confirmFinishKecerdasan()">Selesai & Kirim</button>
+                            <button class="btn" id="k-btn-next" onclick="nextQ_Kecerdasan()">Selanjutnya</button>
+                        </div>
+                    </div>
+                </div>
+                <div style="flex:1; min-width:250px;">
+                    <div class="card" style="padding:15px;">
+                        <div style="text-align:center; font-size:12px; font-weight:bold; margin-bottom:10px;">NAVIGASI SOAL</div>
+                        <div id="k-navGrid" class="nav-grid"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 5: HASIL / REKAP AKHIR -->
+        <div id="sec-result" style="display:none;">
+            <div class="card">
+                <div style="text-align:center; border-bottom:2px solid #eee; padding-bottom:15px; margin-bottom:20px;">
+                    <h2 style="margin:0; color:var(--navy);">LAPORAN HASIL TES PENALARAN SEBAB-AKIBAT 2</h2>
+                    <p style="margin:5px 0 0; color:var(--gold); font-weight:bold;">CAT PENALARAN SEBAB-AKIBAT — SERI 2 (TINGKAT SEDANG)</p>
+                </div>
+
+                <div id="resNamaPeserta" style="background:#eef6ff; padding:15px; border-radius:12px; margin-bottom:25px; font-weight:bold; font-size:18px; color:var(--navy); text-align:center;">
+                    NAMA PESERTA: -
+                </div>
+
+                <div class="final-box">
+                    <div>NILAI AKHIR TES PENALARAN SEBAB-AKIBAT 2</div>
+                    <div class="final-val" id="resValKecerdasan">0</div>
+                    <div style="font-size: 14px; opacity: 0.9;" id="resDetailKecerdasan">Jawaban Benar: 0 / 30 Soal</div>
+                </div>
+
+                <h3 style="color:var(--navy); margin-bottom:10px;">Rincian Per-Bentuk Variasi Soal</h3>
+                <div id="resSubtestTable"></div>
+
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:20px;">
+                    <button class="btn btn-gold" style="flex:1; padding:15px;" onclick="showReviewSection()">📖 LIHAT PEMBAHASAN DETIL SOAL</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 6: PEMBAHASAN / REVIEW -->
+        <div id="sec-review" style="display:none;">
+            <div class="card">
+                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #eee; padding-bottom:15px; margin-bottom:20px;">
+                    <h2 style="margin:0; color:var(--navy);">PEMBAHASAN SOAL LENGKAP (PENALARAN SEBAB-AKIBAT 2)</h2>
+                    <div>
+                        <button class="btn btn-green" style="margin-right:10px;" onclick="downloadPembahasanPDF()">📥 Download Pembahasan PDF</button>
+                        <button class="btn" onclick="showSection('result')">Kembali ke Hasil</button>
+                    </div>
+                </div>
+                
+                <div id="reviewCaptureArea">
+                    <div style="text-align:center; margin-bottom:20px; border-bottom:2px solid var(--navy); padding-bottom:10px;">
+                        <h3 style="margin:0; color:var(--navy);">DOKUMEN PEMBAHASAN DETIL PENALARAN SEBAB-AKIBAT 2</h3>
+                        <p id="reviewNamaPeserta" style="margin:5px 0 0; color:var(--gold); font-weight:bold;">PESERTA: -</p>
+                    </div>
+
+                    <div id="reviewContainerKecerdasan"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyFxmO0ocvr5HqK2WuGyjt7_JeTOcs4vGDg7QZejeiE2QvCP_qkonJcZc5hz9AFW2Vg/exec";
+
+    let currentSection = "start";
+    let pName = "";
+    let currentSessionId = "";
+    let sessionStartTimeStr = "";
+    let sessionStartTimeMs = 0;
+
+    let timerInterval = null;
+    let timerLeft = 1800; // 30 Menit
+
+    let simulationResult = {
+        kecerdasan: { userAns: {}, benar: 0, skor: 0 }
+    };
+
+    let isResultSubmitted = false;
+
+    function formatTimeObj(dateObj) {
+        let h = String(dateObj.getHours()).padStart(2, '0');
+        let m = String(dateObj.getMinutes()).padStart(2, '0');
+        let s = String(dateObj.getSeconds()).padStart(2, '0');
+        return h + ":" + m + ":" + s;
+    }
+
+    function formatDateObj(dateObj) {
+        let y = dateObj.getFullYear();
+        let m = String(dateObj.getMonth() + 1).padStart(2, '0');
+        let d = String(dateObj.getDate()).padStart(2, '0');
+        return y + "-" + m + "-" + d;
+    }
+
+    function initSessionOnStart(namaPeserta) {
+        pName = namaPeserta;
+        let existingSession = sessionStorage.getItem("prc_session_id_sebabakibat_2");
+        let existingStartStr = sessionStorage.getItem("prc_start_time_str_sebabakibat_2");
+        let existingStartMs = sessionStorage.getItem("prc_start_time_ms_sebabakibat_2");
+
+        if (!existingSession || !existingStartStr) {
+            let counterKey = "prc_counter_sebabakibat_2";
+            let lastNum = parseInt(localStorage.getItem(counterKey) || "0", 10) + 1;
+            localStorage.setItem(counterKey, lastNum);
+            let formattedNum = String(lastNum).padStart(2, '0');
+            
+            currentSessionId = "PSA2-" + formattedNum;
+            
+            let startDate = new Date();
+            sessionStartTimeMs = startDate.getTime();
+            sessionStartTimeStr = formatTimeObj(startDate);
+
+            sessionStorage.setItem("prc_session_id_sebabakibat_2", currentSessionId);
+            sessionStorage.setItem("prc_start_time_str_sebabakibat_2", sessionStartTimeStr);
+            sessionStorage.setItem("prc_start_time_ms_sebabakibat_2", sessionStartTimeMs);
+        } else {
+            currentSessionId = existingSession;
+            sessionStartTimeStr = existingStartStr;
+            sessionStartTimeMs = parseInt(existingStartMs, 10);
+        }
+    }
+
+    // BANK 30 SOAL PENALARAN SEBAB-AKIBAT SERI 2 (TINGKAT SEDANG)
+    const rawKecerdasan = [
+        {
+            id: "Q001", cat: "Sebab-Akibat Langsung", diff: "Sedang",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Penurunan kadar oksigen terlarut secara drastis tercatat di aliran Sungai Cikapundung bagian hilir.<br>(2) Pembuangan limbah cair industri tanpa proses netralisasi secara masif langsung ke badan sungai oleh pabrik tekstil.<br>Bagaimanakah hubungan penalaran antara kedua pernyataan tersebut?",
+            opts: [
+                "Pernyataan (1) adalah penyebab dan pernyataan (2) adalah akibat.",
+                "Pernyataan (2) adalah penyebab dan pernyataan (1) adalah akibat.",
+                "Pernyataan (1) dan (2) adalah akibat dari faktor iklim global.",
+                "Pernyataan (1) dan (2) adalah penyebab terhentinya aliran air sungai.",
+                "Pernyataan (1) dan (2) tidak memiliki keterkaitan kausal."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Penurunan kadar oksigen terlarut di sungai.<br>• (2) Pembuangan limbah cair industri tekstil langsung ke sungai.<br><br><b>2. Analisis Hubungan:</b> Hubungan Akibat-Sebab.<br><br><b>3. Alur Penalaran:</b> Limbah kimia industri yang masuk ke badan air mengonsumsi oksigen terlarut saat proses penguraian biologis/kimiawi, memicu penurunan oksigen drastis.<br><br><b>4. Alasan Jawaban Benar:</b> Pembuangan limbah industri (2) bertindak sebagai pemicu (sebab) yang menghasilkan penurunan kadar oksigen (1) sebagai akibat.<br><br><b>5. Analisis Pilihan Lain:</b> A terbalik susunannya; C, D, dan E mengabaikan prinsip ekotoksikologi dasar.<br><br><b>6. Tips Mengerjakan:</b> Perhatikan proses kimia/biologis lingkungan; aktivitas manusia (pencemaran) adalah sebab, degradasi kualitas lingkungan adalah akibat."
+        },
+        {
+            id: "Q002", cat: "Akibat-Sebab", diff: "Sedang",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Perusahaan logistik nasional mengalami lonjakan biaya pemeliharaan armada truk pengangkut hingga 40% kuartal ini.<br>(2) Peningkatan volume pengiriman barang lintas pulau yang menggunakan rute jalan darat bergelombang ekstrem.<br>Manakah analisis hubungan kausal yang paling tepat?",
+            opts: [
+                "Pernyataan (1) adalah penyebab dari pernyataan (2).",
+                "Pernyataan (1) adalah akibat dan pernyataan (2) adalah penyebab.",
+                "Pernyataan (1) dan (2) adalah dua akibat dari penurunan tarif tol.",
+                "Pernyataan (1) dan (2) adalah penyebab penurunan jumlah barang.",
+                "Pernyataan (1) dan (2) tidak berhubungan secara logis."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Biaya pemeliharaan armada truk melonjak 40%.<br>• (2) Volume pengiriman barang lewat jalur darat bergelombang ekstrem.<br><br><b>2. Analisis Hubungan:</b> Hubungan Akibat-Sebab.<br><br><b>3. Alur Penalaran:</b> Frekuensi perjalanan tinggi pada medan jalan rusak mempercepat keausan komponen kendaraan (ban, suspensi, mesin), sehingga biaya servis membengkak.<br><br><b>4. Alasan Jawaban Benar:</b> Intensitas distribusi di jalur ekstrem (Pernyataan 2) menjadi pemicu utama tingginya biaya perbaikan armada (Pernyataan 1).<br><br><b>5. Analisis Pilihan Lain:</b> A terbalik; C, D, E tidak logis.<br><br><b>6. Tips Mengerjakan:</b> Biaya servis yang membengkak merupakan dampak (akibat) dari operasional berat di medan rusak (sebab)."
+        },
+        {
+            id: "Q003", cat: "Penyebab Bersama", diff: "Sedang",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Angka kecelakaan lalu lintas di jalur tol trans-Jawa meningkat selama libur panjang.<br>(2) Waktu tempuh kendaraan pribadi antar kota mengalami kemacetan parah dan keterlambatan jadwal.<br>Manakah analisis hubungan logis yang paling tepat?",
+            opts: [
+                "Pernyataan (1) menyebabkan terjadinya pernyataan (2).",
+                "Pernyataan (2) menyebabkan terjadinya pernyataan (1).",
+                "Pernyataan (1) dan (2) tidak saling berhubungan.",
+                "Pernyataan (1) dan (2) merupakan akibat dari penyebab bersama, yaitu lonjakan volume kendaraan pemudik secara simultan.",
+                "Pernyataan (1) dan (2) adalah dua sebab dari pelebaran jalur tol."
+            ],
+            ans: 3,
+            exp: "<b>Jawaban Benar: D</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Kecelakaan lalu lintas meningkat.<br>• (2) Kemacetan dan keterlambatan waktu tempuh.<br><br><b>2. Analisis Hubungan:</b> Dua Akibat dari Penyebab Bersama (*Common Cause*).<br><br><b>3. Alur Penalaran:</b> Kepadatan volume kendaraan saat libur panjang memicu kemacetan parah sekaligus meningkatkan potensi kelengahan/benturan antar kendaraan.<br><br><b>4. Alasan Jawaban Benar:</b> Lonjakan volume kendaraan secara serentak (sebab utama) membuahkan dua dampak paralel berupa kemacetan dan kenaikan angka kecelakaan.<br><br><b>5. Analisis Pilihan Lain:</b> A dan B salah karena kemacetan tidak langsung menyebabkan kecelakaan (atau sebaliknya); C keliru; E tidak sesuai.<br><br><b>6. Tips Mengerjakan:</b> Jika dua masalah lalu lintas terjadi bersamaan pada momen liburan, akar penyebabnya adalah volume kepadatan kendaraan."
+        },
+        {
+            id: "Q004", cat: "Identifikasi Dua Peristiwa Tanpa Hubungan", diff: "Sedang",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Bank Indonesia menaikkan suku bunga acuan guna menjaga stabilitas nilai tukar rupiah.<br>(2) Tim nasional sepak bola Indonesia meraih kemenangan telak dalam laga uji coba internasional.<br>Bagaimanakah hubungan kausal antara kedua pernyataan tersebut?",
+            opts: [
+                "Pernyataan (1) adalah sebab dan pernyataan (2) adalah akibat.",
+                "Pernyataan (2) adalah sebab dan pernyataan (1) adalah akibat.",
+                "Pernyataan (1) dan (2) adalah akibat dari inflasi global.",
+                "Pernyataan (1) dan (2) adalah penyebab peningkatan devisa negara.",
+                "Pernyataan (1) dan (2) merupakan dua peristiwa yang tidak memiliki hubungan sebab-akibat."
+            ],
+            ans: 4,
+            exp: "<b>Jawaban Benar: E</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Kebijakan moneter bank sentral (suku bunga).<br>• (2) Hasil pertandingan olahraga sepak bola.<br><br><b>2. Analisis Hubungan:</b> Peristiwa Independen (*No Causal Relationship*).<br><br><b>3. Alur Penalaran:</b> Kebijakan moneter diputuskan berdasarkan indikator makroekonomi, sedangkan performa tim sepak bola dipengaruhi latihan taktik dan fisik atlet.<br><br><b>4. Alasan Jawaban Benar:</b> Kedua kejadian berada pada sektor yang sepenuhnya berbeda dan tidak memiliki kaitan kausal apa pun.<br><br><b>5. Analisis Pilihan Lain:</b> A, B, C, D memaksakan hubungan korelasi yang tidak rasional.<br><br><b>6. Tips Mengerjakan:</b> Pastikan membedakan antara kebijakan ekonomi dan prestasi olahraga sebagai bidang yang independen."
+        },
+        {
+            id: "Q005", cat: "Analisis Hubungan Kausal Ilustrasi", diff: "Sedang",
+            q: "Ilustrasi: Sebuah pabrik baja mengganti bahan bakar batu bara dengan gas alam pada dapur pembakaran utamanya. Berdasarkan laporan audit lingkungan enam bulan kemudian, emisi gas sulfur dioksida di area pabrik turun drastis, namun biaya produksi per ton baja mengalami kenaikan 15%.<br>Manakah kesimpulan hubungan kausal yang paling tepat?",
+            opts: [
+                "Penurunan emisi sulfur dioksida menyebabkan pabrik harus menggunakan batu bara kembali.",
+                "Penggunaan gas alam sebagai pengganti batu bara menjadi penyebab turunnya emisi sulfur dan naiknya biaya produksi.",
+                "Kenaikan biaya produksi menyebabkan penurunan jumlah baja yang diproduksi pabrik.",
+                "Emisi sulfur dioksida memicu lonjakan harga gas alam di pasaran internasional.",
+                "Pabrik baja menghentikan seluruh aktivitas operasional karena efisiensi energi."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b> Substitusi bahan bakar (batu bara ke gas alam) menghasilkan penurunan emisi sulfur dan kenaikan biaya produksi.<br><br><b>2. Analisis Hubungan:</b> Analisis Kausal Berdasarkan Ilustrasi Kompleks.<br><br><b>3. Alur Penalaran:</b> Gas alam lebih bersih dari sulfur (menurunkan emisi), tetapi harga komoditas gas lebih tinggi daripada batu bara (menaikkan biaya produksi).<br><br><b>4. Alasan Jawaban Benar:</b> Kebijakan transisi energi (sebab) secara langsung memicu dua dampak berbeda yaitu perbaikan lingkungan dan kenaikan ongkos produksi (akibat).<br><br><b>5. Analisis Pilihan Lain:</b> A, C, D, E menyimpulkan hal di luar teks atau bertentangan dengan data ilustrasi.<br><br><b>6. Tips Mengerjakan:</b> Perhatikan bahwa satu tindakan (sebab) dapat menimbulkan lebih dari satu dampak (akibat) sekaligus."
+        },
+        {
+            id: "Q006", cat: "Menentukan Akibat Logis", diff: "Sedang",
+            q: "Peristiwa: Bank sentral secara mendesak memberlakukan pengetatan likuiditas perbankan dan menaikkan syarat jaminan kredit secara ketat guna meredam laju inflasi.<br>Manakah akibat yang paling logis dari kebijakan tersebut?",
+            opts: [
+                "Pertumbuhan volume penyaluran pinjaman kredit komersial dan konsumtif mengalami perlambatan.",
+                "Jumlah investor asing di pasar saham melonjak 200% dalam sehari.",
+                "Pemerintah menurunkan tarif pajak penghasilan bagi seluruh pegawai.",
+                "Masyarakat menarik seluruh tabungan tunai untuk dibelikan emas.",
+                "Sektor properti mengalami lonjakan harga tertinggi dalam sejarah."
+            ],
+            ans: 0,
+            exp: "<b>Jawaban Benar: A</b><br><br><b>1. Identifikasi Peristiwa:</b> Pengetatan likuiditas bank dan syarat jaminan kredit diperketat.<br><br><b>2. Analisis Hubungan:</b> Menentukan Akibat Logis Kebijakan Ekonomi.<br><br><b>3. Alur Penalaran:</b> Syarat kredit yang lebih ketat dan likuiditas ketat membuat bank lebih selektif, sehingga penyaluran pinjaman kepada debitur melambat.<br><br><b>4. Alasan Jawaban Benar:</b> Pengetatan aturan kredit (sebab) secara langsung berakibat pada melambatnya ekspansi kredit perbankan (akibat).<br><br><b>5. Analisis Pilihan Lain:</b> B, C, D, E bertentangan dengan teori ekonomi moneter standar.<br><br><b>6. Tips Mengerjakan:</b> Pahami hukum pengetatan kredit; kredit ketat selalu berimplikasi pada penurunan atau perlambatan penyaluran pinjaman."
+        },
+        {
+            id: "Q007", cat: "Menentukan Penyebab Logis", diff: "Sedang",
+            q: "Akibat: Produksi buah mangga di sentra pertanian Indramayu merosot hingga 50% pada musim panen tahun ini dibandingkan tahun lalu.<br>Manakah penyebab yang paling logis dari penurunan tersebut?",
+            opts: [
+                "Petani memperluas lahan tanam dengan bibit unggul bersertifikat.",
+                "Terjadinya cuaca ekstrem berupa curah hujan tinggi yang berkepanjangan saat fase pembungaan tanaman mangga.",
+                "Pemerintah memberikan subsidi pupuk organik tepat waktu kepada kelompok tani.",
+                "Permintaan ekspor buah mangga meningkat di pasar Asia Tenggara.",
+                "Penerapan teknologi irigasi tetes otomatis di seluruh perkebunan."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b> Produksi buah mangga merosot 50%.<br><br><b>2. Analisis Hubungan:</b> Menentukan Penyebab yang Paling Logis.<br><br><b>3. Alur Penalaran:</b> Fase pembungaan tanaman buah memerlukan cuaca kering untuk proses penyerbukan; curah hujan tinggi merontokkan bunga dan menggagalkan pembuahan.<br><br><b>4. Alasan Jawaban Benar:</b> Cuaca ekstrem saat pembungaan (sebab) secara biologis merusak hasil panen buah (akibat).<br><br><b>5. Analisis Pilihan Lain:</b> A, C, D, E justru merupakan faktor yang mendukung peningkatan produksi, bukan penurunan.<br><br><b>6. Tips Mengerjakan:</b> Cari kendala atau gangguan agroklimat yang merusak siklus hidup tanaman jika terjadi penurunan hasil panen."
+        },
+        {
+            id: "Q008", cat: "Analisis Hubungan Kausal Sederhana", diff: "Sedang",
+            q: "Perhatikan informasi berikut:<br>Sebuah maskapai penerbangan memberlakukan aturan pembatasan ketat berat bagasi kabin maksimal 7 kg per penumpang. Akibatnya, waktu proses boarding penumpang di gerbang keberangkatan menjadi lebih cepat dan ketepatan waktu penerbangan (*on-time performance*) meningkat 15%.<br>Pernyataan manakah yang menggambarkan hubungan sebab-akibat dengan tepat?",
+            opts: [
+                "Ketepatan waktu penerbangan menyebabkan maskapai membatasi berat bagasi.",
+                "Aturan pembatasan berat bagasi kabin menjadi penyebab efisiensi waktu boarding dan peningkatan ketepatan jadwal.",
+                "Penumpang membawa bagasi lebih berat karena pesawat sering terlambat.",
+                "Maskapai menghapus seluruh jadwal penerbangan domestik.",
+                "Petugas boarding kabin bekerja lebih lambat dari sebelumnya."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b> Aturan batas bagasi 7 kg berakibat pada boarding lebih cepat & ketepatan jadwal naik.<br><br><b>2. Analisis Hubungan:</b> Kausalitas Sederhana Terstruktur.<br><br><b>3. Alur Penalaran:</b> Bagasi kabin yang ringan dan sesuai kuota mempercepat proses penyimpanan di kabin pesawat, mengurangi durasi antrean masuk.<br><br><b>4. Alasan Jawaban Benar:</b> Kebijakan operasional pembatasan bagasi (sebab) memperlancar alur keberangkatan pesawat (akibat).<br><br><b>5. Analisis Pilihan Lain:</b> A terbalik; C, D, E tidak sesuai dengan narasi teks.<br><br><b>6. Tips Mengerjakan:</b> Kebijakan tata tertib operasional maskapai berbanding lurus dengan kelancaran jadwal penerbangan."
+        },
+        {
+            id: "Q009", cat: "Sebab-Akibat Langsung", diff: "Sedang",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Penggunaan sistem pengisian bahan bakar otomatis berbasis sensor pintar di SPBU.<br>(2) Antrean kendaraan bermotor di stasiun pengisian melaju lebih cepat dan waktu tunggu konsumen berkurang setengahnya.<br>Bagaimanakah hubungan penalaran antara kedua pernyataan tersebut?",
+            opts: [
+                "Pernyataan (1) adalah penyebab dan pernyataan (2) adalah akibat.",
+                "Pernyataan (2) adalah penyebab dan pernyataan (1) adalah akibat.",
+                "Pernyataan (1) dan (2) adalah akibat dari kelangkaan bahan bakar.",
+                "Pernyataan (1) dan (2) adalah penyebab lonjakan harga minyak.",
+                "Pernyataan (1) dan (2) tidak memiliki hubungan kausal."
+            ],
+            ans: 0,
+            exp: "<b>Jawaban Benar: A</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Adopsi sistem pengisian bahan bakar otomatis berbasis sensor.<br>• (2) Antrean kendaraan lebih cepat & waktu tunggu turun.<br><br><b>2. Analisis Hubungan:</b> Sebab-Akibat Langsung.<br><br><b>3. Alur Penalaran:</b> Automatisasi transaksi dan takaran bahan bakar mempercepat proses pelayanan per kendaraan di nosel pengisian.<br><br><b>4. Alasan Jawaban Benar:</b> Implementasi teknologi sensor pintar (1) merupakan pemicu langsung dari efisiensi waktu pelayanan di SPBU (2).<br><br><b>5. Analisis Pilihan Lain:</b> B terbalik; C, D, E bertentangan dengan logika efisiensi teknologi.<br><br><b>6. Tips Mengerjakan:</b> Peningkatan teknologi atau sistem selalu bertindak sebagai sebab bagi efisiensi operasional."
+        },
+        {
+            id: "Q010", cat: "Akibat-Sebab", diff: "Sedang",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Nilai investasi asing langsung (*Foreign Direct Investment*) di sektor manufaktur daerah mengalami penurunan triwulan ini.<br>(2) Kebijakan birokrasi perizinan pendirian pabrik baru yang berlapis-lapis dan belum terintegrasi secara digital.<br>Hubungan penalaran yang paling tepat adalah:",
+            opts: [
+                "Pernyataan (1) adalah penyebab dan pernyataan (2) adalah akibat.",
+                "Pernyataan (1) adalah akibat dan pernyataan (2) adalah penyebab.",
+                "Pernyataan (1) dan (2) adalah akibat dari surplus anggaran daerah.",
+                "Pernyataan (1) dan (2) adalah penyebab naiknya ekspor manufaktur.",
+                "Pernyataan (1) dan (2) tidak berhubungan secara logis."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Penurunan nilai investasi asing manufaktur.<br>• (2) Birokrasi perizinan pabrik berlapis dan belum digital.<br><br><b>2. Analisis Hubungan:</b> Akibat-Sebab.<br><br><b>3. Alur Penalaran:</b> Investor asing cenderung menghindari birokrasi yang rumit dan lambat karena membuang waktu dan biaya kepatuhan (*compliance cost*).<br><br><b>4. Alasan Jawaban Benar:</b> Kerumitan birokrasi perizinan (Pernyataan 2) menjadi pemicu/sebab enggan masuknya modal asing (Pernyataan 1).<br><br><b>5. Analisis Pilihan Lain:</b> A terbalik; C, D, E tidak masuk akal.<br><br><b>6. Tips Mengerjakan:</b> Hambatan investasi di suatu daerah umumnya disebabkan oleh faktor regulasi dan birokrasi yang tidak efisien."
+        },
+        {
+            id: "Q011", cat: "Penyebab Bersama", diff: "Sedang",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Perusahaan rintisan teknologi (startup) di bidang pendidikan mengalami lonjakan unduhan aplikasi hingga 300%.<br>(2) Tingkat keikutsertaan siswa pada bimbingan belajar daring (*online tutoring*) mencatat rekor tertinggi tahun ini.<br>Manakah analisis hubungan kausalitas yang paling tepat?",
+            opts: [
+                "Pernyataan (1) menyebabkan terjadinya pernyataan (2).",
+                "Pernyataan (2) menyebabkan terjadinya pernyataan (1).",
+                "Pernyataan (1) dan (2) tidak saling berhubungan.",
+                "Pernyataan (1) dan (2) adalah akibat dari satu penyebab bersama, yaitu penerapan pembelajaran jarak jauh akibat kebijakan transformasi digital pendidikan.",
+                "Pernyataan (1) dan (2) adalah dua sebab dari penutupan sekolah."
+            ],
+            ans: 3,
+            exp: "<b>Jawaban Benar: D</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Lonjakan unduhan aplikasi edutech.<br>• (2) Keikutsertaan bimbel online rekor tertinggi.<br><br><b>2. Analisis Hubungan:</b> Dua Akibat dari Penyebab Bersama (*Common Cause*).<br><br><b>3. Alur Penalaran:</b> Pergeseran paradigma pendidikan menuju digitalisasi dan pembelajaran jarak jauh mendorong pelajar memanfaatkan platform aplikasi belajar daring secara masif.<br><br><b>4. Alasan Jawaban Benar:</b> Transformasi digital dan metode belajar jarak jauh (sebab utama) memicu tingginya adopsi aplikasi belajar dan bimbel daring secara bersamaan.<br><br><b>5. Analisis Pilihan Lain:</b> A dan B salah karena unduhan aplikasi tidak menyebabkan orang ikut bimbel secara langsung; C keliru; E tidak logis.<br><br><b>6. Tips Mengerjakan:</b> Jika dua produk digital edukasi melonjak permintaannya, faktor pendorongnya adalah perubahan sistem belajar masyarakat."
+        },
+        {
+            id: "Q012", cat: "Identifikasi Dua Peristiwa Tanpa Hubungan", diff: "Sedang",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Pemerintah kota membangun fasilitas jalur khusus pesepeda di sepanjang jalan protokol.<br>(2) Peneliti biologi menemukan spesies baru anggrek hutan di pedalaman Taman Nasional.<br>Manakah hubungan penalaran yang tepat?",
+            opts: [
+                "Pernyataan (1) adalah sebab dan pernyataan (2) adalah akibat.",
+                "Pernyataan (2) adalah sebab dan pernyataan (1) adalah akibat.",
+                "Pernyataan (1) dan (2) adalah akibat dari pembangunan jalan tol.",
+                "Pernyataan (1) dan (2) merupakan dua peristiwa yang tidak memiliki hubungan sebab-akibat.",
+                "Pernyataan (1) dan (2) adalah dua penyebab punahnya flora lokal."
+            ],
+            ans: 3,
+            exp: "<b>Jawaban Benar: D</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Pembangunan jalur sepeda perkotaan.<br>• (2) Penemuan spesies anggrek hutan di taman nasional.<br><br><b>2. Analisis Hubungan:</b> Peristiwa Independen (*No Causal Connection*).<br><br><b>3. Alur Penalaran:</b> Jalur sepeda merupakan kebijakan transportasi perkotaan, sedangkan penemuan flora adalah hasil ekspedisi botani di hutan konservasi.<br><br><b>4. Alasan Jawaban Benar:</b> Kedua peristiwa berlangsung di konteks wilayah dan bidang yang berbeda tanpa ada titik temu kausalitas.<br><br><b>5. Analisis Pilihan Lain:</b> A, B, C, E memaksakan korelasi imajinatif.<br><br><b>6. Tips Mengerjakan:</b> Pembangunan infrastruktur kota dan penemuan botani di hutan lindung adalah contoh kejadian yang berdiri sendiri."
+        },
+        {
+            id: "Q013", cat: "Analisis Hubungan Kausal Ilustrasi", diff: "Sedang",
+            q: "Ilustrasi: Sebuah kafe kopi lokal mengganti biji kopi impor mahal dengan biji kopi petani lokal berkualitas tinggi yang harganya lebih terjangkau, tanpa menaikkan harga jual secangkir kopi kepada konsumen. Hasilnya, volume penjualan bulanan kafe meningkat 40% dan margin keuntungan bersih usaha ikut terdongkrak.<br>Kesimpulan kausal yang paling tepat adalah:",
+            opts: [
+                "Peningkatan volume penjualan menyebabkan kafe menghentikan pembelian kopi lokal.",
+                "Penggantian pasokan biji kopi lokal yang terjangkau menjadi penyebab naiknya penjualan dan keuntungan kafe.",
+                "Kenaikan harga jual kopi menyebabkan petani lokal mengalami kerugian.",
+                "Konsumen berhenti membeli kopi karena rasanya berubah drastis.",
+                "Kafe kopi menutup usahanya akibat kelebihan pasokan biji kopi."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b> Penggunaan biji kopi lokal terjangkau tanpa menaikkan harga jual berakibat pada penjualan naik 40% & laba bertambah.<br><br><b>2. Analisis Hubungan:</b> Analisis Kausalitas Berdasarkan Ilustrasi Usaha.<br><br><b>3. Alur Penalaran:</b> Harga pokok produksi turun (karena bahan baku lokal terjangkau) dengan harga jual tetap menarik lebih banyak pembeli karena nilai rasio harga-kualitas yang kompetitif.<br><br><b>4. Alasan Jawaban Benar:</b> Keputusan strategis bahan baku (sebab) berhasil mendongkrak omzet dan profitabilitas bisnis (akibat).<br><br><b>5. Analisis Pilihan Lain:</b> A, C, D, E bertentangan dengan hasil evaluasi pada teks ilustrasi.<br><br><b>6. Tips Mengerjakan:</b> Efisiensi biaya bahan baku yang diiringi kepuasan pelanggan berakibat positif pada performa finansial."
+        },
+        {
+            id: "Q014", cat: "Menentukan Akibat Logis", diff: "Sedang",
+            q: "Peristiwa: Perusahaan manufaktur besar mengumumkan migrasi total sistem basis data internal mereka ke infrastruktur berbasis komputasi awan (*cloud computing*).<br>Manakah akibat yang paling logis dari keputusan tersebut?",
+            opts: [
+                "Akses data kolaborasi antar-cabang perusahaan menjadi lebih cepat, fleksibel, dan aman dari risiko kerusakan fisik perangkat lokal.",
+                "Karyawan pabrik diwajibkan membawa server fisik berat setiap hari ke kantor.",
+                "Biaya pembelian kertas cetak laporan keuangan meningkat seratus kali lipat.",
+                "Seluruh komputer kantor menjadi tidak dapat dihubungkan ke internet.",
+                "Perusahaan mengalami kebangkrutan seketika dalam waktu seminggu."
+            ],
+            ans: 0,
+            exp: "<b>Jawaban Benar: A</b><br><br><b>1. Identifikasi Peristiwa:</b> Migrasi sistem data perusahaan ke komputasi awan (*cloud*).<br><br><b>2. Analisis Hubungan:</b> Menentukan Akibat Logis Transformasi Digital.<br><br><b>3. Alur Penalaran:</b> Penyimpanan *cloud* menawarkan aksesibilitas jarak jauh secara *real-time* serta redundansi data cadangan yang aman dari bencana fisik di kantor.<br><br><b>4. Alasan Jawaban Benar:</b> Efisiensi akses dan keamanan data (*cloud*) adalah tujuan dan akibat langsung dari migrasi sistem IT modern.<br><br><b>5. Analisis Pilihan Lain:</b> B, C, D, E tidak masuk akal dan bertentangan dengan fungsi komputasi awan.<br><br><b>6. Tips Mengerjakan:</b> Pahami keuntungan adopsi teknologi *cloud*; efisiensi, kecepatan akses, dan keamanan data adalah dampak utamanya."
+        },
+        {
+            id: "Q015", cat: "Menentukan Penyebab Logis", diff: "Sedang",
+            q: "Akibat: Jaringan pipa distribusi air bersih perkotaan mengalami retak masif dan kebocoran di beberapa titik utama.<br>Manakah penyebab yang paling logis dari kerusakan tersebut?",
+            opts: [
+                "Pemasangan meteran air pelanggan menggunakan teknologi digital nirkabel.",
+                "Terjadinya pergeseran tanah akibat gempa bumi kecil di sekitar jalur instalasi pipa bawah tanah.",
+                "Pemerintah kota menambah jadwal pengaliran air bersih menjadi 24 jam sehari.",
+                "Warga rutin membersihkan tangki penampungan air rumah tangga.",
+                "Peningkatan jumlah teknisi pemeliharaan jaringan pipa."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b> Pipa distribusi air bawah tanah retak dan bocor masif.<br><br><b>2. Analisis Hubungan:</b> Menentukan Penyebab Kerusakan Infrastruktur.<br><br><b>3. Alur Penalaran:</b> Pipa bawah tanah bersifat rigid/kaku; pergerakan tanah tektonik atau getaran kuat melampaui batas elastisitas bahan pipa sehingga patah/retak.<br><br><b>4. Alasan Jawaban Benar:</b> Pergeseran struktur tanah (sebab fisik) secara mekanis menimbulkan tegangan geser yang merusak pipa (akibat).<br><br><b>5. Analisis Pilihan Lain:</b> A, C, D, E tidak memiliki kekuatan mekanik untuk merusak pipa air.<br><br><b>6. Tips Mengerjakan:</b> Kerusakan fisik pada infrastruktur bawah tanah biasanya dipicu oleh beban mekanik atau pergerakan struktur tanah."
+        },
+        {
+            id: "Q016", cat: "Sebab-Akibat Sederhana", diff: "Sedang",
+            q: "Perhatikan informasi berikut:<br>Sebuah universitas menerapkan aturan wajib lulus uji sertifikasi bahasa internasional bagi seluruh mahasiswa tingkat akhir sebelum mendaftar sidang skripsi. Akibatnya, tingkat kemampuan bahasa Inggris lulusan universitas tersebut meningkat tajam dan daya serap di perusahaan multinasional naik 35%.<br>Pernyataan manakah yang menggambarkan hubungan sebab-akibat dengan tepat?",
+            opts: [
+                "Daya serap kerja yang tinggi menyebabkan universitas memperketat aturan kelulusan.",
+                "Aturan wajib sertifikasi bahasa internasional menjadi penyebab naiknya kompetensi bahasa dan penyerapan kerja lulusan.",
+                "Mahasiswa menolak mengikuti sidang skripsi karena aturan bahasa.",
+                "Perusahaan multinasional menutup lowongan kerja bagi sarjana baru.",
+                "Universitas menghapuskan ujian skripsi secara permanen."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b> Aturan sertifikasi bahasa asing wajib memicu kenaikan skill bahasa & serapan kerja lulusan.<br><br><b>2. Analisis Hubungan:</b> Kausalitas Kebijakan Akademik.<br><br><b>3. Alur Penalaran:</b> Persyaratan kelulusan mendorong mahasiswa belajar dan menguasai bahasa asing, menjadikan profil mereka memenuhi kualifikasi standar perusahaan global.<br><br><b>4. Alasan Jawaban Benar:</b> Kebijakan kampus (sebab) meningkatkan kompetensi lulusan yang berakibat pada kemudahan mendapat pekerjaan (akibat).<br><br><b>5. Analisis Pilihan Lain:</b> A terbalik; C, D, E menyalahi alur informasi teks.<br><br><b>6. Tips Mengerjakan:</b> Kebijakan peningkatan standar akademik berbanding lurus dengan kualitas lulusan dan daya saing kerja."
+        },
+        {
+            id: "Q017", cat: "Sebab-Akibat Langsung", diff: "Sedang",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Penanaman jutaan pohon mangrove di sepanjang garis pantai pesisir utara secara berkelanjutan oleh kelompok relawan.<br>(2) Abrasi air laut yang mengikis daratan permukiman warga berhasil diredam dan ekosistem kepiting bakau kembali pulih.<br>Bagaimanakah hubungan penalaran antara kedua pernyataan tersebut?",
+            opts: [
+                "Pernyataan (1) adalah penyebab dan pernyataan (2) adalah akibat.",
+                "Pernyataan (2) adalah penyebab dan pernyataan (1) adalah akibat.",
+                "Pernyataan (1) dan (2) adalah akibat dari kenaikan permukaan air laut.",
+                "Pernyataan (1) dan (2) adalah penyebab hilangnya garis pantai.",
+                "Pernyataan (1) dan (2) tidak memiliki keterkaitan kausal."
+            ],
+            ans: 0,
+            exp: "<b>Jawaban Benar: A</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Penanaman mangrove massal di pesisir.<br>• (2) Abrasi diredam & ekosistem fauna pulih.<br><br><b>2. Analisis Hubungan:</b> Sebab-Akibat Langsung.<br><br><b>3. Alur Penalaran:</b> Akar mangrove meredam energi gelombang laut dan mengikat sedimen pasir, sekaligus menyediakan habitat ideal bagi biota pesisir.<br><br><b>4. Alasan Jawaban Benar:</b> Restorasi ekosistem mangrove (1) bertindak sebagai pemicu (sebab) yang menghasilkan perlindungan pantai dan pemulihan biota (2) sebagai akibat.<br><br><b>5. Analisis Pilihan Lain:</b> B terbalik; C, D, E bertentangan dengan fungsi ekologis mangrove.<br><br><b>6. Tips Mengerjakan:</b> Upaya pelestarian lingkungan (reboisasi/mangrove) selalu berakibat positif pada pencegahan erosi dan pemulihan alam."
+        },
+        {
+            id: "Q018", cat: "Akibat-Sebab", diff: "Sedang",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Harga komoditas cabai merah di pasar tradisional melambung tinggi hingga dua kali lipat dalam sepekan.<br>(2) Serangan hama patek (*Colletotrichum*) yang menyerang ribuan hektare lahan pertanian cabai di sentra produksi utama.<br>Hubungan penalaran yang paling tepat adalah:",
+            opts: [
+                "Pernyataan (1) adalah penyebab dan pernyataan (2) adalah akibat.",
+                "Pernyataan (1) adalah akibat dan pernyataan (2) adalah penyebab.",
+                "Pernyataan (1) dan (2) adalah akibat dari musim kemarau basah.",
+                "Pernyataan (1) dan (2) adalah dua penyebab turunnya harga pangan.",
+                "Pernyataan (1) dan (2) tidak berhubungan secara logis."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Harga cabai merah melonjak dua kali lipat.<br>• (2) Serangan hama tanaman cabai di sentra produksi.<br><br><b>2. Analisis Hubungan:</b> Akibat-Sebab.<br><br><b>3. Alur Penalaran:</b> Gagal panen akibat serangan hama menurunkan pasokan barang secara drastis di pasar, sementara permintaan tetap, sehingga hukum ekonomi menaikkan harga.<br><br><b>4. Alasan Jawaban Benar:</b> Serangan hama pertanian (Pernyataan 2) merupakan pemicu/sebab dari lonjakan harga di pasaran (Pernyataan 1).<br><br><b>5. Analisis Pilihan Lain:</b> A terbalik; C, D, E tidak logis.<br><br><b>6. Tips Mengerjakan:</b> Kelangkaan barang akibat gagal panen (sebab) selalu berakibat pada kenaikan harga komoditas (akibat)."
+        },
+        {
+            id: "Q019", cat: "Penyebab Bersama", diff: "Sedang",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Jumlah kunjungan wisatawan domestik ke objek wisata pegunungan menurun tajam bulan ini.<br>(2) Tingkat hunian (*occupancy*) hotel dan vila di kawasan wisata dataran tinggi kosong hingga 70%.<br>Manakah analisis hubungan kausalitas yang paling tepat?",
+            opts: [
+                "Pernyataan (1) merupakan penyebab dari pernyataan (2).",
+                "Pernyataan (2) merupakan penyebab dari pernyataan (1).",
+                "Pernyataan (1) dan (2) tidak saling berhubungan.",
+                "Pernyataan (1) dan (2) merupakan akibat dari penyebab bersama, yaitu terjadinya bencana tanah longsor yang menutup akses jalan utama menuju kawasan wisata.",
+                "Pernyataan (1) dan (2) adalah sebab dari pembukaan jalan baru."
+            ],
+            ans: 3,
+            exp: "<b>Jawaban Benar: D</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Kunjungan wisatawan pegunungan turun tajam.<br>• (2) Hunian hotel dan vila kosong hingga 70%.<br><br><b>2. Analisis Hubungan:</b> Dua Akibat dari Penyebab Bersama (*Common Cause*).<br><br><b>3. Alur Penalaran:</b> Akses jalan tertutup longsor menghentikan mobilitas pelancong menuju kawasan wisata, mengakibatkan sepinya kunjungan dan kosongnya kamar hotel.<br><br><b>4. Alasan Jawaban Benar:</b> Bencana alam penutup akses jalan (sebab utama) memicu dua dampak paralel berupa penurunan kunjungan turis dan kerugian okupansi hotel.<br><br><b>5. Analisis Pilihan Lain:</b> A dan B salah karena sepinya turis tidak langsung menyebabkan hotel kosong (keduanya adalah dampak yang sama); C dan E salah.<br><br><b>6. Tips Mengerjakan:</b> Jika kunjungan wisata dan hunian hotel anjlok bersamaan di satu kawasan, carilah kendala akses atau bencana di wilayah tersebut."
+        },
+        {
+            id: "Q020", cat: "Identifikasi Dua Peristiwa Tanpa Hubungan", diff: "Sedang",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Perusahaan telekomunikasi meluncurkan jaringan internet berbasis 5G di kota metropolitan.<br>(2) Nelayan tradisional pesisir selatan berhasil menangkap ikan tuna ukuran besar dalam jumlah banyak.<br>Manakah hubungan penalaran yang benar?",
+            opts: [
+                "Pernyataan (1) adalah sebab dari pernyataan (2).",
+                "Pernyataan (2) adalah penyebab dari pernyataan (1).",
+                "Pernyataan (1) dan (2) adalah akibat dari modernisasi teknologi.",
+                "Pernyataan (1) dan (2) tidak memiliki hubungan sebab-akibat.",
+                "Pernyataan (1) dan (2) adalah dua penyebab kenaikan tarif internet."
+            ],
+            ans: 3,
+            exp: "<b>Jawaban Benar: D</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Peluncuran jaringan seluler 5G di kota.<br>• (2) Hasil tangkapan ikan nelayan tradisional di laut.<br><br><b>2. Analisis Hubungan:</b> Peristiwa Independen (*No Causal Relationship*).<br><br><b>3. Alur Penalaran:</b> Jaringan 5G merupakan infrastruktur telekomunikasi digital, sedangkan hasil tangkapan nelayan bergantung pada musim ikan dan kondisi kelautan.<br><br><b>4. Alasan Jawaban Benar:</b> Kedua kejadian berada pada ruang lingkup aktivitas ekonomi yang berbeda dan tidak saling mempengaruhi.<br><br><b>5. Analisis Pilihan Lain:</b> A, B, C, E memuat korelasi khayalan tanpa dasar rasional.<br><br><b>6. Tips Mengerjakan:</b> Perkembangan telekomunikasi seluler tidak berkaitan langsung dengan hasil perikanan tangkap di laut."
+        },
+        {
+            id: "Q021", cat: "Analisis Hubungan Kausal Ilustrasi", diff: "Sedang",
+            q: "Ilustrasi: Sebuah instansi pemerintah mewajibkan seluruh pegawai menggunakan sistem tanda tangan digital tersertifikasi untuk semua surat keluar. Evaluasi kinerja administrasi menunjukkan waktu penerbitan dokumen resmi yang tadinya memakan waktu tiga hari kini selesai dalam 15 menit.<br>Kesimpulan kausal yang tepat adalah:",
+            opts: [
+                "Waktu penerbitan dokumen yang cepat menyebabkan pegawai dilarang masuk kantor.",
+                "Pemberlakuan tanda tangan digital tersertifikasi menjadi penyebab drastisnya efisiensi waktu penerbitan dokumen.",
+                "Keterlambatan dokumen resmi memicu penambahan jumlah kertas cetak di instansi.",
+                "Pegawai menolak menggunakan tanda tangan digital karena dianggap lambat.",
+                "Instansi pemerintah menutup seluruh layanan administrasi publik."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b> Penggunaan tanda tangan digital berakibat pada pemangkasan waktu terbit dokumen dari 3 hari menjadi 15 menit.<br><br><b>2. Analisis Hubungan:</b> Analisis Kausalitas Berdasarkan Ilustrasi Birokrasi.<br><br><b>3. Alur Penalaran:</b> Tanda tangan digital menghilangkan proses fisik pengiriman berkas manual dan antrean persetujuan berjenjang yang memakan waktu.<br><br><b>4. Alasan Jawaban Benar:</b> Adopsi teknologi digital (sebab) menciptakan percepatan luar biasa pada proses administrasi (akibat).<br><br><b>5. Analisis Pilihan Lain:</b> A, C, D, E bertentangan dengan data efisiensi di dalam ilustrasi.<br><br><b>6. Tips Mengerjakan:</b> Digitalisasi proses kerja instansi selalu bertujuan dan berakibat pada efisiensi waktu penyelesaian tugas."
+        },
+        {
+            id: "Q022", cat: "Menentukan Akibat Logis", diff: "Sedang",
+            q: "Peristiwa: Pihak berwenang menutup total jalur pendakian Gunung Merbabu akibat aktivitas vulkanik yang menunjukkan peningkatan status Waspada ke Siaga.<br>Manakah akibat yang paling logis dari peristiwa tersebut?",
+            opts: [
+                "Seluruh calon pendaki membatalkan jadwal perjalanan dan pos penjagaan melarang pendaki naik demi keselamatan jiwa.",
+                "Jumlah pendaki yang mencapai puncak gunung mencetak rekor tertinggi sepanjang sejarah.",
+                "Warga sekitar puncak gunung mendirikan tenda wisata malam di kawah aktif.",
+                "Pemerintah membuka kafe modern di jalur pendakian tertutup.",
+                "Suhu udara di lereng gunung mendadak berubah menjadi musim dingin salju."
+            ],
+            ans: 0,
+            exp: "<b>Jawaban Benar: A</b><br><br><b>1. Identifikasi Peristiwa:</b> Penutupan total jalur pendakian karena status gunung naik menjadi Siaga.<br><br><b>2. Analisis Hubungan:</b> Menentukan Akibat Logis Manajemen Bencana.<br><br><b>3. Alur Penalaran:</b> Ancaman erupsi vulkanik membahayakan keselamatan manusia, sehingga larangan resmi dikeluarkan untuk mencegah korban jiwa.<br><br><b>4. Alasan Jawaban Benar:</b> Pembatalan pendakian dan penutupan pos penjagaan adalah tindakan protektif serta akibat langsung dari status darurat gunung.<br><br><b>5. Analisis Pilihan Lain:</b> B, C, D, E mengabaikan faktor keselamatan jiwa dan prosedur darurat vulkanologi.<br><br><b>6. Tips Mengerjakan:</b> Peningkatan status bahaya gunung berapi selalu berakibat pada penutupan aktivitas wisata/pendakian."
+        },
+        {
+            id: "Q023", cat: "Menentukan Penyebab Logis", diff: "Sedang",
+            q: "Akibat: Jaringan listrik di seluruh wilayah kota mengalami padam total (*blackout*) selama enam jam pada malam hari.<br>Manakah penyebab yang paling logis dari akibat di atas?",
+            opts: [
+                "Sebagian besar warga menggunakan lampu LED hemat energi di rumah masing-masing.",
+                "Terjadinya sambaran petir besar pada gardu induk transmisi utama yang melumpuhkan sistem distribusi daya.",
+                "Pemerintah kota meresmikan taman lampu hias di alun-alun kota.",
+                "Kenaikan tarif listrik golongan industri kecil sebesar satu persen.",
+                "Petugas PLN melakukan pengecekan rutin meteran rumah pelanggan."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b> Padam listrik total (*blackout*) seluruh kota selama enam jam.<br><br><b>2. Analisis Hubungan:</b> Menentukan Penyebab Gangguan Kelistrikan.<br><br><b>3. Alur Penalaran:</b> Gardu induk adalah jantung distribusi listrik wilayah; kerusakan fatal pada gardu induk akibat petir memutuskan aliran daya secara masif.<br><br><b>4. Alasan Jawaban Benar:</b> Gangguan fisik parah pada fasilitas transmisi utama (sebab) melumpuhkan suplai listrik kota (akibat).<br><br><b>5. Analisis Pilihan Lain:</b> A, C, D, E tidak memiliki kapasitas daya untuk memadamkan listrik seluruh kota.<br><br><b>6. Tips Mengerjakan:</b> Padam total berskala besar (*blackout*) selalu disebabkan oleh kerusakan pada pembangkit atau gardu transmisi utama."
+        },
+        {
+            id: "Q024", cat: "Sebab-Akibat Sederhana", diff: "Sedang",
+            q: "Perhatikan informasi berikut:<br>Pemerintah menerapkan kebijakan insentif pajak nol persen bagi pembelian kendaraan bermotor listrik berbasis baterai. Akibatnya, angka penjualan mobil listrik di pasaran meningkat empat kali lipat dalam kurun waktu satu tahun.<br>Pernyataan manakah yang menggambarkan hubungan sebab-akibat dengan tepat?",
+            opts: [
+                "Insentif pajak nol persen menjadi penyebab melonjaknya angka penjualan mobil listrik.",
+                "Tingginya angka penjualan mobil listrik menyebabkan pemerintah menghapus insentif pajak.",
+                "Masyarakat enggan membeli mobil listrik meskipun pajak digratiskan.",
+                "Pabrik mobil listrik menghentikan produksi akibat kelebihan subsidi.",
+                "Harga BBM konvensional menjadi turun drastis di seluruh SPBU."
+            ],
+            ans: 0,
+            exp: "<b>Jawaban Benar: A</b><br><br><b>1. Identifikasi Peristiwa:</b> Kebijakan insentif pajak 0% berakibat pada penjualan mobil listrik naik 4 kali lipat.<br><br><b>2. Analisis Hubungan:</b> Kausalitas Kebijakan Fiskal.<br><br><b>3. Alur Penalaran:</b> Pembebasan pajak membuat harga akhir kendaraan listrik menjadi jauh lebih terjangkau dan menarik minat beli masyarakat secara masif.<br><br><b>4. Alasan Jawaban Benar:</b> Kebijakan insentif fiskal (sebab) mendorong peningkatan daya beli dan penjualan produk (akibat).<br><br><b>5. Analisis Pilihan Lain:</b> B terbalik kronologinya; C, D, E kontradiktif dengan data teks.<br><br><b>6. Tips Mengerjakan:</b> Insentif fiskal atau potongan harga yang menarik selalu berakibat positif pada lonjakan volume transaksi."
+        },
+        {
+            id: "Q025", cat: "Sebab-Akibat Langsung", diff: "Sedang",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Pengemudi mobil mengantuk dan kehilangan konsentrasi saat mengemudi di jalan tol kecepatan tinggi.<br>(2) Kendaraan menabrak pembatas jalan beton di sisi kiri dan mengalami kerusakan berat bagian depan.<br>Bagaimanakah hubungan penalaran kedua pernyataan?",
+            opts: [
+                "Pernyataan (1) adalah penyebab dan pernyataan (2) adalah akibat.",
+                "Pernyataan (2) adalah penyebab dan pernyataan (1) adalah akibat.",
+                "Pernyataan (1) dan (2) adalah akibat dari jalan tol yang terlalu mulus.",
+                "Pernyataan (1) dan (2) tidak berhubungan sama sekali.",
+                "Pernyataan (2) menyebabkan pengemudi tertidur pulas."
+            ],
+            ans: 0,
+            exp: "<b>Jawaban Benar: A</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Pengemudi mengantuk & hilang konsentrasi di jalan tol.<br>• (2) Mobil menabrak pembatas jalan & rusak berat.<br><br><b>2. Analisis Hubungan:</b> Sebab-Akibat Langsung.<br><br><b>3. Alur Penalaran:</b> Hilangnya kendali akibat pengemudi tertidur/mengantuk membuat kendaraan melenceng dari jalur dan membentur beton pembatas.<br><br><b>4. Alasan Jawaban Benar:</b> Hilangnya konsentrasi pengemudi (1) adalah pemicu/sebab langsung dari kecelakaan tunggal (2).<br><br><b>5. Analisis Pilihan Lain:</b> B terbalik; C, D, E menyalahi logika berkendara.<br><br><b>6. Tips Mengerjakan:</b> Keteledoran atau kondisi fisik pengemudi yang buruk (mengantuk) adalah penyebab utama kecelakaan."
+        },
+        {
+            id: "Q026", cat: "Akibat-Sebab", diff: "Sedang",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Populasi ikan air tawar di Danau Maninjau mengalami kematian massal (*upwelling*) secara mendadak.<br>(2) Peningkatan kecepatan angin musiman yang memicu perputaran lapisan air dan mengangkat endapan sisa pakan di dasar danau ke permukaan.<br>Hubungan penalaran yang paling tepat adalah:",
+            opts: [
+                "Pernyataan (1) adalah penyebab dan pernyataan (2) adalah akibat.",
+                "Pernyataan (1) adalah akibat dan pernyataan (2) adalah penyebab.",
+                "Pernyataan (1) dan (2) adalah akibat dari pencemaran logam berat pabrik.",
+                "Pernyataan (1) dan (2) adalah dua penyebab naiknya kadar oksigen.",
+                "Pernyataan (1) dan (2) tidak memiliki kaitan logis."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Kematian massal ikan di danau (*upwelling*).<br>• (2) Angin musiman mengangkat endapan sisa pakan dasar danau.<br><br><b>2. Analisis Hubungan:</b> Akibat-Sebab.<br><br><b>3. Alur Penalaran:</b> Endapan sisa pakan busuk di dasar danau yang terangkat ke permukaan mengandung amonia tinggi dan menghabiskan oksigen terlarut, menyebabkan ikan keracunan dan mati.<br><br><b>4. Alasan Jawaban Benar:</b> Fenomena oseanografi/limnologi pengangkatan massa air (Pernyataan 2) menjadi pemicu/sebab kematian ikan (Pernyataan 1).<br><br><b>5. Analisis Pilihan Lain:</b> A terbalik; C, D, E keliru secara ilmiah.<br><br><b>6. Tips Mengerjakan:</b> Pahami fenomena lingkungan perairan (*upwelling*); naiknya endapan beracun adalah sebab, kematian ikan adalah akibat."
+        },
+        {
+            id: "Q027", cat: "Penyebab Bersama", diff: "Sedang",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Harga jual properti komersial berupa rumah tapak di kawasan penyangga ibu kota meroket naik tinggi.<br>(2) Minat pengembang perumahan mengalihkan proyek pembangunan ke wilayah pinggiran kota meningkat drastis.<br>Manakah analisis hubungan kausal yang paling tepat?",
+            opts: [
+                "Pernyataan (1) merupakan penyebab dari pernyataan (2).",
+                "Pernyataan (2) merupakan penyebab dari pernyataan (1).",
+                "Pernyataan (1) dan (2) tidak saling berhubungan.",
+                "Pernyataan (1) dan (2) merupakan akibat dari penyebab bersama, yaitu tingginya tingkat urbanisasi dan mahalnya harga lahan di pusat kota.",
+                "Pernyataan (1) dan (2) adalah sebab dari penurunan penduduk kota."
+            ],
+            ans: 3,
+            exp: "<b>Jawaban Benar: D</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Harga properti di kawasan penyangga meroket.<br>• (2) Pengembang pindah proyek ke pinggiran kota.<br><br><b>2. Analisis Hubungan:</b> Dua Akibat dari Penyebab Bersama (*Common Cause*).<br><br><b>3. Alur Penalaran:</b> Lahan pusat kota yang sudah jenuh dan mahal memaksa pencari hunian dan pengembang beralih ke kawasan penyangga, yang kemudian mendongkrak harga properti di wilayah tersebut.<br><br><b>4. Alasan Jawaban Benar:</b> Tingginya desakan urbanisasi dan mahalnya tanah pusat kota (sebab utama) memicu pergeseran pengembang dan lonjakan harga di kawasan penyangga (dua akibat paralel).<br><br><b>5. Analisis Pilihan Lain:</b> A dan B salah karena kenaikan harga tidak langsung menyebabkan pengembang pindah (keduanya diakibatkan oleh desakan lahan kota); C dan E salah.<br><br><b>6. Tips Mengerjakan:</b> Fenomena properti di pinggiran kota yang melonjak dipicu oleh mahalnya lahan di pusat kota."
+        },
+        {
+            id: "Q028", cat: "Identifikasi Dua Peristiwa Tanpa Hubungan", diff: "Sedang",
+            q: "Perhatikan dua pernyataan berikut:<br>(1) Tim astronom internasional berhasil mendokumentasikan gambar lubang hitam supermasif galaksi lain.<br>(2) Pemerintah provinsi meresmikan renovasi stadion olahraga sepak bola daerah.<br>Manakah hubungan penalaran yang tepat?",
+            opts: [
+                "Pernyataan (1) adalah sebab dan pernyataan (2) adalah akibat.",
+                "Pernyataan (2) adalah sebab dan pernyataan (1) adalah akibat.",
+                "Pernyataan (1) dan (2) adalah akibat dari kemajuan sains.",
+                "Pernyataan (1) dan (2) merupakan dua peristiwa yang tidak memiliki hubungan sebab-akibat.",
+                "Pernyataan (1) dan (2) adalah dua penyebab turunnya anggaran riset."
+            ],
+            ans: 3,
+            exp: "<b>Jawaban Benar: D</b><br><br><b>1. Identifikasi Peristiwa:</b><br>• (1) Dokumentasi astronomi lubang hitam galaksi.<br>• (2) Renovasi stadion olahraga daerah.<br><br><b>2. Analisis Hubungan:</b> Peristiwa Independen (*No Causal Relationship*).<br><br><b>3. Alur Penalaran:</b> Riset astrofisika kosmik berjalan di lembaga sains antariksa internasional, sedangkan renovasi stadion adalah proyek infrastruktur pemda lokal.<br><br><b>4. Alasan Jawaban Benar:</b> Kedua peristiwa tidak memiliki keterkaitan logis, fungsional, maupun kausal sama sekali.<br><br><b>5. Analisis Pilihan Lain:</b> A, B, C, E memaksakan korelasi yang tidak rasional.<br><br><b>6. Tips Mengerjakan:</b> Astronomi luar angkasa dan fasilitas olahraga regional adalah dua hal yang berdiri sendiri."
+        },
+        {
+            id: "Q029", cat: "Analisis Hubungan Kausal Ilustrasi", diff: "Sedang",
+            q: "Ilustrasi: Sebuah perpustakaan daerah memberlakukan denda keterlambatan pengembalian buku yang lebih tinggi serta sistem poin penalti keanggotaan. Hasilnya, tingkat kepatuhan anggota mengembalikan buku tepat waktu meningkat menjadi 98% dan ketersediaan buku populer di rak meningkat signifikan.<br>Kesimpulan kausal yang tepat adalah:",
+            opts: [
+                "Ketersediaan buku populer menyebabkan perpustakaan menaikkan denda.",
+                "Pemberlakuan denda lebih tinggi dan sistem poin penalti menjadi penyebab tingginya kedisiplinan pengembalian buku.",
+                "Tingginya kepatuhan anggota memicu penutupan layanan perpustakaan.",
+                "Anggota perpustakaan berhenti meminjam buku karena koleksi perpustakaan habis.",
+                "Perpustakaan memberikan hadiah uang tunai kepada peminjam buku."
+            ],
+            ans: 1,
+            exp: "<b>Jawaban Benar: B</b><br><br><b>1. Identifikasi Peristiwa:</b> Aturan denda lebih tinggi & sistem penalti berakibat pada kepatuhan pengembalian buku naik jadi 98%.<br><br><b>2. Analisis Hubungan:</b> Analisis Kausalitas Berdasarkan Ilustrasi Tata Tertib.<br><br><b>3. Alur Penalaran:</b> Adanya konsekuensi negatif yang tegas (denda dan penalti) memotivasi peminjam untuk mengembalikan buku tepat waktu agar terhindar dari sanksi.<br><br><b>4. Alasan Jawaban Benar:</b> Pengetatan aturan dan sanksi administratif (sebab) terbukti efektif meningkatkan kedisiplinan peminjam (akibat).<br><br><b>5. Analisis Pilihan Lain:</b> A, C, D, E bertentangan dengan hasil evaluasi pada teks ilustrasi.<br><br><b>6. Tips Mengerjakan:</b> Penegakan aturan dan sanksi yang jelas berbanding lurus dengan peningkatan tingkat kepatuhan subjek."
+        },
+        {
+            id: "Q030", cat: "Menentukan Akibat Logis", diff: "Sedang",
+            q: "Peristiwa: Perusahaan rintisan e-commerce memberlakukan migrasi sistem pembayaran dari manual transfer bank ke otomatisasi verifikasi instan (*payment gateway*).<br>Manakah akibat yang paling logis dari peristiwa tersebut?",
+            opts: [
+                "Proses konfirmasi pembayaran pesanan pembeli menjadi instan, mengurangi beban kerja admin keuangan, dan meminimalkan kesalahan manusia.",
+                "Pembeli harus menunggu waktu konfirmasi manual selama tiga hari kerja.",
+                "Bagian keuangan perusahaan menambah jumlah staf pencatat bukti transfer manual.",
+                "Sistem e-commerce mengalami penutupan permanen karena gagal transaksi.",
+                "Seluruh pembeli wajib membayar tunai di kantor pusat perusahaan."
+            ],
+            ans: 0,
+            exp: "<b>Jawaban Benar: A</b><br><br><b>1. Identifikasi Peristiwa:</b> Migrasi pembayaran ke sistem verifikasi otomatis (*payment gateway*).<br><br><b>2. Analisis Hubungan:</b> Menentukan Akibat Logis Sistem Otomasi Finansial.<br><br><b>3. Alur Penalaran:</b> Sistem otomatis langsung mencocokkan mutasi bank secara *real-time*, sehingga verifikasi tidak lagi memerlukan pengecekan manual oleh tenaga manusia.<br><br><b>4. Alasan Jawaban Benar:</b> Kecepatan verifikasi dan pengurangan *human error* adalah tujuan serta akibat langsung dari adopsi *payment gateway*.<br><br><b>5. Analisis Pilihan Lain:</b> B, C, D, E justru mendeskripsikan kondisi sistem manual sebelum migrasi.<br><br><b>6. Tips Mengerjakan:</b> Automasi sistem pembayaran digital selalu berakibat pada kecepatan transaksi dan efisiensi tenaga kerja."
+        }
+    ];
+
+    let currentKIndex = 0;
+    let userAnswers = {};
+
+    function showSection(secId) {
+        document.getElementById("sec-start").style.display = "none";
+        document.getElementById("sec-kecerdasan").style.display = "none";
+        document.getElementById("sec-result").style.display = "none";
+        document.getElementById("sec-review").style.display = "none";
+
+        if (secId === "start") document.getElementById("sec-start").style.display = "block";
+        if (secId === "kecerdasan") document.getElementById("sec-kecerdasan").style.display = "block";
+        if (secId === "result") document.getElementById("sec-result").style.display = "block";
+        if (secId === "review") document.getElementById("sec-review").style.display = "block";
+
+        currentSection = secId;
+    }
+
+    function startFullSimulation() {
+        let nameInput = document.getElementById("inputNama").value.trim();
+        if (!nameInput) {
+            alert("Harap masukkan nama lengkap peserta terlebih dahulu!");
+            return;
+        }
+
+        initSessionOnStart(nameInput);
+        userAnswers = {};
+        currentKIndex = 0;
+
+        showSection("kecerdasan");
+        renderKecerdasanQuestion();
+        renderKecerdasanNav();
+        startTimer();
+    }
+
+    function startTimer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            timerLeft--;
+            let m = Math.floor(timerLeft / 60);
+            let s = timerLeft % 60;
+            document.getElementById("timer").innerText = 
+                String(m).padStart(2, '0') + ":" + String(s).padStart(2, '0');
+
+            if (timerLeft <= 0) {
+                clearInterval(timerInterval);
+                alert("Waktu ujian telah habis!");
+                finishSimulation();
+            }
+        }, 1000);
+    }
+
+    function renderKecerdasanQuestion() {
+        let qData = rawKecerdasan[currentKIndex];
+        document.getElementById("k-q-no").innerText = "Soal " + (currentKIndex + 1) + " dari " + rawKecerdasan.length;
+        document.getElementById("k-q-cat").innerText = qData.cat + " (" + qData.diff + ")";
+        document.getElementById("k-q-text").innerHTML = qData.q;
+
+        let optContainer = document.getElementById("k-options");
+        optContainer.innerHTML = "";
+
+        qData.opts.forEach((optText, idx) => {
+            let optDiv = document.createElement("div");
+            optDiv.className = "opt";
+            if (userAnswers[currentKIndex] === idx) optDiv.classList.add("selected");
+
+            optDiv.innerHTML = "<strong style='min-width:20px;'>" + String.fromCharCode(65 + idx) + ".</strong> <span>" + optText + "</span>";
+            optDiv.onclick = () => selectKecerdasanAnswer(idx);
+            optContainer.appendChild(optDiv);
+        });
+
+        renderKecerdasanNav();
+    }
+
+    function renderKecerdasanNav() {
+        let navContainer = document.getElementById("k-navGrid");
+        navContainer.innerHTML = "";
+
+        rawKecerdasan.forEach((item, idx) => {
+            let navBtn = document.createElement("div");
+            navBtn.className = "nav-item";
+            if (userAnswers[idx] !== undefined) navBtn.classList.add("filled");
+            if (idx === currentKIndex) navBtn.classList.add("active");
+
+            navBtn.innerText = idx + 1;
+            navBtn.onclick = () => {
+                currentKIndex = idx;
+                renderKecerdasanQuestion();
+            };
+            navContainer.appendChild(navBtn);
+        });
+    }
+
+    function selectKecerdasanAnswer(ansIdx) {
+        userAnswers[currentKIndex] = ansIdx;
+        renderKecerdasanQuestion();
+
+        // AutoNext Logic (Tetap Nyala)
+        setTimeout(() => {
+            if (currentKIndex < rawKecerdasan.length - 1) {
+                currentKIndex++;
+                renderKecerdasanQuestion();
+            }
+        }, 300);
+    }
+
+    function prevQ_Kecerdasan() {
+        if (currentKIndex > 0) {
+            currentKIndex--;
+            renderKecerdasanQuestion();
+        }
+    }
+
+    function nextQ_Kecerdasan() {
+        if (currentKIndex < rawKecerdasan.length - 1) {
+            currentKIndex++;
+            renderKecerdasanQuestion();
+        }
+    }
+
+    function confirmFinishKecerdasan() {
+        let answeredCount = Object.keys(userAnswers).length;
+        if (confirm("Anda telah menjawab " + answeredCount + " dari 30 soal. Yakin ingin mengakhiri tes sekarang?")) {
+            finishSimulation();
+        }
+    }
+
+    function finishSimulation() {
+        clearInterval(timerInterval);
+
+        let totalSoal = rawKecerdasan.length;
+        let correctCount = 0;
+        let wrongCount = 0;
+        let unansweredCount = 0;
+
+        let categoryStats = {};
+
+        rawKecerdasan.forEach((q, idx) => {
+            let catKey = q.cat;
+            if (!categoryStats[catKey]) {
+                categoryStats[catKey] = { total: 0, benar: 0 };
+            }
+            categoryStats[catKey].total++;
+
+            let uAns = userAnswers[idx];
+            if (uAns === undefined) {
+                unansweredCount++;
+            } else if (uAns === q.ans) {
+                correctCount++;
+                categoryStats[catKey].benar++;
+            } else {
+                wrongCount++;
+            }
+        });
+
+        // Rumus Nilai Akhir Skala 0-100 Presisi
+        let finalScore = Math.round((correctCount / totalSoal) * 100);
+
+        simulationResult.kecerdasan.userAns = userAnswers;
+        simulationResult.kecerdasan.benar = correctCount;
+        simulationResult.kecerdasan.skor = finalScore;
+
+        document.getElementById("resNamaPeserta").innerText = "NAMA PESERTA: " + pName.toUpperCase();
+        document.getElementById("resValKecerdasan").innerText = finalScore;
+        document.getElementById("resDetailKecerdasan").innerText = "Jawaban Benar: " + correctCount + " / " + totalSoal + " Soal";
+
+        // Tabel Subtes / Variasi Form Soal
+        let subTableHtml = "<table class='subtest-table'><thead><tr><th>No</th><th>Bentuk Variasi Soal</th><th>Jumlah Soal</th><th>Benar</th><th>Nilai Kategori</th></tr></thead><tbody>";
+        let subIdx = 1;
+        let rincianArr = [];
+
+        for (let cat in categoryStats) {
+            let catTotal = categoryStats[cat].total;
+            let catBenar = categoryStats[cat].benar;
+            let catScore = catTotal > 0 ? Math.round((catBenar / catTotal) * 100) : 0;
+            
+            rincianArr.push(cat + ": " + catBenar + "/" + catTotal + " (" + catScore + "%)");
+
+            subTableHtml += `<tr>
+                <td>${subIdx++}</td>
+                <td>${cat}</td>
+                <td>${catTotal}</td>
+                <td><strong style="color:#27ae60;">${catBenar}</strong></td>
+                <td><strong>${catScore}</strong></td>
+            </tr>`;
+        }
+        subTableHtml += "</tbody></table>";
+        document.getElementById("resSubtestTable").innerHTML = subTableHtml;
+
+        showSection("result");
+
+        // Kirim Rekap Data Lengkap ke Google Apps Script
+        sendToGoogleAppsScript(finalScore, correctCount, wrongCount, unansweredCount, rincianArr.join(" | "));
+    }
+
+    function sendToGoogleAppsScript(score, totalCorrect, totalWrong, unAns, rincianKesulitanStr) {
+        if (isResultSubmitted) return;
+
+        if (!APP_SCRIPT_URL || !pName || !currentSessionId) {
+            console.error("Pengiriman hasil dibatalkan: URL Apps Script, nama peserta, atau SessionID kosong.");
+            return;
+        }
+
+        isResultSubmitted = true;
+
+        const now = new Date();
+        const timestampStr = formatDateObj(now) + " " + formatTimeObj(now);
+        const tanggalStr = formatDateObj(now);
+        const waktuSelesaiStr = formatTimeObj(now);
+
+        const durationSeconds = Math.max(0, 1800 - timerLeft);
+        const durationMin = Math.floor(durationSeconds / 60);
+        const durationSec = durationSeconds % 60;
+        const durasiFormatted = durationMin + " menit " + durationSec + " detik";
+
+        const payload = {
+            Timestamp: timestampStr,
+            SessionID: currentSessionId,
+            NamaSiswa: pName,
+            Program: "PENALARAN SEBAB-AKIBAT",
+            NamaTryout: "PENALARAN SEBAB-AKIBAT — SERI 2 (SEDANG)",
+            Tanggal: tanggalStr,
+            WaktuMulai: sessionStartTimeStr,
+            WaktuSelesai: waktuSelesaiStr,
+            Durasi: durasiFormatted,
+            Kecerdasan: Number(score),
+            Kepribadian: "",
+            Kecermatan: "",
+            TIU: "",
+            TWK: "",
+            TKP: "",
+            PengetahuanUmum: "",
+            NilaiAkhir: Number(score),
+            JumlahBenar: Number(totalCorrect),
+            JumlahSalah: Number(totalWrong),
+            TidakDijawab: Number(unAns),
+            RincianKesulitan: rincianKesulitanStr || ""
+        };
+
+        const compatibilityPayload = Object.assign({}, payload, {
+            sessionId: currentSessionId,
+            namaSiswa: pName,
+            program: payload.Program,
+            namaTryout: payload.NamaTryout,
+            skorAkhir: Number(score),
+            totalBenar: Number(totalCorrect),
+            totalSalah: Number(totalWrong),
+            tidakDijawab: Number(unAns),
+            rincianKesulitan: rincianKesulitanStr || ""
+        });
+
+        const queryParams = new URLSearchParams();
+        Object.keys(compatibilityPayload).forEach(function(key) {
+            const value = compatibilityPayload[key];
+            queryParams.append(key, value === null || value === undefined ? "" : String(value));
+        });
+
+        const separator = APP_SCRIPT_URL.includes("?") ? "&" : "?";
+        const requestUrl = APP_SCRIPT_URL + separator + queryParams.toString();
+
+        fetch(requestUrl, {
+            method: "POST",
+            mode: "no-cors",
+            cache: "no-store",
+            headers: {
+                "Content-Type": "text/plain;charset=utf-8"
+            },
+            body: JSON.stringify(compatibilityPayload)
+        })
+        .then(function() {
+            console.info("Permintaan pengiriman hasil CAT Penalaran Sebab-Akibat 2 telah dikirim ke Apps Script.", {
+                SessionID: currentSessionId,
+                NamaSiswa: pName,
+                Kecerdasan: Number(score),
+                NilaiAkhir: Number(score)
+            });
+        })
+        .catch(function(error) {
+            console.error("Pengiriman hasil CAT Penalaran Sebab-Akibat 2 mengalami kegagalan jaringan:", error);
+        });
+    }
+
+    function showReviewSection() {
+        document.getElementById("reviewNamaPeserta").innerText = "PESERTA: " + pName.toUpperCase();
+        let container = document.getElementById("reviewContainerKecerdasan");
+        container.innerHTML = "";
+
+        rawKecerdasan.forEach((q, idx) => {
+            let uAns = userAnswers[idx];
+            let isCorrect = uAns === q.ans;
+
+            let itemDiv = document.createElement("div");
+            itemDiv.className = "review-item " + (isCorrect ? "correct" : "incorrect");
+
+            let uAnsText = uAns !== undefined ? String.fromCharCode(65 + uAns) : "Tidak Dijawab";
+            let cAnsText = String.fromCharCode(65 + q.ans);
+
+            itemDiv.innerHTML = `
+                <div style="font-weight:bold; color:var(--navy); margin-bottom:5px;">Soal ${idx + 1} — ${q.cat} (${q.diff})</div>
+                <div style="font-size:14px; margin-bottom:10px;">${q.q}</div>
+                <div style="font-size:13px; margin-bottom:5px;">Jawaban Anda: <strong style="color:${isCorrect ? '#27ae60' : '#c0392b'}">${uAnsText}</strong> | Kunci: <strong>${cAnsText}</strong></div>
+                <div class="pembahasan-box">${q.exp}</div>
+            `;
+            container.appendChild(itemDiv);
+        });
+
+        showSection("review");
+    }
+
+    function downloadPembahasanPDF() {
+        const element = document.getElementById("reviewCaptureArea");
+
+        html2canvas(element, { scale: 2 }).then(canvas => {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const imgData = canvas.toDataURL('image/png');
+            const imgWidth = 210 - 20;
+            const pageHeight = 295;
+            const imgHeight = canvas.height * imgWidth / canvas.width;
+            let heightLeft = imgHeight;
+            let position = 10;
+
+            pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight + 10;
+                pdf.addPage();
+                pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+            pdf.save(`Pembahasan_CAT_Penalaran_Sebab_Akibat_2_${pName.replace(/\s+/g, '_')}.pdf`);
+        });
+    }
+</script>
+</body>
+</html>
